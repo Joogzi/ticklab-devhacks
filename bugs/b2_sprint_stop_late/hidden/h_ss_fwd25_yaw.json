@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "name": "h_ss_fwd25_yaw",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "yaw": 30,
+      "pitch": 0
+    },
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 2,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 25,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 25,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

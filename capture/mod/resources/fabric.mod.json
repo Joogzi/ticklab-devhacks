@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "id": "ticklab_capture",
+  "version": "0.1.0",
+  "name": "TickLab Capture (TickProbe)",
+  "description": "Drives scripted movement scenarios and records per-tick player state. Inactive unless config/ticklab_capture.json has enabled=true.",
+  "environment": "client",
+  "mixins": ["ticklab_capture.mixins.json"],
+  "depends": {"fabricloader": ">=0.17.0", "java": ">=25"}
+}

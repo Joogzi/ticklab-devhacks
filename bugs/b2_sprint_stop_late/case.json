@@ -1,0 +1,25 @@
+{
+  "id": "b2_sprint_stop_late",
+  "name": "Sprint stops one tick late",
+  "families": [
+    "sprint"
+  ],
+  "report": "When I let go of W while sprinting, the character keeps sprinting slightly too long. It's subtle, maybe a single tick, but our stopping distance after a sprint is a little longer than in recordings of the real game.",
+  "plausible": true,
+  "repro_scenarios": [
+    "sprint_run"
+  ],
+  "trap": true,
+  "trap_note": "also stops sprinting when the sprint key is released",
+  "components": [
+    "b2_sprint_stop_late"
+  ],
+  "hidden_variants": [
+    "h_ss_fwd7",
+    "h_ss_fwd18",
+    "h_ss_fwd25_yaw",
+    "h_ss_sprint_key_early",
+    "h_ss_retap",
+    "h_ss_air"
+  ]
+}

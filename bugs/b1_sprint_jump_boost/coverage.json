@@ -1,0 +1,34 @@
+{
+  "id": "b1_sprint_jump_boost",
+  "unit_tests_pass": true,
+  "repro": {
+    "diag_sprint_jump_fr": 10686015.876362216
+  },
+  "corpus_hits": [
+    "diag_sprint_jump_fr",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ],
+  "hidden_hits": [
+    "h_sj_early",
+    "h_sj_twice",
+    "h_sj_yaw45",
+    "h_sj_yaw_m120"
+  ],
+  "vanilla_hits": [],
+  "trap_hits": [
+    "back_jump",
+    "h_strafe_jump",
+    "h_walk_jump_late",
+    "jump_double_tap",
+    "jump_hold",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_stand",
+    "sneak_jump"
+  ],
+  "trap_repro_ok": true
+}

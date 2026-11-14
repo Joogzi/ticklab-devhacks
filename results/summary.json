@@ -1,0 +1,114 @@
+{
+  "n_records": 4,
+  "n_invalidated": 3,
+  "conditions": {
+    "baseline": {
+      "runs": 2,
+      "accepted": 1,
+      "acceptance_rate": 0.5,
+      "fixed_claims": 3,
+      "false_done_attempts": 2,
+      "false_done_rate": 0.667,
+      "runs_with_false_done": 1,
+      "mean_attempts": 1.5,
+      "median_time_to_accept_s": 24.5,
+      "total_cost_usd": 0.029,
+      "mean_cost_usd": 0.0145,
+      "mean_seconds": 57.7,
+      "regressions_in_final_patch": 0,
+      "tamper_suspect_runs": 0,
+      "models": [
+        "haiku"
+      ]
+    },
+    "lab": {
+      "runs": 2,
+      "accepted": 2,
+      "acceptance_rate": 1.0,
+      "fixed_claims": 2,
+      "false_done_attempts": 0,
+      "false_done_rate": 0.0,
+      "runs_with_false_done": 0,
+      "mean_attempts": 1,
+      "median_time_to_accept_s": 39.3,
+      "total_cost_usd": 0.02,
+      "mean_cost_usd": 0.0098,
+      "mean_seconds": 41.2,
+      "regressions_in_final_patch": 0,
+      "tamper_suspect_runs": 0,
+      "models": [
+        "haiku"
+      ]
+    }
+  },
+  "cases": {
+    "b2_sprint_stop_late": {
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__baseline-1__20261114-150357__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__lab-1__20261114-150924__bench"
+        }
+      ]
+    },
+    "c9_compound_sprint_jump": {
+      "baseline": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "c9_compound_sprint_jump__baseline-1__20261114-150951__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "c9_compound_sprint_jump__lab-1__20261114-151121__bench"
+        }
+      ]
+    }
+  },
+  "selftest": {
+    "passed": 21,
+    "total": 21
+  },
+  "oracle": {
+    "mode": "thin",
+    "coverage_real_vanilla": 0,
+    "corpus_matched": 0,
+    "dev_goldens_matched": 4
+  }
+}

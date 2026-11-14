@@ -1,0 +1,53 @@
+{
+  "id": "b5_diagonal_input",
+  "unit_tests_pass": true,
+  "repro": {
+    "diag_walk_fl": 933954.0159288973
+  },
+  "corpus_hits": [
+    "diag_back_left",
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "diag_walk_fl",
+    "diag_walk_fr",
+    "look_diag_turn",
+    "sneak_diag"
+  ],
+  "hidden_hits": [
+    "h_d_back_right",
+    "h_d_fwd_right_long",
+    "h_d_sneak_fr",
+    "h_d_switch",
+    "h_d_yaw"
+  ],
+  "vanilla_hits": [],
+  "trap_hits": [
+    "back_jump",
+    "h_d_sneak_fr",
+    "h_d_sneak_straight",
+    "h_d_switch",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_pitch_walk",
+    "look_sprint_jump_turn",
+    "look_walk_turn",
+    "sneak_diag",
+    "sneak_toggle_mid",
+    "sneak_walk",
+    "sprint_late_press",
+    "sprint_release_forward",
+    "sprint_release_sprint",
+    "sprint_run",
+    "strafe_left",
+    "strafe_right",
+    "walk_back",
+    "walk_f10",
+    "walk_f20",
+    "walk_f35"
+  ],
+  "trap_repro_ok": true
+}

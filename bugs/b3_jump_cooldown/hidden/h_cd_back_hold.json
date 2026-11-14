@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_cd_back_hold",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "backward",
+      "down": true
+    },
+    {
+      "at": 2,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 25,
+      "key": "backward",
+      "down": false
+    },
+    {
+      "at": 35,
+      "key": "jump",
+      "down": false
+    }
+  ]
+}

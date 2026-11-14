@@ -1,0 +1,23 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -11,8 +11,6 @@
+ JUMP_COOLDOWN = 10
+ SPRINT_JUMP_BOOST = 0.2
+ GROUND_ACCEL = f32(0.21600002)
+-AIR_SPEED = f32(0.02)
+-AIR_SPEED_SPRINTING = f32(0.025999999)
+ BASE_SPEED = 0.10000000149011612
+ SPRINT_MULTIPLIER = 0.30000001192092896
+ HALF_WIDTH = f32(0.6) / 2.0
+@@ -48,9 +46,7 @@
+ 
+ 
+ def acceleration(p, friction: float) -> float:
+-    if p.on_ground:
+-        return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
+-    return AIR_SPEED_SPRINTING if p.sprinting else AIR_SPEED
++    return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
+ 
+ 
+ def input_vector(xxa: float, zza: float, speed: float, yaw: float):

@@ -1,0 +1,18 @@
+# Comparator tolerances (ticklab.trace/1). Only fields present on both sides are compared.
+# Loosen only with evidence (PROJECT.md invariants); every seeded bug must exceed these by >= 100x.
+[default]
+abs = 1e-7          # position / velocity / rotation (absolute)
+
+[fields]
+x = 1e-7
+y = 1e-7
+z = 1e-7
+vx = 1e-7
+vy = 1e-7
+vz = 1e-7
+yaw = 1e-5
+pitch = 1e-5
+
+[exact]
+# compared with ==
+fields = ["on_ground", "pose", "sprinting", "sneaking"]

@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "cases": [
+    "b1_sprint_jump_boost",
+    "b2_sprint_stop_late",
+    "b3_jump_cooldown",
+    "b4_gravity_drag_order",
+    "b5_diagonal_input",
+    "b6_air_acceleration",
+    "b7_stop_threshold",
+    "b8_air_friction_timing",
+    "c9_compound_sprint_jump"
+  ]
+}

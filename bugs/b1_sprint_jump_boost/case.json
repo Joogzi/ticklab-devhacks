@@ -1,0 +1,26 @@
+{
+  "id": "b1_sprint_jump_boost",
+  "name": "Sprint-jump boost missing",
+  "families": [
+    "jump",
+    "sprint"
+  ],
+  "report": "Sprint-jumping feels broken. If I hold W and sprint and then jump once on flat ground, I land about where a normal running jump lands. In the real game a sprint-jump gives you an extra push forward at takeoff and you clearly go farther.",
+  "plausible": false,
+  "repro_scenarios": [
+    "diag_sprint_jump_fr"
+  ],
+  "trap": true,
+  "trap_note": "boost on every jump (also walking jumps)",
+  "components": [
+    "b1_sprint_jump_boost"
+  ],
+  "hidden_variants": [
+    "h_sj_early",
+    "h_sj_yaw45",
+    "h_sj_yaw_m120",
+    "h_walk_jump_late",
+    "h_strafe_jump",
+    "h_sj_twice"
+  ]
+}

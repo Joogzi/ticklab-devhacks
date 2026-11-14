@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "name": "h_g_jump0",
+  "duration": 30,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 1,
+      "key": "jump",
+      "down": false
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "h_sj_yaw45",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "yaw": 45,
+      "pitch": 0
+    },
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 12,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 13,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

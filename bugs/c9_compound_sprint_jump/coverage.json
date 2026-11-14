@@ -1,0 +1,33 @@
+{
+  "id": "c9_compound_sprint_jump",
+  "unit_tests_pass": true,
+  "repro": {
+    "diag_sprint_jump_fr": 9743723.734014207
+  },
+  "corpus_hits": [
+    "back_jump",
+    "diag_sprint_jump_fr",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ],
+  "hidden_hits": [
+    "h_a_back_jump",
+    "h_a_diag_sprint_jump",
+    "h_a_late_input",
+    "h_a_sprint_jump",
+    "h_a_strafe_jump",
+    "h_a_walk_jump",
+    "h_sj_early",
+    "h_sj_twice",
+    "h_sj_yaw45",
+    "h_sj_yaw_m120",
+    "h_strafe_jump",
+    "h_walk_jump_late"
+  ],
+  "vanilla_hits": []
+}

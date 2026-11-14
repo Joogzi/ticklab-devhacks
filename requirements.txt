@@ -1,0 +1,2 @@
+# Harness dependencies (everything else is the Python standard library)
+mcp>=1.2,<2   # FastMCP API (renamed in 2.x)

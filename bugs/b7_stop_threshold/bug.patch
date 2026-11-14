@@ -1,0 +1,27 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -18,8 +18,7 @@
+ HALF_WIDTH = f32(0.6) / 2.0
+ HEIGHT_STANDING = f32(1.8)
+ HEIGHT_CROUCHING = f32(1.5)
+-MIN_HORIZONTAL_SQR = 9.0e-6
+-MIN_VERTICAL = 0.003
++MIN_SPEED = 0.003
+ 
+ 
+ def movement_speed(sprinting: bool) -> float:
+@@ -32,10 +31,11 @@
+ 
+ def apply_threshold(p) -> None:
+     """Zero velocity components that are too small to matter."""
+-    if p.vx * p.vx + p.vz * p.vz < MIN_HORIZONTAL_SQR:
++    if abs(p.vx) < MIN_SPEED:
+         p.vx = 0.0
++    if abs(p.vz) < MIN_SPEED:
+         p.vz = 0.0
+-    if abs(p.vy) < MIN_VERTICAL:
++    if abs(p.vy) < MIN_SPEED:
+         p.vy = 0.0
+ 
+ 

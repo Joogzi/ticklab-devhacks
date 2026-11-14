@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_a_strafe_jump",
+  "duration": 40,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "right",
+      "down": true
+    },
+    {
+      "at": 4,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 5,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 25,
+      "key": "right",
+      "down": false
+    }
+  ]
+}

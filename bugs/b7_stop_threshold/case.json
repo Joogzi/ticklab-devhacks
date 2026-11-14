@@ -1,0 +1,26 @@
+{
+  "id": "b7_stop_threshold",
+  "name": "Tiny-velocity cutoff applied per axis",
+  "families": [
+    "diagonal",
+    "look"
+  ],
+  "report": "When I stop after moving diagonally, the player comes to rest a tiny bit early compared to the real game. Straight-line stops look fine to me.",
+  "plausible": true,
+  "repro_scenarios": [
+    "diag_walk_fl"
+  ],
+  "trap": false,
+  "trap_note": null,
+  "components": [
+    "b7_stop_threshold"
+  ],
+  "hidden_variants": [
+    "h_t_diag_short",
+    "h_t_diag_mid",
+    "h_t_back_diag",
+    "h_t_yaw30",
+    "h_t_yaw_m45",
+    "h_t_sneak_diag"
+  ]
+}

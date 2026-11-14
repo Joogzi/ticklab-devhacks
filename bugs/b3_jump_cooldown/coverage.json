@@ -1,0 +1,19 @@
+{
+  "id": "b3_jump_cooldown",
+  "unit_tests_pass": true,
+  "repro": {
+    "jump_hold": Infinity
+  },
+  "corpus_hits": [
+    "jump_hold",
+    "jump_sprint_hold"
+  ],
+  "hidden_hits": [
+    "h_cd_back_hold",
+    "h_cd_hold30",
+    "h_cd_hold50",
+    "h_cd_run_hold",
+    "h_cd_sprint_hold"
+  ],
+  "vanilla_hits": []
+}

@@ -1,0 +1,18 @@
+{
+  "schema_version": 1,
+  "name": "h_g_hold",
+  "duration": 45,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 1,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 40,
+      "key": "jump",
+      "down": false
+    }
+  ]
+}

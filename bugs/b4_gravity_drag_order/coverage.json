@@ -1,0 +1,51 @@
+{
+  "id": "b4_gravity_drag_order",
+  "unit_tests_pass": true,
+  "repro": {
+    "jump_stand": 829253.2856438584
+  },
+  "corpus_hits": [
+    "back_jump",
+    "diag_back_left",
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "diag_walk_fl",
+    "diag_walk_fr",
+    "jump_double_tap",
+    "jump_hold",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "jump_stand",
+    "look_diag_turn",
+    "look_pitch_walk",
+    "look_sprint_jump_turn",
+    "look_walk_turn",
+    "sneak_diag",
+    "sneak_jump",
+    "sneak_toggle_mid",
+    "sneak_walk",
+    "sprint_late_press",
+    "sprint_release_forward",
+    "sprint_release_sprint",
+    "sprint_run",
+    "strafe_left",
+    "strafe_right",
+    "walk_back",
+    "walk_f10",
+    "walk_f20",
+    "walk_f35"
+  ],
+  "hidden_hits": [
+    "h_g_hold",
+    "h_g_idle",
+    "h_g_jump0",
+    "h_g_jump_late",
+    "h_g_run_jump",
+    "h_g_sneak_jump"
+  ],
+  "vanilla_hits": []
+}

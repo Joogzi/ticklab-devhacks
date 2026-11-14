@@ -1,0 +1,23 @@
+{
+  "schema_version": 1,
+  "name": "h_t_yaw_m45",
+  "duration": 40,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "yaw": -45,
+      "pitch": 0
+    },
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 18,
+      "key": "forward",
+      "down": false
+    }
+  ]
+}

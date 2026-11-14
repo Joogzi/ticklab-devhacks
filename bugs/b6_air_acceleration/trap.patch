@@ -1,0 +1,14 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -46,7 +46,9 @@
+ 
+ 
+ def acceleration(p, friction: float) -> float:
+-    return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
++    if p.on_ground:
++        return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
++    return f32(0.02)
+ 
+ 
+ def input_vector(xxa: float, zza: float, speed: float, yaw: float):

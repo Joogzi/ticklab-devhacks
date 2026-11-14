@@ -1,0 +1,16 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -90,11 +90,11 @@
+ 
+ def travel(p, world, xxa: float, zza: float) -> None:
+     friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
++    keep = fmul(friction, AIR_FRICTION)
+     dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)
+-    keep = fmul(world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0, AIR_FRICTION)
+     vy = p.vy - GRAVITY
+     p.vx = p.vx * keep
+     p.vy = vy * VERTICAL_DRAG

@@ -1,0 +1,12 @@
+diff --git a/sim/src/mcsim/input.py b/sim/src/mcsim/input.py
+--- a/sim/src/mcsim/input.py
++++ b/sim/src/mcsim/input.py
+@@ -47,7 +47,7 @@
+ 
+ def _clamp_length(v):
+     n = _length(v[0], v[1])
+-    if n > 1.0:
++    if n > 0.0:
+         return _scale(v, fdiv(1.0, n))
+     return v
+ 

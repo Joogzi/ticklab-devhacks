@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "h_t_sneak_diag",
+  "duration": 45,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "shift",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "left",
+      "down": true
+    },
+    {
+      "at": 20,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 20,
+      "key": "left",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "shift",
+      "down": false
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_t_back_diag",
+  "duration": 40,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "backward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "right",
+      "down": true
+    },
+    {
+      "at": 12,
+      "key": "backward",
+      "down": false
+    },
+    {
+      "at": 12,
+      "key": "right",
+      "down": false
+    }
+  ]
+}

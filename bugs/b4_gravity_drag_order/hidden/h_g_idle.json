@@ -1,0 +1,7 @@
+{
+  "schema_version": 1,
+  "name": "h_g_idle",
+  "duration": 30,
+  "fixture": "flat_stone_v1",
+  "actions": []
+}

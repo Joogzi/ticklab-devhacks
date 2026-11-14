@@ -1,0 +1,25 @@
+{
+  "id": "b7_stop_threshold",
+  "unit_tests_pass": true,
+  "repro": {
+    "diag_walk_fl": 22530.87295831513
+  },
+  "corpus_hits": [
+    "diag_back_left",
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "diag_walk_fl",
+    "diag_walk_fr",
+    "look_diag_turn",
+    "look_sprint_jump_turn",
+    "look_walk_turn"
+  ],
+  "hidden_hits": [
+    "h_t_back_diag",
+    "h_t_diag_mid",
+    "h_t_diag_short",
+    "h_t_yaw30",
+    "h_t_yaw_m45"
+  ],
+  "vanilla_hits": []
+}

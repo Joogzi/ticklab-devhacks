@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.venv/
+runs/
+report/
+workspaces/
+capture/out/
+capture/build/
+oracle/dev_goldens/
+oracle/reference/
+CAPTURE_READY.md

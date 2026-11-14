@@ -1,0 +1,26 @@
+{
+  "id": "b5_diagonal_input",
+  "name": "Diagonal input mapped to the unit circle instead of the unit square",
+  "families": [
+    "diagonal",
+    "sneak"
+  ],
+  "report": "Walking diagonally (W+A or W+D) is slower than in vanilla. In the real game diagonal walking covers ground a bit faster than ours does.",
+  "plausible": true,
+  "repro_scenarios": [
+    "diag_walk_fl"
+  ],
+  "trap": true,
+  "trap_note": "always normalize the input to length 1",
+  "components": [
+    "b5_diagonal_input"
+  ],
+  "hidden_variants": [
+    "h_d_back_right",
+    "h_d_fwd_right_long",
+    "h_d_sneak_fr",
+    "h_d_sneak_straight",
+    "h_d_switch",
+    "h_d_yaw"
+  ]
+}

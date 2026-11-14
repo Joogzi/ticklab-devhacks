@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "h_cd_tap_tap",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 1,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 2,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 14,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 15,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 27,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 28,
+      "key": "jump",
+      "down": false
+    }
+  ]
+}

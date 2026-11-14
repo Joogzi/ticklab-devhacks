@@ -1,0 +1,13 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -95,7 +95,7 @@
+     p.vx += dx
+     p.vz += dz
+     move(p, world)
+-    vy = p.vy * VERTICAL_DRAG
++    vy = p.vy - GRAVITY
+     p.vx = p.vx * keep
+-    p.vy = vy - GRAVITY
++    p.vy = vy * VERTICAL_DRAG
+     p.vz = p.vz * keep

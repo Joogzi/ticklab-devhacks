@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_f_run_jump",
+  "duration": 45,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 6,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 7,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "forward",
+      "down": false
+    }
+  ]
+}

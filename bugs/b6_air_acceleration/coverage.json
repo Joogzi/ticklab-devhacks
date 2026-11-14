@@ -1,0 +1,38 @@
+{
+  "id": "b6_air_acceleration",
+  "unit_tests_pass": true,
+  "repro": {
+    "jump_run": 1004575.9111627106
+  },
+  "corpus_hits": [
+    "back_jump",
+    "diag_sprint_jump_fr",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ],
+  "hidden_hits": [
+    "h_a_back_jump",
+    "h_a_diag_sprint_jump",
+    "h_a_late_input",
+    "h_a_sprint_jump",
+    "h_a_strafe_jump",
+    "h_a_walk_jump"
+  ],
+  "vanilla_hits": [],
+  "trap_hits": [
+    "diag_sprint_jump_fr",
+    "h_a_diag_sprint_jump",
+    "h_a_sprint_jump",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ],
+  "trap_repro_ok": true
+}

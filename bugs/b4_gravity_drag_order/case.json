@@ -1,0 +1,26 @@
+{
+  "id": "b4_gravity_drag_order",
+  "name": "Gravity and drag applied in the wrong order",
+  "families": [
+    "jump",
+    "walk"
+  ],
+  "report": "Vertical motion is slightly off. Even standing still, our vertical velocity readout doesn't match the value the real client shows, and jump arcs look very slightly different from vanilla.",
+  "plausible": true,
+  "repro_scenarios": [
+    "jump_stand"
+  ],
+  "trap": false,
+  "trap_note": null,
+  "components": [
+    "b4_gravity_drag_order"
+  ],
+  "hidden_variants": [
+    "h_g_idle",
+    "h_g_jump0",
+    "h_g_jump_late",
+    "h_g_run_jump",
+    "h_g_hold",
+    "h_g_sneak_jump"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "b3_jump_cooldown",
+  "name": "Jump cooldown frozen in the air",
+  "families": [
+    "jump"
+  ],
+  "report": "Holding the jump key to hop repeatedly is way slower than vanilla. In the real game you hop again the moment you land; ours sits on the ground for a while before the next hop.",
+  "plausible": true,
+  "repro_scenarios": [
+    "jump_hold"
+  ],
+  "trap": false,
+  "trap_note": null,
+  "components": [
+    "b3_jump_cooldown"
+  ],
+  "hidden_variants": [
+    "h_cd_hold30",
+    "h_cd_hold50",
+    "h_cd_run_hold",
+    "h_cd_sprint_hold",
+    "h_cd_tap_tap",
+    "h_cd_back_hold"
+  ]
+}

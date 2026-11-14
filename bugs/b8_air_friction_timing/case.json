@@ -1,0 +1,26 @@
+{
+  "id": "b8_air_friction_timing",
+  "name": "Drag uses the post-move ground state",
+  "families": [
+    "jump",
+    "strafe"
+  ],
+  "report": "Running jumps: the takeoff and the landing both feel slightly wrong. Horizontal speed right after leaving the ground and right after touching down doesn't match vanilla recordings. Plain walking on the ground is fine.",
+  "plausible": true,
+  "repro_scenarios": [
+    "jump_run"
+  ],
+  "trap": false,
+  "trap_note": null,
+  "components": [
+    "b8_air_friction_timing"
+  ],
+  "hidden_variants": [
+    "h_f_run_jump",
+    "h_f_strafe_jump",
+    "h_f_back_jump",
+    "h_f_sprint_jump",
+    "h_f_release_air",
+    "h_f_diag_jump"
+  ]
+}

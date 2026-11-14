@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_g_sneak_jump",
+  "duration": 35,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "shift",
+      "down": true
+    },
+    {
+      "at": 3,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 4,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "shift",
+      "down": false
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "corpus": [],
+  "dev_goldens": [
+    {
+      "name": "golden_idle",
+      "file": "oracle/dev_goldens/golden_idle.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 30
+    },
+    {
+      "name": "golden_walk",
+      "file": "oracle/dev_goldens/golden_walk.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 30
+    },
+    {
+      "name": "golden_jump",
+      "file": "oracle/dev_goldens/golden_jump.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 30
+    },
+    {
+      "name": "golden_look",
+      "file": "oracle/dev_goldens/golden_look.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 30
+    }
+  ],
+  "mode": "thin",
+  "oracle_coverage": 0,
+  "corpus_matched": 0,
+  "dev_goldens_matched": 4,
+  "vanilla_backed_scenarios": 0,
+  "bug_coverage": [
+    {
+      "case": "b1_sprint_jump_boost",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b2_sprint_stop_late",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b3_jump_cooldown",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b4_gravity_drag_order",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b5_diagonal_input",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b6_air_acceleration",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b7_stop_threshold",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "b8_air_friction_timing",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    },
+    {
+      "case": "c9_compound_sprint_jump",
+      "vanilla_scenarios": [],
+      "coverage": "reference-only"
+    }
+  ],
+  "max_delta_all": {
+    "pitch": 0.0,
+    "vx": 0.0,
+    "vy": 0.0,
+    "vz": 0.0,
+    "x": 0.0,
+    "y": 0.0,
+    "yaw": 0.0,
+    "z": 0.0
+  }
+}

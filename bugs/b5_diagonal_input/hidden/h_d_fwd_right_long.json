@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_d_fwd_right_long",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "right",
+      "down": true
+    },
+    {
+      "at": 35,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 35,
+      "key": "right",
+      "down": false
+    }
+  ]
+}

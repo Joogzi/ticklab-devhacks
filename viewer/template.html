@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TickLab Report</title>
+<style>
+:root{--bg:#f6f7f9;--panel:#fff;--ink:#1b1f24;--mute:#5b6570;--line:#d9dee4;--accent:#2f6fde;--ok:#1d8a4e;--bad:#c63b3b;--warn:#b8860b;
+--oracle:#1b1f24;--s0:#d9534f;--s1:#2f6fde;--s2:#8a5cd6;--chip:#eef1f5}
+@media (prefers-color-scheme: dark){:root{--bg:#111418;--panel:#191d22;--ink:#e6e9ed;--mute:#9aa4ae;--line:#2c333b;--accent:#6ea0ff;
+--ok:#45c27c;--bad:#ff6b6b;--warn:#e0b341;--oracle:#e6e9ed;--s0:#ff7b72;--s1:#6ea0ff;--s2:#c19bff;--chip:#232930}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+header{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+h1{font-size:18px;margin:0 12px 0 0}.banner{padding:4px 10px;border-radius:6px;font-weight:600;background:var(--chip)}
+.banner.thin{color:var(--warn)}nav button{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:6px;cursor:pointer;margin-right:4px}
+nav button.on{background:var(--accent);color:#fff;border-color:var(--accent)}main{padding:16px;max-width:1300px;margin:0 auto}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
+select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 6px;max-width:100%}
+.row{display:flex;flex-wrap:wrap;gap:14px}.col{flex:1 1 380px;min-width:0}canvas{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
+th{color:var(--mute);font-weight:600}.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}.mute{color:var(--mute)}
+.chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);margin:1px 2px;font-size:12px}
+.chip.pass{color:var(--ok)}.chip.fail{color:var(--bad)}pre{white-space:pre-wrap;word-break:break-word;background:var(--chip);padding:8px;border-radius:6px;font-size:12px;max-height:340px;overflow:auto}
+.legend span{margin-right:12px}.sw{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:4px}
+.bar{height:16px;border-radius:3px;display:inline-block;vertical-align:middle}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
+input[type=range]{flex:1 1 200px}.keys .chip{font-weight:600}blockquote{margin:6px 0;padding:6px 10px;border-left:3px solid var(--line);color:var(--mute)}
+@media (max-width:600px){main{padding:10px}}
+</style>
+</head>
+<body>
+<header><h1>TickLab</h1><span id="cov" class="banner"></span>
+<nav><button data-t="replay" class="on">Replay</button><button data-t="timeline">Factory timeline</button><button data-t="bench">Benchmark</button><button data-t="cases">Seeded bugs</button></nav></header>
+<main>
+<section id="t-replay"></section><section id="t-timeline" hidden></section><section id="t-bench" hidden></section><section id="t-cases" hidden></section>
+</main>
+<script>
+const D=/*__DATA__*/null;
+const $=(s,e=document)=>e.querySelector(s), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const fmt=v=>typeof v==="number"?(Math.abs(v)<1e-3&&v!==0?v.toExponential(3):v.toFixed(6)):String(v);
+// coverage banner
+const cv=D.coverage; const cb=$("#cov"); cb.textContent=`ORACLE COVERAGE: ${cv.real} real vanilla scenarios`+(cv.mode==="thin"?` (THIN mode; dev goldens ${cv.dev_goldens} bit-exact; other answers from the validated reference layer)`:"");
+if(cv.mode==="thin")cb.classList.add("thin");
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
+ document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!=="t-"+b.dataset.t);if(b.dataset.t==="replay")draw();});
+
+// ---------------- Replay ----------------
+const sources=[]; // {label, item}
+const rank=r=>(r.featured?0:2)+(r.attempts.length>1&&r.accepted?0:1);
+D.runs.slice().sort((a,b)=>rank(a)-rank(b)).forEach(r=>r.attempts.forEach(a=>(a.replay||[]).forEach(it=>sources.push({label:`${r.featured?"★ ":""}${r.case} · ${r.condition} · attempt ${a.attempt} (${a.verdict}) · ${it.scenario}`,item:it}))));
+D.gallery.forEach(g=>g.replay.forEach(it=>sources.push({label:`seeded bug ${g.case} · ${it.scenario}`,item:it})));
+let cur=0,tick=0,timer=null;
+$("#t-replay").innerHTML=`<div class="panel"><label>Replay: <select id="src">${sources.map((s,i)=>`<option value="${i}">${esc(s.label)}</option>`).join("")}</select></label>
+<div class="controls"><button id="play">▶ play</button><input id="scrub" type="range" min="0" value="0"><span id="tk" class="mute"></span><span id="div"></span></div>
+<div class="legend" id="leg"></div>
+<div class="row"><div class="col"><div class="mute">Top-down (x right, z up)</div><canvas id="top" width="640" height="420"></canvas></div>
+<div class="col"><div class="mute">Side view (horizontal distance from start → height y)</div><canvas id="side" width="640" height="420"></canvas></div></div>
+<div class="row" style="margin-top:10px"><div class="col"><div class="keys" id="keys"></div><table id="state"></table></div></div></div>`;
+$("#src").onchange=e=>{cur=+e.target.value;tick=0;draw();};
+$("#scrub").oninput=e=>{tick=+e.target.value;draw();};
+$("#play").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("#play").textContent="▶ play";return;}
+ $("#play").textContent="❚❚ pause";timer=setInterval(()=>{const n=sources[cur].item.oracle.x.length;tick=(tick+1)%n;draw();},80);};
+function seriesList(it){const cols=[css("--s0"),css("--s1"),css("--s2")];return Object.entries(it.series).map(([k,v],i)=>({label:k,...v,color:cols[i%3]}));}
+function plot(cv,it,mode){const g=cv.getContext("2d"),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
+ const S=[{label:"oracle ("+it.provenance+")",trace:it.oracle,color:css("--oracle"),w:3}].concat(seriesList(it).map(s=>({...s,w:2,dash:[6,4]})));
+ const pts=s=>{const t=s.trace;return t.x.map((_,i)=>mode==="top"?[t.x[i],t.z[i]]:[Math.hypot(t.x[i]-t.x[0],t.z[i]-t.z[0]),t.y[i]]);};
+ let all=S.flatMap(pts),xs=all.map(p=>p[0]),ys=all.map(p=>p[1]);let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
+ if(mode==="side"){y0=Math.min(y0,100);y1=Math.max(y1,100.3);}const pad=0.08,dx=(x1-x0)||1,dy=(y1-y0)||1;
+ if(mode==="top"){const m=Math.max(dx,dy);x0-=(m-dx)/2;x1=x0+m;y0-=(m-dy)/2;y1=y0+m;}
+ const X=v=>40+(v-x0)/((x1-x0)||1)*(W-60)*(1-pad)+ (W-60)*pad/2, Y=v=>H-30-(v-y0)/((y1-y0)||1)*(H-50)*(1-pad)-(H-50)*pad/2;
+ g.strokeStyle=css("--line");g.lineWidth=1;g.strokeRect(40,10,W-50,H-40);g.fillStyle=css("--mute");g.font="12px system-ui";
+ g.fillText(fmt(x0).slice(0,8),40,H-12);g.fillText(fmt(x1).slice(0,8),W-80,H-12);g.fillText(fmt(y1).slice(0,9),2,22);g.fillText(fmt(y0).slice(0,9),2,H-34);
+ S.forEach(s=>{const p=pts(s);g.strokeStyle=s.color;g.lineWidth=s.w;g.setLineDash(s.dash||[]);g.beginPath();p.forEach((q,i)=>i?g.lineTo(X(q[0]),Y(q[1])):g.moveTo(X(q[0]),Y(q[1])));g.stroke();g.setLineDash([]);
+  const q=p[Math.min(tick,p.length-1)];g.fillStyle=s.color;g.beginPath();g.arc(X(q[0]),Y(q[1]),5,0,7);g.fill();
+  if(s.first){const f=p[Math.min(s.first.tick,p.length-1)];g.strokeStyle=css("--bad");g.lineWidth=2;g.beginPath();g.arc(X(f[0]),Y(f[1]),9,0,7);g.stroke();}});}
+function draw(){if(!sources.length){$("#t-replay").innerHTML='<div class="panel">No replays yet.</div>';return;}
+ const it=sources[cur].item,n=it.oracle.x.length;$("#scrub").max=n-1;$("#scrub").value=tick;$("#tk").textContent=`tick ${tick} / ${n-1}`;
+ const ss=seriesList(it);$("#leg").innerHTML=`<span><i class="sw" style="background:${css("--oracle")}"></i>oracle (${it.provenance})</span>`+ss.map(s=>`<span><i class="sw" style="background:${s.color}"></i>${esc(s.label)}: <b class="${s.status==="match"?"ok":"bad"}">${s.status}</b></span>`).join("");
+ $("#div").innerHTML=ss.filter(s=>s.first).map(s=>`<span class="chip fail">${esc(s.label)} first diverges @ tick ${s.first.tick} (${esc(s.first.field)})</span> <button onclick="tick=${s.first.tick};draw()">jump</button>`).join(" ");
+ plot($("#top"),it,"top");plot($("#side"),it,"side");
+ $("#keys").innerHTML="inputs held: "+((it.keys[tick]||[]).map(k=>`<span class="chip">${k}</span>`).join("")||'<span class="mute">none</span>');
+ const fields=Object.keys(it.oracle);let h=`<tr><th>field</th><th>oracle</th>${ss.map(s=>`<th>${esc(s.label)}</th><th>Δ</th>`).join("")}</tr>`;
+ fields.forEach(f=>{const o=it.oracle[f][tick];h+=`<tr><td>${f}</td><td>${fmt(o)}</td>`+ss.map(s=>{const a=s.trace[f]?s.trace[f][tick]:undefined;
+  const d=typeof o==="number"&&typeof a==="number"?Math.abs(a-o):(a===o?0:"≠");const bad=d==="≠"||d>1e-7;return `<td>${fmt(a)}</td><td class="${bad?"bad":"mute"}">${d==="≠"?"≠":d===0?"0":d.toExponential(1)}</td>`;}).join("")+"</tr>";});
+ $("#state").innerHTML=h;}
+draw();
+
+// ---------------- Factory timeline ----------------
+const gchip=g=>`<span class="chip ${g.status==="pass"?"pass":g.status==="fail"?"fail":""}" title="${esc(g.detail)}">${esc(g.gate.split(" ")[0])} ${g.status}</span>`;
+$("#t-timeline").innerHTML=D.runs.length?D.runs.slice().reverse().map(r=>`<div class="panel"><b>${r.featured?"★ ":""}${esc(r.case)}</b> · ${r.condition} · model ${esc(r.model)} · trial ${r.trial}
+ · <b class="${r.accepted?"ok":"bad"}">${r.accepted?"ACCEPTED":"NOT ACCEPTED"}</b> after ${r.attempts_used} attempt(s) · ${r.seconds}s · $${r.cost_usd}
+ <blockquote>${esc(r.report_text)}</blockquote>${(r.notes||[]).length?`<div>Developer notes: ${r.notes.map(n=>`<span class="chip">${esc(n)}</span>`).join("")}</div>`:""}
+ <table><tr><th>#</th><th>agent claim</th><th>verifier</th><th>gates</th><th>diff</th><th>time</th><th>lab calls</th></tr>
+ ${r.attempts.map(a=>`<tr><td>${a.attempt}</td><td>${esc(a.claim)}${a.false_done?' <span class="chip fail">false done</span>':""}</td>
+ <td class="${a.accepted?"ok":"bad"}">${esc(a.verdict)}${a.failing_gate?" @ "+esc(a.failing_gate):""}</td><td>${a.gates.map(gchip).join("")}</td>
+ <td>${a.diff?`${a.diff.files.length} file(s) +${a.diff.added}/-${a.diff.removed}`:""}</td><td>${a.seconds}s</td><td>${a.lab_tool_calls??"-"}</td></tr>
+ <tr><td></td><td colspan="6"><details><summary>verifier feedback &amp; patch</summary><pre>${esc(a.feedback)}</pre><pre>${esc(a.patch)}</pre></details></td></tr>`).join("")}</table></div>`).join("")
+ :'<div class="panel">No agent runs recorded yet.</div>';
+
+// ---------------- Benchmark ----------------
+(function(){const S=D.summary,T=D.selftest;let h="";
+ if(S&&S.conditions&&Object.keys(S.conditions).length){const C=S.conditions,ks=["runs","accepted","acceptance_rate","false_done_attempts","runs_with_false_done","mean_attempts","median_time_to_accept_s","mean_cost_usd","regressions_in_final_patch","tamper_suspect_runs","models"];
+  h+=`<div class="panel"><h3>Baseline vs lab (same agent, same verifier)</h3><table><tr><th>metric</th>${Object.keys(C).map(c=>`<th>${c}</th>`).join("")}</tr>${ks.map(k=>`<tr><td>${k}</td>${Object.keys(C).map(c=>`<td>${esc(Array.isArray(C[c][k])?C[c][k].join(","):C[c][k])}</td>`).join("")}</tr>`).join("")}</table>
+  <div style="margin-top:10px">${Object.keys(C).map(c=>`<div>${c}: <span class="bar" style="width:${Math.round(300*C[c].acceptance_rate)}px;background:${c==="lab"?css("--s1"):css("--s0")}"></span> ${C[c].accepted}/${C[c].runs} accepted</div>`).join("")}</div>
+  <p class="mute">Small n: counts, not significance. ${S.n_records} run records in results/bench.jsonl.</p>
+  <h3>Per case</h3><table><tr><th>case</th><th>baseline</th><th>lab</th></tr>${Object.entries(S.cases).map(([k,v])=>`<tr><td>${esc(k)}</td>${["baseline","lab"].map(c=>`<td>${(v[c]||[]).map(x=>`<span class="chip ${x.accepted?"pass":"fail"}">${x.accepted?"accepted":"rejected"} (${x.attempts})</span>`).join("")||'<span class="mute">-</span>'}</td>`).join("")}</tr>`).join("")}</table></div>`;}
+ else h+='<div class="panel">No benchmark results yet (results/summary.json).</div>';
+ if(T)h+=`<div class="panel"><h3>Verifier selftest: ${T.passed}/${T.total} as expected</h3><p class="mute">${esc(T.note)}</p><table><tr><th>kind</th><th>case</th><th>patch</th><th>expected</th><th>actual</th><th></th></tr>${T.rows.map(r=>`<tr><td>${esc(r.kind)}</td><td>${esc(r.case)}</td><td title="${esc(r.desc)}">${esc(r.patch)}</td><td>${esc(r.expected)}</td><td>${esc(r.actual)}</td><td class="${r.pass?"ok":"bad"}">${r.pass?"PASS":"FAIL"}</td></tr>`).join("")}</table></div>`;
+ const K=D.calibration;if(K)h+=`<div class="panel"><h3>Calibration (pristine sim vs real vanilla)</h3><table><tr><th>source</th><th>scenario</th><th>status</th><th>ticks</th></tr>${K.corpus.concat(K.dev_goldens).map(r=>`<tr><td>${r.file.includes("dev_goldens")?"dev golden":"corpus"}</td><td>${esc(r.name)}</td><td class="${r.status==="match"?"ok":"bad"}">${r.status}</td><td>${r.ticks}</td></tr>`).join("")}</table></div>`;
+ $("#t-bench").innerHTML=h;})();
+
+// ---------------- Seeded bugs ----------------
+$("#t-cases").innerHTML=D.gallery.map(g=>`<div class="panel"><b>${esc(g.case)}</b> — ${esc(g.name)} <span class="mute">(${g.families.join(", ")})</span><blockquote>${esc(g.report)}</blockquote>
+ ${g.replay.map(it=>{const s=it.series.buggy;return `<span class="chip">${esc(it.scenario)}: ${s.status}${s.first?` @ tick ${s.first.tick} ${esc(s.first.field)}`:""}</span>`;}).join("")}</div>`).join("");
+</script>
+</body>
+</html>

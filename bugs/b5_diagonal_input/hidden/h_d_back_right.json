@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_d_back_right",
+  "duration": 45,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "backward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "right",
+      "down": true
+    },
+    {
+      "at": 25,
+      "key": "backward",
+      "down": false
+    },
+    {
+      "at": 25,
+      "key": "right",
+      "down": false
+    }
+  ]
+}

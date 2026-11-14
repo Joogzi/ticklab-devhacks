@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_ss_fwd7",
+  "duration": 40,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 7,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 20,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

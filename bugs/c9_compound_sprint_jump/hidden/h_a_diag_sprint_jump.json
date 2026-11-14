@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "name": "h_a_diag_sprint_jump",
+  "duration": 45,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "left",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 9,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 10,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "left",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

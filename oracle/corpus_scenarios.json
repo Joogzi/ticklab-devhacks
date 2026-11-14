@@ -1,0 +1,1077 @@
+{
+  "schema_version": 1,
+  "fixture": "flat_stone_v1",
+  "scenarios": [
+    {
+      "name": "walk_f10",
+      "family": "walk",
+      "scenario": {
+        "schema_version": 1,
+        "name": "walk_f10",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "walk_f20",
+      "family": "walk",
+      "scenario": {
+        "schema_version": 1,
+        "name": "walk_f20",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 20,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "walk_f35",
+      "family": "walk",
+      "scenario": {
+        "schema_version": 1,
+        "name": "walk_f35",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "walk_back",
+      "family": "walk",
+      "scenario": {
+        "schema_version": 1,
+        "name": "walk_back",
+        "duration": 45,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "backward",
+            "down": true
+          },
+          {
+            "at": 25,
+            "key": "backward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sprint_run",
+      "family": "sprint",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sprint_run",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sprint_release_sprint",
+      "family": "sprint",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sprint_release_sprint",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 15,
+            "key": "sprint",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sprint_release_forward",
+      "family": "sprint",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sprint_release_forward",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 12,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sprint_late_press",
+      "family": "sprint",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sprint_late_press",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_stand",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_stand",
+        "duration": 40,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 2,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 3,
+            "key": "jump",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_hold",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_hold",
+        "duration": 60,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 2,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 45,
+            "key": "jump",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_run",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_run",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_sprint",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_sprint",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_sprint_release_sprint_air",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_sprint_release_sprint_air",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 14,
+            "key": "sprint",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_run_release_forward_air",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_run_release_forward_air",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 14,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_sprint_release_forward_air",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_sprint_release_forward_air",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 14,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_double_tap",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_double_tap",
+        "duration": 60,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 5,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 6,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 25,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 26,
+            "key": "jump",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "jump_sprint_hold",
+      "family": "jump",
+      "scenario": {
+        "schema_version": 1,
+        "name": "jump_sprint_hold",
+        "duration": 60,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 8,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 40,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "diag_walk_fl",
+      "family": "diagonal",
+      "scenario": {
+        "schema_version": 1,
+        "name": "diag_walk_fl",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "diag_walk_fr",
+      "family": "diagonal",
+      "scenario": {
+        "schema_version": 1,
+        "name": "diag_walk_fr",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "right",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "right",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "diag_sprint_fl",
+      "family": "diagonal",
+      "scenario": {
+        "schema_version": 1,
+        "name": "diag_sprint_fl",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "left",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "diag_sprint_jump_fr",
+      "family": "diagonal",
+      "scenario": {
+        "schema_version": 1,
+        "name": "diag_sprint_jump_fr",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "right",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "right",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "diag_back_left",
+      "family": "diagonal",
+      "scenario": {
+        "schema_version": 1,
+        "name": "diag_back_left",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "backward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 25,
+            "key": "backward",
+            "down": false
+          },
+          {
+            "at": 25,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "strafe_left",
+      "family": "strafe",
+      "scenario": {
+        "schema_version": 1,
+        "name": "strafe_left",
+        "duration": 45,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 25,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "strafe_right",
+      "family": "strafe",
+      "scenario": {
+        "schema_version": 1,
+        "name": "strafe_right",
+        "duration": 45,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "right",
+            "down": true
+          },
+          {
+            "at": 25,
+            "key": "right",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "back_jump",
+      "family": "strafe",
+      "scenario": {
+        "schema_version": 1,
+        "name": "back_jump",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "backward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "backward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sneak_walk",
+      "family": "sneak",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sneak_walk",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "shift",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "shift",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sneak_diag",
+      "family": "sneak",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sneak_diag",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "shift",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "left",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "shift",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sneak_toggle_mid",
+      "family": "sneak",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sneak_toggle_mid",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 15,
+            "key": "shift",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "shift",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "sneak_jump",
+      "family": "sneak",
+      "scenario": {
+        "schema_version": 1,
+        "name": "sneak_jump",
+        "duration": 45,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "shift",
+            "down": true
+          },
+          {
+            "at": 5,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 6,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "shift",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "look_walk_turn",
+      "family": "look",
+      "scenario": {
+        "schema_version": 1,
+        "name": "look_walk_turn",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 10,
+            "yaw": 90,
+            "pitch": 0
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "look_sprint_jump_turn",
+      "family": "look",
+      "scenario": {
+        "schema_version": 1,
+        "name": "look_sprint_jump_turn",
+        "duration": 55,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 10,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 11,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 14,
+            "yaw": 45,
+            "pitch": 0
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "look_diag_turn",
+      "family": "look",
+      "scenario": {
+        "schema_version": 1,
+        "name": "look_diag_turn",
+        "duration": 50,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 8,
+            "yaw": -60,
+            "pitch": 0
+          },
+          {
+            "at": 20,
+            "yaw": 30,
+            "pitch": 0
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "look_pitch_walk",
+      "family": "look",
+      "scenario": {
+        "schema_version": 1,
+        "name": "look_pitch_walk",
+        "duration": 45,
+        "fixture": "flat_stone_v1",
+        "actions": [
+          {
+            "at": 2,
+            "yaw": 0,
+            "pitch": 60
+          },
+          {
+            "at": 3,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    }
+  ]
+}

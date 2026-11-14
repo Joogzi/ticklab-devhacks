@@ -1,0 +1,12 @@
+diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
+--- a/sim/src/mcsim/player.py
++++ b/sim/src/mcsim/player.py
+@@ -35,7 +35,7 @@
+             self.sprinting = False
+ 
+         # Living-entity step.
+-        if self.no_jump_delay > 0:
++        if self.no_jump_delay > 0 and self.on_ground:
+             self.no_jump_delay -= 1
+         physics.apply_threshold(self)
+         xxa, zza = inp.modify_input(move, self.crouching)

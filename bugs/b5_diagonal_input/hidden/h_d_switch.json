@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_d_switch",
+  "duration": 50,
+  "fixture": "flat_stone_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 10,
+      "key": "left",
+      "down": true
+    },
+    {
+      "at": 20,
+      "key": "left",
+      "down": false
+    },
+    {
+      "at": 30,
+      "key": "forward",
+      "down": false
+    }
+  ]
+}

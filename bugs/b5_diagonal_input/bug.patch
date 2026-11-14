@@ -1,0 +1,32 @@
+diff --git a/sim/src/mcsim/input.py b/sim/src/mcsim/input.py
+--- a/sim/src/mcsim/input.py
++++ b/sim/src/mcsim/input.py
+@@ -45,22 +45,18 @@
+     return (fdiv(x, n), fdiv(y, n))
+ 
+ 
+-def _to_unit_square(v):
++def _clamp_length(v):
+     n = _length(v[0], v[1])
+-    if n <= 0.0:
+-        return v
+-    u = _scale(v, fdiv(1.0, n))
+-    ax, ay = abs(u[0]), abs(u[1])
+-    r = fdiv(ax, ay) if ay > ax else fdiv(ay, ax)
+-    k = fsqrt(f32(1.0 + fmul(r, r)))
+-    return _scale(u, min(fmul(n, k), 1.0))
++    if n > 1.0:
++        return _scale(v, fdiv(1.0, n))
++    return v
+ 
+ 
+ def modify_input(v, moving_slowly: bool):
+-    """Scale the move vector: 0.98 damping, sneak slowdown, then map the circle onto the unit square."""
++    """Scale the move vector: 0.98 damping, sneak slowdown, then clamp to unit length."""
+     if fmul(v[0], v[0]) + fmul(v[1], v[1]) == 0.0:
+         return v
+     v = _scale(v, f32(0.98))
+     if moving_slowly:
+         v = _scale(v, SNEAK_SPEED)
+-    return _to_unit_square(v)
++    return _clamp_length(v)

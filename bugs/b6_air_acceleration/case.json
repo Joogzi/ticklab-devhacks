@@ -1,0 +1,25 @@
+{
+  "id": "b6_air_acceleration",
+  "name": "Air acceleration uses the ground formula",
+  "families": [
+    "jump"
+  ],
+  "report": "Mid-air steering seems a bit too strong compared to the real game. Running jumps travel slightly too far, most noticeably when you keep holding W through the jump.",
+  "plausible": true,
+  "repro_scenarios": [
+    "jump_run"
+  ],
+  "trap": true,
+  "trap_note": "use 0.02 in the air even while sprinting",
+  "components": [
+    "b6_air_acceleration"
+  ],
+  "hidden_variants": [
+    "h_a_walk_jump",
+    "h_a_sprint_jump",
+    "h_a_strafe_jump",
+    "h_a_diag_sprint_jump",
+    "h_a_late_input",
+    "h_a_back_jump"
+  ]
+}
