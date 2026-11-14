@@ -103,9 +103,36 @@ def scan_tool_log(tool_calls: list[dict], ws: Path) -> dict:
                 if not m.startswith(ws_s) and not m.startswith("/" + ws_s.replace(":", "")):
                     hits.append(f"{name}: absolute path outside workspace: {m[:120]}")
                     break
-            if re.search(r"(^|[\s\"'/=])\.\.(/|$|[\s\"'])", s):
-                hits.append(f"{name}: parent-directory traversal")
+            if re.search(r"(^|[\s\"'/=])\.\.(/|$|[\s\"'])", s) and _escapes_workspace(s, name):
+                hits.append(f"{name}: parent-directory traversal out of the workspace")
     return {"tamper_suspect": bool(hits), "hits": hits[:20]}
+
+
+def _escapes_workspace(text: str, tool: str) -> bool:
+    """True if a relative path containing '..' resolves outside the workspace root.
+
+    For shell commands, a virtual cwd (relative to the workspace root) is tracked across `cd` segments, so
+    `cd scenarios/visible && ... && cd ../..` is not flagged, while `cat ../../bugs/x` from the root is.
+    """
+    import posixpath
+    cwd = "."
+    segments = re.split(r"&&|\|\||;|\|", text) if tool in ("Bash", "PowerShell") else [text]
+    for seg in segments:
+        toks = [t.strip("\"'") for t in seg.split()]
+        if not toks:
+            continue
+        if toks[0] in ("cd", "pushd", "Set-Location") and len(toks) > 1:
+            nxt = posixpath.normpath(posixpath.join(cwd, toks[1]))
+            if nxt == ".." or nxt.startswith("../"):
+                return True
+            cwd = nxt
+            continue
+        for t in toks:
+            if ".." in t.split("/"):
+                p = posixpath.normpath(posixpath.join(cwd, t.split("=")[-1]))
+                if p == ".." or p.startswith("../"):
+                    return True
+    return False
 
 
 PATH_FIELDS = {"Read": ("file_path",), "Edit": ("file_path",), "Write": ("file_path",), "MultiEdit": ("file_path",),

@@ -20,7 +20,15 @@
     "h_d_switch",
     "h_d_yaw"
   ],
-  "vanilla_hits": [],
+  "vanilla_hits": [
+    "diag_back_left",
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "diag_walk_fl",
+    "diag_walk_fr",
+    "look_diag_turn",
+    "sneak_diag"
+  ],
   "trap_hits": [
     "back_jump",
     "h_d_sneak_fr",

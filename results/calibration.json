@@ -1,5 +1,600 @@
 {
-  "corpus": [],
+  "corpus": [
+    {
+      "name": "back_jump",
+      "file": "oracle/corpus/back_jump.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "diag_back_left",
+      "file": "oracle/corpus/diag_back_left.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "diag_sprint_fl",
+      "file": "oracle/corpus/diag_sprint_fl.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "diag_sprint_jump_fr",
+      "file": "oracle/corpus/diag_sprint_jump_fr.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "diag_walk_fl",
+      "file": "oracle/corpus/diag_walk_fl.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "diag_walk_fr",
+      "file": "oracle/corpus/diag_walk_fr.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "jump_double_tap",
+      "file": "oracle/corpus/jump_double_tap.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 60
+    },
+    {
+      "name": "jump_hold",
+      "file": "oracle/corpus/jump_hold.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 60
+    },
+    {
+      "name": "jump_run",
+      "file": "oracle/corpus/jump_run.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "jump_run_release_forward_air",
+      "file": "oracle/corpus/jump_run_release_forward_air.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "jump_sprint",
+      "file": "oracle/corpus/jump_sprint.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "jump_sprint_hold",
+      "file": "oracle/corpus/jump_sprint_hold.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 60
+    },
+    {
+      "name": "jump_sprint_release_forward_air",
+      "file": "oracle/corpus/jump_sprint_release_forward_air.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "jump_sprint_release_sprint_air",
+      "file": "oracle/corpus/jump_sprint_release_sprint_air.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "jump_stand",
+      "file": "oracle/corpus/jump_stand.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 40
+    },
+    {
+      "name": "look_diag_turn",
+      "file": "oracle/corpus/look_diag_turn.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "look_pitch_walk",
+      "file": "oracle/corpus/look_pitch_walk.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "look_sprint_jump_turn",
+      "file": "oracle/corpus/look_sprint_jump_turn.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "look_walk_turn",
+      "file": "oracle/corpus/look_walk_turn.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sneak_diag",
+      "file": "oracle/corpus/sneak_diag.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sneak_jump",
+      "file": "oracle/corpus/sneak_jump.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "sneak_toggle_mid",
+      "file": "oracle/corpus/sneak_toggle_mid.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "sneak_walk",
+      "file": "oracle/corpus/sneak_walk.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sprint_late_press",
+      "file": "oracle/corpus/sprint_late_press.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sprint_release_forward",
+      "file": "oracle/corpus/sprint_release_forward.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sprint_release_sprint",
+      "file": "oracle/corpus/sprint_release_sprint.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "sprint_run",
+      "file": "oracle/corpus/sprint_run.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "strafe_left",
+      "file": "oracle/corpus/strafe_left.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "strafe_right",
+      "file": "oracle/corpus/strafe_right.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "walk_back",
+      "file": "oracle/corpus/walk_back.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "walk_f10",
+      "file": "oracle/corpus/walk_f10.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "walk_f20",
+      "file": "oracle/corpus/walk_f20.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "walk_f35",
+      "file": "oracle/corpus/walk_f35.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    }
+  ],
   "dev_goldens": [
     {
       "name": "golden_idle",
@@ -74,56 +669,159 @@
       "ticks": 30
     }
   ],
-  "mode": "thin",
-  "oracle_coverage": 0,
-  "corpus_matched": 0,
+  "mode": "full",
+  "oracle_coverage": 33,
+  "corpus_matched": 33,
   "dev_goldens_matched": 4,
-  "vanilla_backed_scenarios": 0,
+  "vanilla_backed_scenarios": 33,
   "bug_coverage": [
     {
       "case": "b1_sprint_jump_boost",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "diag_sprint_jump_fr",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "look_sprint_jump_turn"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b2_sprint_stop_late",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "diag_sprint_fl",
+        "diag_sprint_jump_fr",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "look_sprint_jump_turn",
+        "sprint_late_press",
+        "sprint_release_forward",
+        "sprint_release_sprint",
+        "sprint_run"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b3_jump_cooldown",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "jump_hold",
+        "jump_sprint_hold"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b4_gravity_drag_order",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "back_jump",
+        "diag_back_left",
+        "diag_sprint_fl",
+        "diag_sprint_jump_fr",
+        "diag_walk_fl",
+        "diag_walk_fr",
+        "jump_double_tap",
+        "jump_hold",
+        "jump_run",
+        "jump_run_release_forward_air",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "jump_stand",
+        "look_diag_turn",
+        "look_pitch_walk",
+        "look_sprint_jump_turn",
+        "look_walk_turn",
+        "sneak_diag",
+        "sneak_jump",
+        "sneak_toggle_mid",
+        "sneak_walk",
+        "sprint_late_press",
+        "sprint_release_forward",
+        "sprint_release_sprint",
+        "sprint_run",
+        "strafe_left",
+        "strafe_right",
+        "walk_back",
+        "walk_f10",
+        "walk_f20",
+        "walk_f35"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b5_diagonal_input",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "diag_back_left",
+        "diag_sprint_fl",
+        "diag_sprint_jump_fr",
+        "diag_walk_fl",
+        "diag_walk_fr",
+        "look_diag_turn",
+        "sneak_diag"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b6_air_acceleration",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "back_jump",
+        "diag_sprint_jump_fr",
+        "jump_run",
+        "jump_run_release_forward_air",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "look_sprint_jump_turn"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b7_stop_threshold",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "diag_back_left",
+        "diag_sprint_fl",
+        "diag_sprint_jump_fr",
+        "diag_walk_fl",
+        "diag_walk_fr",
+        "look_diag_turn",
+        "look_sprint_jump_turn",
+        "look_walk_turn"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "b8_air_friction_timing",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "back_jump",
+        "diag_sprint_jump_fr",
+        "jump_run",
+        "jump_run_release_forward_air",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "look_sprint_jump_turn"
+      ],
+      "coverage": "vanilla"
     },
     {
       "case": "c9_compound_sprint_jump",
-      "vanilla_scenarios": [],
-      "coverage": "reference-only"
+      "vanilla_scenarios": [
+        "back_jump",
+        "diag_sprint_jump_fr",
+        "jump_run",
+        "jump_run_release_forward_air",
+        "jump_sprint",
+        "jump_sprint_hold",
+        "jump_sprint_release_forward_air",
+        "jump_sprint_release_sprint_air",
+        "look_sprint_jump_turn"
+      ],
+      "coverage": "vanilla"
     }
   ],
   "max_delta_all": {

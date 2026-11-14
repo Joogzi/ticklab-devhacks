@@ -1,8 +1,8 @@
 diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
 --- a/sim/src/mcsim/player.py
 +++ b/sim/src/mcsim/player.py
-@@ -35,7 +35,7 @@
-             self.sprinting = False
+@@ -38,7 +38,7 @@
+         self.speed = physics.movement_speed(self.sprinting)
  
          # Living-entity step.
 -        if self.no_jump_delay > 0 and self.on_ground:

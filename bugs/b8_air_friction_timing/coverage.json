@@ -23,5 +23,15 @@
     "h_f_sprint_jump",
     "h_f_strafe_jump"
   ],
-  "vanilla_hits": []
+  "vanilla_hits": [
+    "back_jump",
+    "diag_sprint_jump_fr",
+    "jump_run",
+    "jump_run_release_forward_air",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ]
 }

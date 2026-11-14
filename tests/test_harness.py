@@ -78,6 +78,16 @@ class Tamper(unittest.TestCase):
             (cand / "m.py").write_text("import math\nx = 2\n")
             self.assertEqual(integrity.capability_violations(base, cand), [])
 
+    def test_tool_scan_traversal_resolves_cd(self):
+        from factory.driver import scan_tool_log
+        ws = Path(tempfile.gettempdir()) / "ws_case"
+        flag = lambda c: scan_tool_log([{"name": "Bash", "input": {"command": c}}], ws)["tamper_suspect"]
+        self.assertFalse(flag("cd scenarios/visible && cat a.json; cd ../..; cat sim/x"))
+        self.assertTrue(flag("cat ../../bugs/x"))
+        self.assertTrue(flag("cd sim && cat ../../../oracle/tolerance.toml"))
+        edit = [{"name": "Edit", "input": {"file_path": "sim/src/x.py", "new_string": "a = 't:\\n' + '../x'"}}]
+        self.assertFalse(scan_tool_log(edit, ws)["tamper_suspect"])  # file contents are not paths
+
     def test_manifest_change_detected(self):
         m = integrity.manifest()
         self.assertIn("oracle/tolerance.toml", m)

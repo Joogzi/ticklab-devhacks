@@ -15,5 +15,8 @@
     "h_cd_run_hold",
     "h_cd_sprint_hold"
   ],
-  "vanilla_hits": []
+  "vanilla_hits": [
+    "jump_hold",
+    "jump_sprint_hold"
+  ]
 }

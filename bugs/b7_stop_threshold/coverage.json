@@ -21,5 +21,14 @@
     "h_t_yaw30",
     "h_t_yaw_m45"
   ],
-  "vanilla_hits": []
+  "vanilla_hits": [
+    "diag_back_left",
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "diag_walk_fl",
+    "diag_walk_fr",
+    "look_diag_turn",
+    "look_sprint_jump_turn",
+    "look_walk_turn"
+  ]
 }

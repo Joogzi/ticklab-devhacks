@@ -25,7 +25,19 @@
     "h_ss_retap",
     "h_ss_sprint_key_early"
   ],
-  "vanilla_hits": [],
+  "vanilla_hits": [
+    "diag_sprint_fl",
+    "diag_sprint_jump_fr",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn",
+    "sprint_late_press",
+    "sprint_release_forward",
+    "sprint_release_sprint",
+    "sprint_run"
+  ],
   "trap_hits": [
     "h_ss_sprint_key_early",
     "jump_sprint_release_sprint_air",

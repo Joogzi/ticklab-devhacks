@@ -6,231 +6,231 @@
       "name": "walk_f10",
       "family": "walk",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "51ed7701745c4ebc3bb5a9f4795cc32bb9d0e8856e3e127d799643d6a41119ac"
     },
     {
       "name": "walk_f20",
       "family": "walk",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "5f3d26c7087ef02b3c6c77cd37fa8c284646f82c36ac826f6e727458364e422a"
     },
     {
       "name": "walk_f35",
       "family": "walk",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "1738309f6fdd192c967cac4832a84d4ab46fb5e04ed413cc0b78a9e61740e0f4"
     },
     {
       "name": "walk_back",
       "family": "walk",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "5222307af832a0794094b9f6b61c2eb4bbfa948634bba980d7cc8201af55b215"
     },
     {
       "name": "sprint_run",
       "family": "sprint",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "638720c4c9b08de1219a8251262e6dc86862139eedd8b46495ea229b5032ae9e"
     },
     {
       "name": "sprint_release_sprint",
       "family": "sprint",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "fae0bfad27000213faa557ad96150f3e2c0f86c26c3e51ebbc3fddd75a002a49"
     },
     {
       "name": "sprint_release_forward",
       "family": "sprint",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "fe90a8962b84a3ebdd71ab952f556f898133fa3cf9c0400d993c4240f240d1f2"
     },
     {
       "name": "sprint_late_press",
       "family": "sprint",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "467a23359853c8332a41aa7a09be3f9fe05a2f98df0fe0adb06672d679152ac1"
     },
     {
       "name": "jump_stand",
       "family": "jump",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "e5dc7c97d3bb6dcc8a5d1d370a3fa26292adf7a0fe9bf7a5157769e1ed3277fc"
     },
     {
       "name": "jump_hold",
       "family": "jump",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "28932fd4f9dadd68d1251f67ba5d1b50e7b9fb8cc141e2c190cf080f0af4cfa9"
     },
     {
       "name": "jump_run",
       "family": "jump",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "6b45d2a7173d9b0c807e46512d13e39bd31c509ab3917518fdc16eee5a6b4264"
     },
     {
       "name": "jump_sprint",
       "family": "jump",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "946ff6c69d8a698cdead176a6d9005ca188443baac5a1bc76fbc54e23d3499cf"
     },
     {
       "name": "jump_sprint_release_sprint_air",
       "family": "jump",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "6025b4ec96c5a2a2d111a24b17016000e657dcc2a696dda894ba721aac85d948"
     },
     {
       "name": "jump_run_release_forward_air",
       "family": "jump",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "ccafa811926a80517de1883e356c35c13837bbfa11d679a2f5c76d337870d6d2"
     },
     {
       "name": "jump_sprint_release_forward_air",
       "family": "jump",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "c7ee6aa05d99d16759fc2f2fc07be219aaaf12a6edad01ad835f778f7b0d1e94"
     },
     {
       "name": "jump_double_tap",
       "family": "jump",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "5fae93b6cd801b2b65cd8759968db36f072779462c3e7b197a9653c5f385b699"
     },
     {
       "name": "jump_sprint_hold",
       "family": "jump",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "d824b142d095feac7fd995fdb92622437f9e625e10762cb56abd4cce512d1eb0"
     },
     {
       "name": "diag_walk_fl",
       "family": "diagonal",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "78d926b27e5e6aeab373b1a023c8c1d63f23ba1666c87acef1e55ba10671824a"
     },
     {
       "name": "diag_walk_fr",
       "family": "diagonal",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "6217487226c8daa6635636ace78ad0394d2f9710bbdba7ab034a5d8e3d9aeccb"
     },
     {
       "name": "diag_sprint_fl",
       "family": "diagonal",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "4109270d71ca4c763274189086c699375af4de103c2fe04648dc348aba3020f0"
     },
     {
       "name": "diag_sprint_jump_fr",
       "family": "diagonal",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "45e47f08ed18c217b6e084960ab348a1077486245a0d0304712fdfa3bf245246"
     },
     {
       "name": "diag_back_left",
       "family": "diagonal",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "e0f556db087cfd9f7863dfb290ec442ff38ee4b0c1344bffabe81ca7ca42ab10"
     },
     {
       "name": "strafe_left",
       "family": "strafe",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "c75abfb24c10319ba7726762170b38ef607e5f1c7f6f58363aaca67bfd4e2c33"
     },
     {
       "name": "strafe_right",
       "family": "strafe",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "65d121f0b2fc33670aa4f73c916a4e0459af3a39579d2076d1e6c4e70ab76f10"
     },
     {
       "name": "back_jump",
       "family": "strafe",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "b7bc8e3514fdd4f9e06cab23a1fa58eeb775fcc7fc2332f2ff2ccbb4b71b7d00"
     },
     {
       "name": "sneak_walk",
       "family": "sneak",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "d3de3b87f2dba50f584ea59574f1716b6dd9ea649606db1e9ac5e7f6462f49f2"
     },
     {
       "name": "sneak_diag",
       "family": "sneak",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "64799de972ac87d67ed968e77bbfdf3a5b888b53b2bc332dca58d825cb08bfc3"
     },
     {
       "name": "sneak_toggle_mid",
       "family": "sneak",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "a1190015aea32532cb24ffad51d5b0910b420822ff0dec8c98dd6d292b88d5a9"
     },
     {
       "name": "sneak_jump",
       "family": "sneak",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "22679894bb87d12b05d7e5870f0f58890dbe86287b69ceec5f3e0d8a2a1329c4"
     },
     {
       "name": "look_walk_turn",
       "family": "look",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "01f962dbd0a9404b302f0fbdc7a3d7c33a979f02e0d16ca251961b3aed49d85c"
     },
     {
       "name": "look_sprint_jump_turn",
       "family": "look",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "6baa8b0a2716d37ac46fd016d850383f761b3ad2660fc9aebf04b19d9d1b7a9b"
     },
     {
       "name": "look_diag_turn",
       "family": "look",
       "split": "visible",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "acb0e89398d5258594d79dc02c67d090dd88564591a8330c58aea4f4b40196fb"
     },
     {
       "name": "look_pitch_walk",
       "family": "look",
       "split": "holdout",
-      "provenance": "reference",
+      "provenance": "vanilla",
       "scenario_hash": "78be1cc2bc82e726713b3058852531542813b880fda85009db3e4c0572db05b5"
     }
   ]

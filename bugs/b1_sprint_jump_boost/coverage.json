@@ -2,7 +2,7 @@
   "id": "b1_sprint_jump_boost",
   "unit_tests_pass": true,
   "repro": {
-    "diag_sprint_jump_fr": 10686015.876362216
+    "diag_sprint_jump_fr": 10686015.87636226
   },
   "corpus_hits": [
     "diag_sprint_jump_fr",
@@ -18,7 +18,14 @@
     "h_sj_yaw45",
     "h_sj_yaw_m120"
   ],
-  "vanilla_hits": [],
+  "vanilla_hits": [
+    "diag_sprint_jump_fr",
+    "jump_sprint",
+    "jump_sprint_hold",
+    "jump_sprint_release_forward_air",
+    "jump_sprint_release_sprint_air",
+    "look_sprint_jump_turn"
+  ],
   "trap_hits": [
     "back_jump",
     "h_strafe_jump",

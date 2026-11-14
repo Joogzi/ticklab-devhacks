@@ -41,7 +41,8 @@ public final class TickProbe {
     private static final JsonArray timings = new JsonArray();
     private static long startedAt, scenarioStart;
 
-    public static boolean active() { return phase != Phase.OFF && phase != Phase.LOAD && phase != Phase.DONE; }
+    /** Physical input is blocked only while the capture drives the player inside the world (never on menus). */
+    public static boolean active() { return phase == Phase.SETUP || phase == Phase.RESET || phase == Phase.SETTLE || phase == Phase.RUN; }
 
     public static void head(Minecraft mc) {
         try {
@@ -65,7 +66,7 @@ public final class TickProbe {
             if (p == null || mc.level == null || !mc.hasSingleplayerServer()) return;
             if (!headApplied || p.tickCount == headTickCount) return; // the player did not tick this frame
             switch (phase) {
-                case WAIT_WORLD -> { if (mc.screen == null) { phase = Phase.SETUP; wait = 0; } }
+                case WAIT_WORLD -> { if (mc.gui.screen() == null) { phase = Phase.SETUP; wait = 0; } }
                 case SETUP -> setup(mc);
                 case RESET -> reset(p);
                 case SETTLE -> settle(mc, p);

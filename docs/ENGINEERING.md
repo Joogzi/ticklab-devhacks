@@ -21,7 +21,7 @@ Findings that matter for fidelity (and that the seeded bugs later perturb):
 | Input vector | Keyboard impulses (left−right, forward−back) are **normalized** to unit length, then scaled by `0.98f`, then by the sneak attribute (`0.3f`) if crouching, then mapped from the unit circle onto the unit square (`modifyInputSpeedForSquareMovement`). All float math. |
 | Crouch timing | The `crouching` flag (which drives the sneak slowdown and blocks sprint start) is computed from the shift key as of the **previous** tick; the pose flips to `CROUCHING` at the end of the current tick. |
 | Sprint | Starts when not sprinting, forward impulse > 1e-5, not crouching, sprint key down. Stops when forward impulse is gone (or horizontal collision). Releasing the sprint key alone does **not** stop sprinting. |
-| Speed lag | Ground speed uses the cached `speed` field, refreshed from the attribute **after** travel, so a sprint start/stop changes ground acceleration one tick later. Air acceleration (`0.02f` / `0.025999999f`) and the sprint-jump boost read `isSprinting()` immediately. |
+| Sprint speed timing | In the 26.1.2 bytecode the cached `speed` field is refreshed after travel (a one-tick lag). **Real 26.3 recordings show no lag**: sprint speed applies on the same tick sprinting starts. The model follows the recordings (see below). Air acceleration (`0.02f` / `0.025999999f`) and the sprint-jump boost read `isSprinting()` immediately. |
 | Velocity threshold | Player: if `vx²+vz² < 9e-6` zero both; if `|vy| < 0.003` zero it. Applied at the start of the living-entity step, before the jump. |
 | Jump | If jump held, on ground and `noJumpDelay == 0`: `vy = max(0.42f, vy)`, sprint adds `(-sin, cos)(yaw) * 0.2` using Mth's 65536-entry float sine table (now taking a double argument); cooldown 10. Releasing jump resets the cooldown to 0. |
 | Travel | friction = `0.6f` on ground (block below, from last tick's `on_ground`) else 1; accel = `speed * (0.21600002f / f³)` on ground; move with collision; then `vy = (vy − 0.08) * 0.98f`, horizontal `× f*0.91f`. |
@@ -32,6 +32,22 @@ goldens (`lab/golden/{idle,walk,jump,look}`, converted into gitignored `oracle/d
 matched: settled standing at (0.5, 100, 0.5), `vy = -0.0784000015258789`): **4/4 match, max error 0.0 in
 every field** (bit-exact). Sprint, sneak, diagonal and turning behavior is not covered by these goldens; it
 is validated only when the real corpus from `capture/` lands (Phase C).
+
+**Calibration result (full mode, real 26.3 corpus).** TickProbe captured all 33 corpus scenarios from
+Minecraft 26.3 (Fabric Loader 0.20.1, Java 25) through Prism Launcher, in two batches: listed order with 3
+in-batch repeats, then shuffled order (seed 7). Every normalized trace is **byte-identical** across the two batches
+and across the repeats (order independence + no state leakage, `oracle/corpus/INDEX.json`). The earlier lab's real
+`walk` golden and the new corpus `walk_f20` (same inputs, same initial state) agree with **0.0** difference over 30
+ticks, which independently validates the new mod.
+
+The first comparison matched 22/33 scenarios. All 11 mismatches had a single cause, visible on the tick sprinting
+starts: real 26.3 applies sprint speed immediately (`vz` 0.06956 = 0.13·0.98·0.546), while the model taken from
+the 26.1.2 bytecode applied it one tick late (0.05351). After a one-line fix (refresh the speed before travel),
+`python -m factory calibrate` matches **33/33 real traces** plus 4/4 dev goldens within tolerance. The
+seeded-bug patches were regenerated from the corrected simulator. All construction rules still hold, every bug's
+divergences now land on real vanilla scenarios, and the selftest is still 21/21. This is the workflow the project
+argues for: a model that looked right from source reading was corrected only by recorded behavior.
+
 
 ## Architecture and data flow
 
@@ -116,54 +132,62 @@ is validated only when the real corpus from `capture/` lands (Phase C).
 ## Evidence: what was measured, how, and how much to trust it
 
 **Benchmark.** `python -m factory bench`: <!--fill:n_cases-->9<!--/fill--> cases × {baseline, lab} × 2 trials, model <!--fill:lab_models-->haiku<!--/fill-->,
-MAX_ATTEMPTS=2, 600 s per attempt. Every run record is in `results/bench.jsonl` (append-only).
+MAX_ATTEMPTS=2, 600 s per attempt, judged against the real Minecraft 26.3 corpus. Every run record is in
+`results/bench.jsonl` (append-only).
 
 <!--fill:results_table-->
 
 | metric | baseline (no lab) | lab |
 |---|---|---|
-| accepted by verifier | 13 | 16 |
+| accepted by verifier | 13 | 14 |
 | runs | 18 | 18 |
-| false 'done' claims | 9 | 2 |
-| mean attempts | 1.33 | 1.28 |
-| median time to accept (s) | 23.9 | 24.3 |
-| previously-passing scenarios broken by final patches | 23 | 0 |
-| mean cost per run (USD) | 0.0163 | 0.0182 |
+| false 'done' claims | 8 | 4 |
+| mean attempts | 1.33 | 1.22 |
+| median time to accept (s) | 23.3 | 28.4 |
+| previously-passing scenarios broken by final patches | 0 | 0 |
+| mean cost per run (USD) | 0.0196 | 0.0158 |
 
 <!--/fill-->
 
 * **Acceptance** = the verifier accepted the final patch (agent claims are ignored).
-* **False "done"** = an attempt that ended `STATUS: FIXED` but was rejected. Baseline: <!--fill:baseline_false_done_attempts-->9<!--/fill-->
-  of <!--fill:baseline_fixed_claims-->22<!--/fill--> FIXED claims; lab: <!--fill:lab_false_done_attempts-->2<!--/fill--> of <!--fill:lab_fixed_claims-->18<!--/fill-->. This is the "don't
-  trust the agent saying it's done" problem, measured.
+* **False "done"** = an attempt that ended `STATUS: FIXED` but was rejected. Baseline: <!--fill:baseline_false_done_attempts-->8<!--/fill-->
+  of <!--fill:baseline_fixed_claims-->21<!--/fill--> FIXED claims; lab: <!--fill:lab_false_done_attempts-->4<!--/fill--> of <!--fill:lab_fixed_claims-->18<!--/fill-->.
 * **Regressions** = scenarios that matched before the patch but diverge after it, summed over final patches.
-* **Time**: the median time to an accepted patch is about the same in both conditions (<!--fill:baseline_median_time_to_accept_s-->23.9<!--/fill--> s vs
-  <!--fill:lab_median_time_to_accept_s-->24.3<!--/fill--> s). The lab doesn't make easy bugs faster; it changes outcomes on the hard ones and
-  makes the agent's claims trustworthy. Cost: about $<!--fill:baseline_mean_cost_usd-->0.0163<!--/fill--> (baseline) vs $<!--fill:lab_mean_cost_usd-->0.0182<!--/fill--> (lab) per run.
+* **Time/cost**: the median time to an accepted patch is <!--fill:baseline_median_time_to_accept_s-->23.3<!--/fill--> s (baseline) vs
+  <!--fill:lab_median_time_to_accept_s-->28.4<!--/fill--> s (lab); mean cost per run $<!--fill:baseline_mean_cost_usd-->0.0196<!--/fill--> vs $<!--fill:lab_mean_cost_usd-->0.0158<!--/fill-->.
+  The lab does not make easy bugs faster.
 
-**Where the difference comes from.** b1, b2, b3, b4, b7 and b8 were fixed in every run in both conditions: a modern
-model fixes them by reading the code plus the report (a ceiling effect, reported as-is). The conditions differ on b5
-(diagonal input mapping, invisible without reference behavior), b6 (air acceleration; its naive fix is a trap) and c9
-(compound bug with the vague report "Sprint-jumping is off"). The "plausible-looking" bugs were not all hard for the
-agent: b2, b4, b7 and b8 look plausible but were still found by reading.
+**Interpretation (honest).** b1, b2, b3, b4, b7 and b8 were fixed in every run in both conditions: a modern model
+fixes them from the code plus the report (a ceiling effect, even though four of them look "plausible"). b5 (diagonal
+input mapping) was fixed by nobody. b6 (air acceleration, with a naive-fix trap) was fixed once, only with the lab, and
+c9 (compound, vague report) once in each condition. So on *acceptance*, the lab made little difference for this model
+and these bugs. The effects that do show: wrong FIXED claims halved with the lab (8 vs 4; 38% vs 22% of FIXED claims), and in both
+conditions the independent verifier caught every wrong claim before it could ship. In the hackathon framing, the
+verifier, not the agent, is what makes agentic parity work trustworthy, and the lab mostly makes the agent's own
+judgment better calibrated.
+
+**History: the benchmark was re-run when the real corpus landed.** The first full benchmark (36 runs) used the
+reference layer before any 26.3 recordings existed. It reported baseline 13/18 vs lab 16/18, false done 9 vs 2,
+and regressions 23 vs 0 (`results/summary_thin_mode.json`). The real recordings then showed that the model's sprint
+timing was off by one tick (see Calibration), which changed the oracle for every sprint scenario. All 36 runs were
+superseded by append-only records and the benchmark was repeated. The smaller effect above is the result we stand
+behind; the earlier, larger gap partly came from judging against a model that was wrong about sprint timing.
 
 **Integrity events (reported, not hidden).**
-* <!--fill:n_invalidated-->3<!--/fill--> early pilot runs were invalidated by append-only records in `bench.jsonl`. These were harness
-  false positives at G0: the protected-file manifest included report/demo files the builder was editing during the bench,
-  and the tool-log scan misread an escaped `
-` in edited code as the path `t:/n`. Both were fixed (the manifest now covers
-  only verdict-affecting files, and the scan reads only path fields). Re-scanning all stored streams with the fixed
-  scanner found 0 hits, and the runs were repeated.
-* <!--fill:baseline_tamper_suspect_runs-->2<!--/fill--> baseline runs were flagged TAMPER_SUSPECT by the tool-log scan. Manual inspection
-  found both benign: a `../../scenarios/...` relative path used from `sim/src` (stays inside the workspace; the command
-  was outside the allow-list and was denied anyway), and an Edit to a mistyped home directory outside the workspace.
-  Re-verifying both patches without the scan rejects them at G2 anyway, so neither outcome depends on the flag.
-  The scan is deliberately conservative.
+* <!--fill:n_invalidated-->39<!--/fill--> run records carry append-only invalidations: 36 superseded thin-mode runs (above) and 3 pilot
+  runs rejected by harness false positives. The protected-file manifest then included report files the builder edited
+  during the bench, and the tool-log scan misread an escaped `\n` in edited code as the path `t:/n`. Both were fixed:
+  the manifest covers only verdict-affecting files, and the scan reads only path fields.
+* In the final benchmark, <!--fill:baseline_tamper_suspect_runs-->1<!--/fill--> baseline run was flagged TAMPER_SUSPECT for
+  `cd scenarios/visible && … && cd ../..`. The path stays inside the workspace, and the command was denied by the tool
+  allow-list anyway. Re-verifying that patch without the scan would ACCEPT it, so this false positive cost the
+  baseline one acceptance (13/18 recorded, 14/18 discounting it). Recorded results were not edited. The scan now
+  resolves `..` against a tracked working directory (regression test in `tests/test_harness.py`); rescanning every
+  stored stream flags only one genuinely outside path (an Edit to a mistyped home directory, in a superseded run).
 
 **How much to trust it.** The verdicts are deterministic and reproducible (`python -m factory verify --case <id>
---patch results/featured/<run>/attempt<n>.patch`). Behavioral ground truth is thin. Only 4 real vanilla recordings
-(idle/walk/jump/look) back the model directly, bit-exact. Sprint, sneak, diagonal and turning semantics come from
-reading the 26.1.2 client bytecode and are not yet confirmed by 26.3 recordings (the capture tooling is built; see
-`docs/CAPTURE_SETUP.md`). If the real game differs, the corpus would move the oracle and every seeded bug would need
-re-validation (`python -m factory calibrate && python -m factory bugs check && python -m factory selftest`). n is small
-(18 runs per condition, one model), so treat the numbers as a demonstration, not an effect size.
+--patch results/featured/<run>/attempt<n>.patch`). Ground truth: 33 real Minecraft 26.3 recordings (all families:
+walk, sprint, jump, diagonal, strafe, sneak, look), deterministic and order-independent, and the pristine simulator
+matches all of them. Hidden *variants* (other timings) are answered by the reference layer, which is only as good as
+that calibration: one flat fixture and these movement families, nothing else. n is small (18 runs per condition, one
+model), so treat the numbers as a demonstration, not an effect size.

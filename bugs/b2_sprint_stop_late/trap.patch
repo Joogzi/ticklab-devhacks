@@ -12,5 +12,5 @@ diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
 +        if self.sprinting and (not forward or not keys.sprint or self.horizontal_collision):
 +            self.sprinting = False
  
-         # Living-entity step.
-         if self.no_jump_delay > 0:
+         # Movement speed follows the sprint state of this tick (real 26.3 traces: no one-tick lag).
+         self.speed = physics.movement_speed(self.sprinting)

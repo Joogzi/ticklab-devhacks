@@ -1,0 +1,29 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index 1c16a0d..92ccb70 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -45,7 +45,14 @@ def jump_from_ground(p) -> None:
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST
+ 
+ 
+-def acceleration(p, friction: float) -> float:
++AIR_ACCEL = f32(0.02)
++AIR_ACCEL_SPRINT = f32(0.025999999)
++
++
++def acceleration(p, friction: float, on_ground: bool) -> float:
++    """Strafe acceleration: ground uses the friction-scaled speed; airborne uses the flat air factor."""
++    if not on_ground:
++        return AIR_ACCEL_SPRINT if p.sprinting else AIR_ACCEL
+     return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
+ 
+ 
+@@ -87,7 +94,7 @@ def move(p, world) -> None:
+ def travel(p, world, xxa: float, zza: float) -> None:
+     friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
+     keep = fmul(friction, AIR_FRICTION)
+-    dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    dx, dz = input_vector(xxa, zza, acceleration(p, friction, p.on_ground), p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)

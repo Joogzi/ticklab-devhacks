@@ -34,6 +34,9 @@ class Player:
         if self.sprinting and (not forward or self.horizontal_collision):
             self.sprinting = False
 
+        # Movement speed follows the sprint state of this tick (real 26.3 traces: no one-tick lag).
+        self.speed = physics.movement_speed(self.sprinting)
+
         # Living-entity step.
         if self.no_jump_delay > 0:
             self.no_jump_delay -= 1
@@ -47,8 +50,7 @@ class Player:
             self.no_jump_delay = 0
         physics.travel(self, world, xxa, zza)
 
-        # End of the player step: refresh cached speed and pose.
-        self.speed = physics.movement_speed(self.sprinting)
+        # End of the player step: refresh pose.
         self.pose = "CROUCHING" if keys.shift else "STANDING"
 
     def state(self) -> dict:

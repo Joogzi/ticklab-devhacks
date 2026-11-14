@@ -1,0 +1,39 @@
+{
+  "name": "air_w_hold_sprint_jump",
+  "scenario": {
+    "schema_version": 1,
+    "name": "air_w_hold_sprint_jump",
+    "duration": 40,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 1,
+        "key": "jump",
+        "down": false
+      },
+      {
+        "at": 30,
+        "key": "forward",
+        "down": false
+      }
+    ]
+  },
+  "note": "Sprint-jump holding W: airborne strafe used ground accel (speed*0.216) instead of the flat air factor 0.026.",
+  "status_at_save": "match",
+  "first_divergence": null
+}

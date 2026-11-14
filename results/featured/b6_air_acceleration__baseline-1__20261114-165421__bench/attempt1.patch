@@ -1,0 +1,35 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index 1c16a0d..389f32e 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -45,10 +45,20 @@ def jump_from_ground(p) -> None:
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST
+ 
+ 
++AIR_ACCEL = f32(0.02)
++AIR_ACCEL_SPRINT = f32(0.025)
++
++
+ def acceleration(p, friction: float) -> float:
++    """Ground input acceleration: movement speed scaled by the block friction."""
+     return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
+ 
+ 
++def air_acceleration(p) -> float:
++    """Airborne input acceleration: fixed flying factor, sprinting raises it; independent of movement speed."""
++    return AIR_ACCEL_SPRINT if p.sprinting else AIR_ACCEL
++
++
+ def input_vector(xxa: float, zza: float, speed: float, yaw: float):
+     """Rotate the (strafe, forward) input by yaw and scale by speed; returns (dx, dz)."""
+     x, z = xxa, zza
+@@ -87,7 +97,8 @@ def move(p, world) -> None:
+ def travel(p, world, xxa: float, zza: float) -> None:
+     friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
+     keep = fmul(friction, AIR_FRICTION)
+-    dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    accel = acceleration(p, friction) if p.on_ground else air_acceleration(p)
++    dx, dz = input_vector(xxa, zza, accel, p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)

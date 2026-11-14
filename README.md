@@ -37,13 +37,13 @@ lab, judged by the same independent verifier. <!--fill:n_runs-->36<!--/fill--> r
 
 | metric | baseline (no lab) | lab |
 |---|---|---|
-| accepted by verifier | 13 | 16 |
+| accepted by verifier | 13 | 14 |
 | runs | 18 | 18 |
-| false 'done' claims | 9 | 2 |
-| mean attempts | 1.33 | 1.28 |
-| median time to accept (s) | 23.9 | 24.3 |
-| previously-passing scenarios broken by final patches | 23 | 0 |
-| mean cost per run (USD) | 0.0163 | 0.0182 |
+| false 'done' claims | 8 | 4 |
+| mean attempts | 1.33 | 1.22 |
+| median time to accept (s) | 23.3 | 28.4 |
+| previously-passing scenarios broken by final patches | 0 | 0 |
+| mean cost per run (USD) | 0.0196 | 0.0158 |
 
 <!--/fill-->
 
@@ -51,11 +51,19 @@ The verifier `selftest` passed <!--fill:selftest_passed-->21<!--/fill-->/<!--fil
 8 cheating patches rejected (edit corpus/tolerance/verifier/tests, hardcode the repro, add a dependency, read oracle files,
 touch protected files). See `results/selftest.json`.
 
-**Caveats.** Small n: these are counts, with no significance claims. Six of the nine bugs were fixed in both conditions;
-the difference comes from the harder ones (b5 diagonal input, b6 air acceleration, c9 compound). Oracle coverage:
-<!--fill:oracle_coverage-->0<!--/fill--> real vanilla scenarios (<!--fill:oracle_mode-->thin<!--/fill--> mode). Where no real recording exists, answers come from
-the reference layer, which is validated bit-exact against the real recordings available (see `docs/ENGINEERING.md`).
-Open `report/index.html` (`python -m factory report`) to replay any run tick by tick.
+**What the numbers say.** With this agent and these bugs, the lab barely changed *how many* bugs got fixed:
+six easy bugs were fixed every time in both conditions, b5 (diagonal input) was fixed by neither, and b6/c9 were
+split. The clear difference is **trust**: without the lab, the agent made twice as many wrong FIXED claims
+(<!--fill:baseline_false_done_attempts-->8<!--/fill--> of <!--fill:baseline_fixed_claims-->21<!--/fill--> claims vs <!--fill:lab_false_done_attempts-->4<!--/fill--> of
+<!--fill:lab_fixed_claims-->18<!--/fill-->). In both conditions, every one of those false claims was caught by the verifier, not by a person.
+One baseline run was rejected because the tool-log scan flagged a benign `cd ../..` inside the workspace. Discounting it,
+baseline would be 14/18, so treat acceptance as a tie. The scan has since been fixed to resolve paths before flagging.
+
+**Caveats.** Small n (<!--fill:n_runs-->36<!--/fill--> runs, one model): these are counts, with no significance claims. Oracle: <!--fill:oracle_coverage-->33<!--/fill-->
+real Minecraft 26.3 recordings (<!--fill:oracle_mode-->full<!--/fill--> mode), which the simulator matches exactly. Hidden *variants* with other
+timings are answered by the reference layer, which is validated against those recordings. An earlier run of the same
+benchmark against a pre-correction oracle is kept in `results/summary_thin_mode.json` and superseded by the numbers
+above (see `docs/ENGINEERING.md`). Open `report/index.html` (`python -m factory report`) to replay any run tick by tick.
 
 ## Repository map
 
