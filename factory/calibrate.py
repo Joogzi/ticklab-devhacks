@@ -116,8 +116,14 @@ def run(verbose: bool = True) -> dict:
             worst[f] = max(worst.get(f, 0.0), d)
     results["max_delta_all"] = worst
     out = util.RESULTS / "calibration.json"
-    if not corpus and not goldens and out.exists():
-        out = util.RESULTS / "calibration.local.json"  # keep the committed evidence from a machine that had real traces
+    if out.exists():
+        try:
+            prev = util.read_json(out)
+            fewer = len(prev.get("dev_goldens", [])) > len(goldens) or len(prev.get("corpus", [])) > len(corpus)
+        except Exception:
+            fewer = False
+        if fewer:  # never replace committed evidence with a run that saw fewer real traces (e.g. a clone without lab/)
+            out = util.RESULTS / "calibration.local.json"
     util.write_json(out, results)
     if verbose:
         print(f"ORACLE COVERAGE: {len(corpus)} real vanilla scenarios ({results['mode'].upper()} mode)")
