@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lab": {
+      "type": "stdio",
+      "command": "<repo>\\.venv\\Scripts\\python.exe",
+      "args": [
+        "<repo>\\factory\\labtools_mcp.py",
+        "--case",
+        "b5_diagonal_input",
+        "--workspace",
+        "~\\.ticklab\\ws\\b5_diagonal_input\\lab-2",
+        "--store",
+        "<repo>\\runs\\b5_diagonal_input__lab-2__20261114-152255__bench\\store"
+      ]
+    }
+  }
+}

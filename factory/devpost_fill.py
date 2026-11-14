@@ -22,16 +22,21 @@ def values() -> dict:
     for cond in ("baseline", "lab"):
         c = C.get(cond) or {}
         for k in ("runs", "accepted", "acceptance_rate", "false_done_attempts", "mean_attempts", "median_time_to_accept_s",
-                  "mean_cost_usd", "total_cost_usd", "runs_with_false_done"):
+                  "mean_cost_usd", "total_cost_usd", "runs_with_false_done", "fixed_claims", "regressions_in_final_patch",
+                  "tamper_suspect_runs", "mean_seconds"):
             v[f"{cond}_{k}"] = c.get(k)
         v[f"{cond}_models"] = ",".join(c.get("models", []))
+    v["n_runs"] = s.get("n_records")
+    v["n_invalidated"] = s.get("n_invalidated")
+    v["n_cases"] = len(s.get("cases", {}))
     if C:
         rows = ["| metric | baseline (no lab) | lab |", "|---|---|---|"]
         for k, label in [("accepted", "accepted by verifier"), ("runs", "runs"), ("false_done_attempts", "false 'done' claims"),
                          ("mean_attempts", "mean attempts"), ("median_time_to_accept_s", "median time to accept (s)"),
+                         ("regressions_in_final_patch", "previously-passing scenarios broken by final patches"),
                          ("mean_cost_usd", "mean cost per run (USD)")]:
             rows.append(f"| {label} | {(C.get('baseline') or {}).get(k, '-')} | {(C.get('lab') or {}).get(k, '-')} |")
-        v["results_table"] = "\n".join(rows)
+        v["results_table"] = "\n\n" + "\n".join(rows) + "\n\n"  # blank lines so Markdown renders the table
     return v
 
 
@@ -59,7 +64,7 @@ def fill(path, vals: dict) -> list[str]:
 
 def main(argv) -> int:
     vals = values()
-    for name in ("DEVPOST.md", "README.md"):
+    for name in ("DEVPOST.md", "README.md", "docs/ENGINEERING.md"):
         p = util.ROOT / name
         if p.exists():
             miss = fill(p, vals)

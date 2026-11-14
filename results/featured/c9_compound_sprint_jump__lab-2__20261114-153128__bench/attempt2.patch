@@ -1,0 +1,51 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index 22a329f..18c04bc 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -7,6 +7,8 @@ from .fmath import DEG_TO_RAD_F, f32, fdiv, fmul, mth_cos, mth_sin
+ GRAVITY = 0.08
+ VERTICAL_DRAG = f32(0.98)
+ AIR_FRICTION = f32(0.91)
++AIR_ACCEL = f32(0.02)
++AIR_ACCEL_SPRINT = f32(0.025999999)
+ JUMP_POWER = f32(0.42)
+ JUMP_COOLDOWN = 10
+ SPRINT_JUMP_BOOST = 0.2
+@@ -39,7 +41,7 @@ def apply_threshold(p) -> None:
+ 
+ def jump_from_ground(p) -> None:
+     p.vy = max(JUMP_POWER, p.vy)
+-    if p.sprinting and not p.on_ground:
++    if p.sprinting:
+         r = fmul(p.yaw, DEG_TO_RAD_F)
+         p.vx += -mth_sin(r) * SPRINT_JUMP_BOOST
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST
+@@ -49,6 +51,11 @@ def acceleration(p, friction: float) -> float:
+     return fmul(p.speed, fdiv(GROUND_ACCEL, fmul(fmul(friction, friction), friction)))
+ 
+ 
++def air_acceleration(p) -> float:
++    """Airborne input acceleration: 0.02, scaled by the sprint multiplier while sprinting."""
++    return AIR_ACCEL_SPRINT if p.sprinting else AIR_ACCEL
++
++
+ def input_vector(xxa: float, zza: float, speed: float, yaw: float):
+     """Rotate the (strafe, forward) input by yaw and scale by speed; returns (dx, dz)."""
+     x, z = xxa, zza
+@@ -85,9 +92,14 @@ def move(p, world) -> None:
+ 
+ 
+ def travel(p, world, xxa: float, zza: float) -> None:
+-    friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
++    if p.on_ground:
++        friction = world.friction_below(p.x, p.y, p.z)
++        accel = acceleration(p, friction)
++    else:
++        friction = 1.0
++        accel = air_acceleration(p)
+     keep = fmul(friction, AIR_FRICTION)
+-    dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    dx, dz = input_vector(xxa, zza, accel, p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)

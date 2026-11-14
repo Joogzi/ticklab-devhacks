@@ -1,0 +1,34 @@
+{
+  "name": "c9_compound_sprint_jump_air_boost",
+  "scenario": {
+    "schema_version": 1,
+    "name": "c9_compound_sprint_jump_air_boost",
+    "duration": 40,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 5,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 6,
+        "key": "jump",
+        "down": false
+      }
+    ]
+  },
+  "note": "Sprint jump from flat ground: missing sprint jump boost and wrong airborne acceleration (0.02 / 0.026 scaled input).",
+  "status_at_save": "match",
+  "first_divergence": null
+}

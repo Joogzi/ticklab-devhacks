@@ -22,6 +22,11 @@ COMMANDS = {
 
 
 def main(argv=None) -> int:
+    for stream in (sys.stdout, sys.stderr):  # agent text may contain any Unicode; Windows consoles default to cp1252
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
     argv = list(sys.argv[1:] if argv is None else argv)
     if not argv or argv[0] in ("-h", "--help") or argv[0] not in COMMANDS:
         print("usage: python -m factory <command> [args]\n")

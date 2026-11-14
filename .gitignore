@@ -7,5 +7,6 @@ workspaces/
 capture/out/
 capture/build/
 oracle/dev_goldens/
+results/calibration.local.json
 oracle/reference/
 CAPTURE_READY.md

@@ -1,0 +1,69 @@
+{
+  "case": "c9_compound_sprint_jump",
+  "accepted": false,
+  "verdict": "PATCH REJECTED",
+  "failing_gate": "G4 holdouts",
+  "reason": "G4 holdouts: 25/27 match; failing families: hidden variant (jump/sprint), jump",
+  "gates": [
+    {
+      "gate": "G0 integrity",
+      "status": "pass",
+      "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+    },
+    {
+      "gate": "G1 build",
+      "status": "pass",
+      "detail": "compiles and imports"
+    },
+    {
+      "gate": "G2 target repro",
+      "status": "pass",
+      "detail": "2/2 match",
+      "total": 2,
+      "failed": 0,
+      "failures": []
+    },
+    {
+      "gate": "G3 visible suite",
+      "status": "pass",
+      "detail": "18/18 match; unit tests pass",
+      "total": 18,
+      "failed": 0,
+      "unit_tests": "pass",
+      "failures": []
+    },
+    {
+      "gate": "G4 holdouts",
+      "status": "fail",
+      "detail": "25/27 match; failing families: hidden variant (jump/sprint), jump",
+      "total": 27,
+      "failed": 2,
+      "failed_families": [
+        "hidden variant (jump/sprint)",
+        "jump"
+      ],
+      "vanilla_failed": 0
+    },
+    {
+      "gate": "G5 determinism",
+      "status": "pass",
+      "detail": "46/46 byte-identical across two runs"
+    }
+  ],
+  "diff": {
+    "files": [
+      "sim/src/mcsim/physics.py"
+    ],
+    "added": 15,
+    "removed": 3
+  },
+  "regressions": [],
+  "first_divergence": null,
+  "verifier": "factory/verifier.py",
+  "provenance": {
+    "vanilla": 0,
+    "reference": 46
+  },
+  "seconds": 2.04,
+  "summary": "PATCH REJECTED  (case c9_compound_sprint_jump, failing gate: G4 holdouts)\n  G0 integrity       PASS     1 file(s), all under sim/src; manifest + tool log clean\n  G1 build           PASS     compiles and imports\n  G2 target repro    PASS     2/2 match\n  G3 visible suite   PASS     18/18 match; unit tests pass\n  G4 holdouts        FAIL     25/27 match; failing families: hidden variant (jump/sprint), jump\n  G5 determinism     PASS     46/46 byte-identical across two runs"
+}

@@ -27,6 +27,36 @@ python -m factory selftest    # verifier vs reference fixes, trap fixes, adversa
 python -m factory verify --case b2_sprint_stop_late --patch bugs/b2_sprint_stop_late/trap.patch
 ```
 
+## Results (measured, not claimed)
+
+The same agent (Claude Code, model <!--fill:lab_models-->haiku<!--/fill-->), on the same <!--fill:n_cases-->9<!--/fill--> seeded behavior bugs, with and without the
+lab, judged by the same independent verifier. <!--fill:n_runs-->36<!--/fill--> runs; up to 2 attempts each. Source: `results/bench.jsonl`
+(append-only), aggregated in `results/summary.json`.
+
+<!--fill:results_table-->
+
+| metric | baseline (no lab) | lab |
+|---|---|---|
+| accepted by verifier | 13 | 16 |
+| runs | 18 | 18 |
+| false 'done' claims | 9 | 2 |
+| mean attempts | 1.33 | 1.28 |
+| median time to accept (s) | 23.9 | 24.3 |
+| previously-passing scenarios broken by final patches | 23 | 0 |
+| mean cost per run (USD) | 0.0163 | 0.0182 |
+
+<!--/fill-->
+
+The verifier `selftest` passed <!--fill:selftest_passed-->21<!--/fill-->/<!--fill:selftest_total-->21<!--/fill-->: reference fixes accepted, naive fixes rejected,
+8 cheating patches rejected (edit corpus/tolerance/verifier/tests, hardcode the repro, add a dependency, read oracle files,
+touch protected files). See `results/selftest.json`.
+
+**Caveats.** Small n: these are counts, with no significance claims. Six of the nine bugs were fixed in both conditions;
+the difference comes from the harder ones (b5 diagonal input, b6 air acceleration, c9 compound). Oracle coverage:
+<!--fill:oracle_coverage-->0<!--/fill--> real vanilla scenarios (<!--fill:oracle_mode-->thin<!--/fill--> mode). Where no real recording exists, answers come from
+the reference layer, which is validated bit-exact against the real recordings available (see `docs/ENGINEERING.md`).
+Open `report/index.html` (`python -m factory report`) to replay any run tick by tick.
+
 ## Repository map
 
 | Path | What |

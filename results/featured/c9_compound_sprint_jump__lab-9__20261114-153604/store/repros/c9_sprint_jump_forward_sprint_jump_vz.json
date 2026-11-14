@@ -1,0 +1,40 @@
+{
+  "name": "c9_sprint_jump_forward_sprint_jump_vz",
+  "scenario": {
+    "schema_version": 1,
+    "name": "c9_sprint_jump_forward_sprint_jump_vz",
+    "duration": 30,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 2,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 3,
+        "key": "jump",
+        "down": false
+      }
+    ]
+  },
+  "note": "Hold forward+sprint from tick 0, jump pressed at tick 2. Oracle (reference provenance) gives a sprint-jump boost on the jump tick: vz 0.2327 expected vs 0.1235 actual (delta 0.109); z diverges thereafter (max 0.938). Only vz/z differ; y, vy, on_ground match.",
+  "status_at_save": "diverge",
+  "first_divergence": {
+    "tick": 2,
+    "field": "vz",
+    "expected": 0.2326920154962779,
+    "actual": 0.12349200281240949,
+    "delta": 0.10920001268386842
+  }
+}

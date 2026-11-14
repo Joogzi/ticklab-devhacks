@@ -112,3 +112,58 @@ is validated only when the real corpus from `capture/` lands (Phase C).
   Timeouts and budgets bound it; wrong patches are rejected with feedback; the verdict is LLM-free.
 * **How does it fail?** See the table above. Its weakest point is oracle coverage: where no real trace
   exists, correctness rests on the calibrated reference model.
+
+## Evidence: what was measured, how, and how much to trust it
+
+**Benchmark.** `python -m factory bench`: <!--fill:n_cases-->9<!--/fill--> cases × {baseline, lab} × 2 trials, model <!--fill:lab_models-->haiku<!--/fill-->,
+MAX_ATTEMPTS=2, 600 s per attempt. Every run record is in `results/bench.jsonl` (append-only).
+
+<!--fill:results_table-->
+
+| metric | baseline (no lab) | lab |
+|---|---|---|
+| accepted by verifier | 13 | 16 |
+| runs | 18 | 18 |
+| false 'done' claims | 9 | 2 |
+| mean attempts | 1.33 | 1.28 |
+| median time to accept (s) | 23.9 | 24.3 |
+| previously-passing scenarios broken by final patches | 23 | 0 |
+| mean cost per run (USD) | 0.0163 | 0.0182 |
+
+<!--/fill-->
+
+* **Acceptance** = the verifier accepted the final patch (agent claims are ignored).
+* **False "done"** = an attempt that ended `STATUS: FIXED` but was rejected. Baseline: <!--fill:baseline_false_done_attempts-->9<!--/fill-->
+  of <!--fill:baseline_fixed_claims-->22<!--/fill--> FIXED claims; lab: <!--fill:lab_false_done_attempts-->2<!--/fill--> of <!--fill:lab_fixed_claims-->18<!--/fill-->. This is the "don't
+  trust the agent saying it's done" problem, measured.
+* **Regressions** = scenarios that matched before the patch but diverge after it, summed over final patches.
+* **Time**: the median time to an accepted patch is about the same in both conditions (<!--fill:baseline_median_time_to_accept_s-->23.9<!--/fill--> s vs
+  <!--fill:lab_median_time_to_accept_s-->24.3<!--/fill--> s). The lab doesn't make easy bugs faster; it changes outcomes on the hard ones and
+  makes the agent's claims trustworthy. Cost: about $<!--fill:baseline_mean_cost_usd-->0.0163<!--/fill--> (baseline) vs $<!--fill:lab_mean_cost_usd-->0.0182<!--/fill--> (lab) per run.
+
+**Where the difference comes from.** b1, b2, b3, b4, b7 and b8 were fixed in every run in both conditions: a modern
+model fixes them by reading the code plus the report (a ceiling effect, reported as-is). The conditions differ on b5
+(diagonal input mapping, invisible without reference behavior), b6 (air acceleration; its naive fix is a trap) and c9
+(compound bug with the vague report "Sprint-jumping is off"). The "plausible-looking" bugs were not all hard for the
+agent: b2, b4, b7 and b8 look plausible but were still found by reading.
+
+**Integrity events (reported, not hidden).**
+* <!--fill:n_invalidated-->3<!--/fill--> early pilot runs were invalidated by append-only records in `bench.jsonl`. These were harness
+  false positives at G0: the protected-file manifest included report/demo files the builder was editing during the bench,
+  and the tool-log scan misread an escaped `
+` in edited code as the path `t:/n`. Both were fixed (the manifest now covers
+  only verdict-affecting files, and the scan reads only path fields). Re-scanning all stored streams with the fixed
+  scanner found 0 hits, and the runs were repeated.
+* <!--fill:baseline_tamper_suspect_runs-->2<!--/fill--> baseline runs were flagged TAMPER_SUSPECT by the tool-log scan. Manual inspection
+  found both benign: a `../../scenarios/...` relative path used from `sim/src` (stays inside the workspace; the command
+  was outside the allow-list and was denied anyway), and an Edit to a mistyped home directory outside the workspace.
+  Re-verifying both patches without the scan rejects them at G2 anyway, so neither outcome depends on the flag.
+  The scan is deliberately conservative.
+
+**How much to trust it.** The verdicts are deterministic and reproducible (`python -m factory verify --case <id>
+--patch results/featured/<run>/attempt<n>.patch`). Behavioral ground truth is thin. Only 4 real vanilla recordings
+(idle/walk/jump/look) back the model directly, bit-exact. Sprint, sneak, diagonal and turning semantics come from
+reading the 26.1.2 client bytecode and are not yet confirmed by 26.3 recordings (the capture tooling is built; see
+`docs/CAPTURE_SETUP.md`). If the real game differs, the corpus would move the oracle and every seeded bug would need
+re-validation (`python -m factory calibrate && python -m factory bugs check && python -m factory selftest`). n is small
+(18 runs per condition, one model), so treat the numbers as a demonstration, not an effect size.

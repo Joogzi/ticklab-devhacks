@@ -1,0 +1,71 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index 22a329f..ca52088 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -2,11 +2,13 @@
+ import math
+ 
+ from . import collision
+-from .fmath import DEG_TO_RAD_F, f32, fdiv, fmul, mth_cos, mth_sin
++from .fmath import DEG_TO_RAD_F, f32, fadd, fdiv, fmul, fsqrt, mth_cos, mth_sin
+ 
+ GRAVITY = 0.08
+ VERTICAL_DRAG = f32(0.98)
+ AIR_FRICTION = f32(0.91)
++AIR_SPEED = f32(0.02)
++AIR_SPEED_SPRINT = f32(AIR_SPEED + f32(0.005999999))
+ JUMP_POWER = f32(0.42)
+ JUMP_COOLDOWN = 10
+ SPRINT_JUMP_BOOST = 0.2
+@@ -39,7 +41,7 @@ def apply_threshold(p) -> None:
+ 
+ def jump_from_ground(p) -> None:
+     p.vy = max(JUMP_POWER, p.vy)
+-    if p.sprinting and not p.on_ground:
++    if p.sprinting:
+         r = fmul(p.yaw, DEG_TO_RAD_F)
+         p.vx += -mth_sin(r) * SPRINT_JUMP_BOOST
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST
+@@ -64,6 +66,22 @@ def input_vector(xxa: float, zza: float, speed: float, yaw: float):
+     return x * c - z * s, z * c + x * s
+ 
+ 
++def air_input_vector(xxa: float, zza: float, speed: float, yaw: float):
++    """Single-precision variant of input_vector for airborne movement."""
++    lsq = fadd(fmul(xxa, xxa), fmul(zza, zza))
++    if lsq < 1.0e-7:
++        return 0.0, 0.0
++    f = speed
++    if lsq > 1.0:
++        f = fdiv(speed, fsqrt(lsq))
++    x, z = fmul(xxa, f), fmul(zza, f)
++    r = fmul(yaw, DEG_TO_RAD_F)
++    s, c = mth_sin(r), mth_cos(r)
++    dx = fadd(fmul(x, c), -fmul(z, s))
++    dz = fadd(fmul(z, c), fmul(x, s))
++    return dx, dz
++
++
+ def move(p, world) -> None:
+     """Move by the current velocity with collision; update flags and zero blocked components."""
+     mx, my, mz = p.vx, p.vy, p.vz
+@@ -84,10 +102,18 @@ def move(p, world) -> None:
+         p.vy = 0.0
+ 
+ 
++def air_acceleration(p) -> float:
++    """Airborne input acceleration (jumpMovementFactor), boosted while sprinting."""
++    return AIR_SPEED_SPRINT if p.sprinting else AIR_SPEED
++
++
+ def travel(p, world, xxa: float, zza: float) -> None:
+     friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
+     keep = fmul(friction, AIR_FRICTION)
+-    dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    if p.on_ground:
++        dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    else:
++        dx, dz = air_input_vector(xxa, zza, air_acceleration(p), p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)

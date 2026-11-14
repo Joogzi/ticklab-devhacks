@@ -115,7 +115,10 @@ def run(verbose: bool = True) -> dict:
             d = float("inf") if d == "inf" else d
             worst[f] = max(worst.get(f, 0.0), d)
     results["max_delta_all"] = worst
-    util.write_json(util.RESULTS / "calibration.json", results)
+    out = util.RESULTS / "calibration.json"
+    if not corpus and not goldens and out.exists():
+        out = util.RESULTS / "calibration.local.json"  # keep the committed evidence from a machine that had real traces
+    util.write_json(out, results)
     if verbose:
         print(f"ORACLE COVERAGE: {len(corpus)} real vanilla scenarios ({results['mode'].upper()} mode)")
         print(f"{'source':10} {'scenario':34} {'status':8} {'ticks':>5}  max|dpos|   max|dvel|   first divergence")

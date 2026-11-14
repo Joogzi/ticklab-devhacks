@@ -1,0 +1,40 @@
+{
+  "name": "sprintjump_boost_missing",
+  "scenario": {
+    "schema_version": 1,
+    "name": "sprintjump_boost_missing",
+    "duration": 20,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 1,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 1,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 3,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 4,
+        "key": "jump",
+        "down": false
+      }
+    ]
+  },
+  "note": "Sprint-jump horizontal boost of 0.2 missing at jump tick 3 (vz 0.1235 vs 0.2327).",
+  "status_at_save": "diverge",
+  "first_divergence": {
+    "tick": 3,
+    "field": "vz",
+    "expected": 0.2326920154962779,
+    "actual": 0.12349200281240949,
+    "delta": 0.10920001268386842
+  }
+}

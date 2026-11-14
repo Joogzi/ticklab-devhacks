@@ -1,0 +1,86 @@
+{
+  "case": "b6_air_acceleration",
+  "accepted": false,
+  "verdict": "PATCH REJECTED",
+  "failing_gate": "G3 visible suite",
+  "reason": "G3 visible suite: 17/18 match; unit tests pass",
+  "gates": [
+    {
+      "gate": "G0 integrity",
+      "status": "pass",
+      "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+    },
+    {
+      "gate": "G1 build",
+      "status": "pass",
+      "detail": "compiles and imports"
+    },
+    {
+      "gate": "G2 target repro",
+      "status": "pass",
+      "detail": "1/1 match",
+      "total": 1,
+      "failed": 0,
+      "failures": []
+    },
+    {
+      "gate": "G3 visible suite",
+      "status": "fail",
+      "detail": "17/18 match; unit tests pass",
+      "total": 18,
+      "failed": 1,
+      "unit_tests": "pass",
+      "failures": [
+        {
+          "scenario": "diag_sprint_jump_fr",
+          "tick": 20,
+          "field": "x",
+          "expected": -2.967857829119984,
+          "actual": -2.967857929912024,
+          "delta": 1.0079203960344785e-07
+        }
+      ]
+    },
+    {
+      "gate": "G4 holdouts",
+      "status": "fail",
+      "detail": "15/21 match; failing families: hidden variant (jump), jump, look",
+      "total": 21,
+      "failed": 6,
+      "failed_families": [
+        "hidden variant (jump)",
+        "jump",
+        "look"
+      ],
+      "vanilla_failed": 0
+    },
+    {
+      "gate": "G5 determinism",
+      "status": "pass",
+      "detail": "39/39 byte-identical across two runs"
+    }
+  ],
+  "diff": {
+    "files": [
+      "sim/src/mcsim/physics.py"
+    ],
+    "added": 4,
+    "removed": 0
+  },
+  "regressions": [],
+  "first_divergence": {
+    "tick": 20,
+    "field": "x",
+    "expected": -2.967857829119984,
+    "actual": -2.967857929912024,
+    "delta": 1.0079203960344785e-07,
+    "scenario": "diag_sprint_jump_fr"
+  },
+  "verifier": "factory/verifier.py",
+  "provenance": {
+    "vanilla": 0,
+    "reference": 39
+  },
+  "seconds": 1.37,
+  "summary": "PATCH REJECTED  (case b6_air_acceleration, failing gate: G3 visible suite)\n  G0 integrity       PASS     1 file(s), all under sim/src; manifest + tool log clean\n  G1 build           PASS     compiles and imports\n  G2 target repro    PASS     1/1 match\n  G3 visible suite   FAIL     17/18 match; unit tests pass\n  G4 holdouts        FAIL     15/21 match; failing families: hidden variant (jump), jump, look\n  G5 determinism     PASS     39/39 byte-identical across two runs\n  first divergence: diag_sprint_jump_fr tick 20 x expected=-2.967857829119984 actual=-2.967857929912024"
+}

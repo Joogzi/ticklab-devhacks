@@ -1,0 +1,235 @@
+{
+  "run_id": "b5_diagonal_input__lab-2__20261114-152255__bench",
+  "case": "b5_diagonal_input",
+  "condition": "lab",
+  "trial": 2,
+  "model": "haiku",
+  "max_attempts": 2,
+  "workspace": "~\\.ticklab\\ws\\b5_diagonal_input\\lab-2",
+  "started": "20261114-152255",
+  "attempts": [
+    {
+      "tag": "attempt1",
+      "model": "haiku",
+      "seconds": 78.1,
+      "timed_out": false,
+      "exit_code": 0,
+      "claim": "UNABLE",
+      "final_text": "The diagonal speed bug is mostly fixed, but the simulator still does not match the oracle exactly, so I'm reporting this as UNABLE.\n\n**What was wrong:** `move_vector` in `sim/src/mcsim/input.py` normalized the W+A/W+D impulse to unit length before the 0.98 damping. A diagonal therefore ended at length 0.98, while the game gives it length 1.0 (its 0.98 scale is applied to the raw \u00b11 impulses, then clamped to 1). Straight walking was already correct, which is why only diagonals were slow.\n\n**What I changed (only in `sim/src/mcsim/input.py`):**\n- `move_vector` now returns the raw \u00b11 impulses instead of normalizing them. `modify_input` already applies the 0.98 scale and then clamps, so the normalization now happens in the right place.\n- The clamp in `_clamp_length` computes its length in double precision with `math.sqrt`, and I added `import math`. This made no measurable difference to the results.\n\n**Where it stands:**\n- The 2% speed gap is gone. The diagonal probe went from a `vx` delta of 0.0017 to about 7e-9 in the first 30 ticks.\n- `python sim/run.py test`: all 9 unit tests pass.\n- `run_regressions`: 13 of 18 scenarios pass. The 5 failing are all diagonal (`diag_walk_fl`, `diag_walk_fr`, `diag_sprint_fl`, `diag_sprint_jump_fr`, `look_diag_turn`). Each diverges by about 1e-7 in `x` around tick 7\u20138, so the remaining error is float32-level rounding that I could not pin down.\n- I tried float32 rounding in `input_vector` (the products, then the final `dx`/`dz`) and float32 `lsq`. These either made the error worse or left it unchanged, so I reverted them.\n\n**Not done:** I did not save a repro with `save_repro`. I also could not run `python -c` to check the input vectors directly, because that shell command was denied.\n\n**Unknown:** I don't know the verifier's tolerance. If it accepts 1e-7 position error, this patch likely passes. If it requires exact match, the diagonal cases will still fail.\n\nSTATUS: UNABLE",
+      "cost_usd": 0.021351530000000004,
+      "usage": {
+        "input_tokens": 32,
+        "cache_creation_input_tokens": 44137,
+        "cache_read_input_tokens": 452723,
+        "output_tokens": 15712,
+        "output_tokens_details": {
+          "thinking_tokens": 9285
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 44137,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 875,
+            "cache_read_input_tokens": 49421,
+            "cache_creation_input_tokens": 996,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 996
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "num_turns": 29,
+      "tool_counts": {
+        "Read": 1,
+        "Bash": 6,
+        "mcp__lab__compare_with_oracle": 9,
+        "Edit": 10,
+        "mcp__lab__run_regressions": 2
+      },
+      "denials": 1,
+      "tool_scan": {
+        "tamper_suspect": false,
+        "hits": []
+      },
+      "lab_tool_calls": 11,
+      "stream": "runs/b5_diagonal_input__lab-2__20261114-152255__bench/attempt1.stream.jsonl",
+      "attempt": 1,
+      "verdict": "PATCH REJECTED",
+      "accepted": false,
+      "failing_gate": "G2 target repro",
+      "gates": [
+        {
+          "gate": "G0 integrity",
+          "status": "pass",
+          "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+        },
+        {
+          "gate": "G1 build",
+          "status": "pass",
+          "detail": "compiles and imports"
+        },
+        {
+          "gate": "G2 target repro",
+          "status": "fail",
+          "detail": "0/1 match"
+        },
+        {
+          "gate": "G3 visible suite",
+          "status": "fail",
+          "detail": "13/18 match; unit tests pass"
+        },
+        {
+          "gate": "G4 holdouts",
+          "status": "fail",
+          "detail": "16/21 match; failing families: diagonal, hidden variant (diagonal/sneak)"
+        },
+        {
+          "gate": "G5 determinism",
+          "status": "pass",
+          "detail": "39/39 byte-identical across two runs"
+        }
+      ],
+      "diff": {
+        "files": [
+          "sim/src/mcsim/input.py"
+        ],
+        "added": 6,
+        "removed": 6
+      },
+      "regressions": [],
+      "feedback": "Verifier verdict: **PATCH REJECTED** (failed at G2 target repro)\n- G0 integrity: pass\n- G1 build: pass\n- G2 target repro: fail \u2014 0/1 match\n    - `diag_walk_fl`: first divergence at tick 8, field `x`, expected 1.715249195229026, got 1.715249297666884\n- G3 visible suite: fail \u2014 13/18 match; unit tests pass\n    - `diag_walk_fl`: first divergence at tick 8, field `x`, expected 1.715249195229026, got 1.715249297666884\n    - `diag_walk_fr`: first divergence at tick 8, field `x`, expected -0.7152491952290263, got -0.7152492976668842\n    - `diag_sprint_fl`: first divergence at tick 7, field `x`, expected 1.8318656287822392, got 1.8318657410501282\n- G4 holdouts: fail \u2014 5 of 21 hidden scenarios diverge; families: diagonal, hidden variant (diagonal/sneak)\n- G5 determinism: pass",
+      "tamper_suspect": false,
+      "false_done": false,
+      "notes_so_far": []
+    },
+    {
+      "tag": "attempt2",
+      "model": "haiku",
+      "seconds": 232.3,
+      "timed_out": false,
+      "exit_code": 0,
+      "claim": "FIXED",
+      "final_text": "The diagonal-walk mismatch is fixed. Visible regressions and unit tests pass, and the diagonal probes now match the oracle exactly. I can't confirm the hidden holdouts from here.\n\n**Root cause:** The diagonal input was normalized to unit length in `modify_input` (`sim/src/mcsim/input.py`). The real game's per-axis value for a normalized diagonal is one float32 ulp below the nearest float to 1/\u221a2. Our computed value was one ulp higher, which gave the ~1e-7 drift starting at tick 6\u20138. Cardinal walking was already exact.\n\n**Changes (both under `sim/src/mcsim/`):**\n- `input.py`: `modify_input` applies the 0.98 damping and sneak factor, then, if the vector is longer than 1 (both axes held), sets each axis to `DIAGONAL_AXIS = f32(0.70710670)` with the correct sign. I removed the earlier double-precision clamp and the unused `math` import.\n- `physics.py`: `input_vector` is back to its original double-precision arithmetic. My float32 experiments there didn't help.\n\n**Verification:**\n- `compare_with_oracle` matches exactly on W+A walk over 40 ticks, on the yaw-rotated `look_diag_turn` case, and on backward+right with a switch to forward+left.\n- A sneak diagonal also matched earlier, within tolerance.\n- `run_regressions`: 18/18 visible scenarios and unit tests pass.\n- Saved repro `diag_walk_fl_exact_ulp`.\n\n**Caveats:**\n- The constant is empirical. I did not derive it from a formula, so it may not match hidden cases with other rounding paths. I could not find a float32 computation that reproduced it.\n- The bug report says our diagonal is slower than the game. The oracle showed the opposite: our values ran slightly high, so the report's direction doesn't match the measured data.\n- `git diff` was denied by the permission system, so I could not show the diff against the base commit. I worked from the file contents I read directly.\n\nSTATUS: FIXED",
+      "cost_usd": 0.05492118,
+      "usage": {
+        "input_tokens": 60,
+        "cache_creation_input_tokens": 80809,
+        "cache_read_input_tokens": 1492768,
+        "output_tokens": 47230,
+        "output_tokens_details": {
+          "thinking_tokens": 35519
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 80809,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 864,
+            "cache_read_input_tokens": 89315,
+            "cache_creation_input_tokens": 441,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 441
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "num_turns": 48,
+      "tool_counts": {
+        "Read": 7,
+        "Bash": 1,
+        "Glob": 3,
+        "mcp__lab__compare_with_oracle": 16,
+        "Edit": 17,
+        "mcp__lab__run_regressions": 2,
+        "mcp__lab__save_repro": 1
+      },
+      "denials": 1,
+      "tool_scan": {
+        "tamper_suspect": false,
+        "hits": []
+      },
+      "lab_tool_calls": 30,
+      "stream": "runs/b5_diagonal_input__lab-2__20261114-152255__bench/attempt2.stream.jsonl",
+      "attempt": 2,
+      "verdict": "PATCH ACCEPTED",
+      "accepted": true,
+      "failing_gate": null,
+      "gates": [
+        {
+          "gate": "G0 integrity",
+          "status": "pass",
+          "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+        },
+        {
+          "gate": "G1 build",
+          "status": "pass",
+          "detail": "compiles and imports"
+        },
+        {
+          "gate": "G2 target repro",
+          "status": "pass",
+          "detail": "2/2 match"
+        },
+        {
+          "gate": "G3 visible suite",
+          "status": "pass",
+          "detail": "18/18 match; unit tests pass"
+        },
+        {
+          "gate": "G4 holdouts",
+          "status": "pass",
+          "detail": "21/21 match"
+        },
+        {
+          "gate": "G5 determinism",
+          "status": "pass",
+          "detail": "40/40 byte-identical across two runs"
+        }
+      ],
+      "diff": {
+        "files": [
+          "sim/src/mcsim/input.py"
+        ],
+        "added": 8,
+        "removed": 11
+      },
+      "regressions": [],
+      "feedback": "Verifier verdict: **PATCH ACCEPTED**\n- G0 integrity: pass\n- G1 build: pass\n- G2 target repro: pass\n- G3 visible suite: pass\n- G4 holdouts: pass\n- G5 determinism: pass",
+      "tamper_suspect": false,
+      "false_done": false,
+      "notes_so_far": []
+    }
+  ],
+  "accepted": true,
+  "interactive": false,
+  "notes": [],
+  "seconds": 314.3,
+  "attempts_used": 2,
+  "cost_usd": 0.0763,
+  "finished": "20261114-152810"
+}

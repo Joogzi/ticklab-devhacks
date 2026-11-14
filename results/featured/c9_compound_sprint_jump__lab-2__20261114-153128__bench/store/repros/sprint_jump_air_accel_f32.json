@@ -1,0 +1,89 @@
+{
+  "name": "sprint_jump_air_accel_f32",
+  "scenario": {
+    "schema_version": 1,
+    "name": "sprint_jump_air_accel_f32",
+    "duration": 60,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "left",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 3,
+        "key": "left",
+        "down": false
+      },
+      {
+        "at": 8,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 9,
+        "key": "jump",
+        "down": false
+      },
+      {
+        "at": 15,
+        "key": "shift",
+        "down": true
+      },
+      {
+        "at": 20,
+        "key": "shift",
+        "down": false
+      },
+      {
+        "at": 22,
+        "key": "right",
+        "down": true
+      },
+      {
+        "at": 23,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 24,
+        "key": "jump",
+        "down": false
+      },
+      {
+        "at": 30,
+        "key": "forward",
+        "down": false
+      },
+      {
+        "at": 32,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 34,
+        "key": "jump",
+        "down": true
+      },
+      {
+        "at": 35,
+        "key": "jump",
+        "down": false
+      }
+    ]
+  },
+  "note": "Sprint-jump with strafe, sneak and re-jump; diverged ~1e-7 in z before air acceleration constants were float32-rounded.",
+  "status_at_save": "match",
+  "first_divergence": null
+}

@@ -1,0 +1,26 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index 22a329f..989890e 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -39,7 +39,7 @@ def apply_threshold(p) -> None:
+ 
+ def jump_from_ground(p) -> None:
+     p.vy = max(JUMP_POWER, p.vy)
+-    if p.sprinting and not p.on_ground:
++    if p.sprinting:
+         r = fmul(p.yaw, DEG_TO_RAD_F)
+         p.vx += -mth_sin(r) * SPRINT_JUMP_BOOST
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST
+@@ -87,7 +87,11 @@ def move(p, world) -> None:
+ def travel(p, world, xxa: float, zza: float) -> None:
+     friction = world.friction_below(p.x, p.y, p.z) if p.on_ground else 1.0
+     keep = fmul(friction, AIR_FRICTION)
+-    dx, dz = input_vector(xxa, zza, acceleration(p, friction), p.yaw)
++    if p.on_ground:
++        acc = acceleration(p, friction)
++    else:
++        acc = f32(0.025999999) if p.sprinting else f32(0.02)
++    dx, dz = input_vector(xxa, zza, acc, p.yaw)
+     p.vx += dx
+     p.vz += dz
+     move(p, world)

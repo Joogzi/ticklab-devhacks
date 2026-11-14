@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lab": {
+      "type": "stdio",
+      "command": "<repo>\\.venv\\Scripts\\python.exe",
+      "args": [
+        "<repo>\\factory\\labtools_mcp.py",
+        "--case",
+        "c9_compound_sprint_jump",
+        "--workspace",
+        "~\\.ticklab\\ws\\c9_compound_sprint_jump\\lab-9",
+        "--store",
+        "<repo>\\runs\\c9_compound_sprint_jump__lab-9__20261114-153604\\store"
+      ]
+    }
+  }
+}

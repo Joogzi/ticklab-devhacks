@@ -1,0 +1,24 @@
+{
+  "name": "diag_walk_fl_exact_ulp",
+  "scenario": {
+    "schema_version": 1,
+    "name": "diag_walk_fl_exact_ulp",
+    "duration": 40,
+    "fixture": "flat_stone_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "left",
+        "down": true
+      }
+    ]
+  },
+  "note": "Diagonal W+A walk: per-axis normalized input must be the float32 value one ulp below nearest(1/sqrt2). Previously diverged at tick 8 by ~1e-7.",
+  "status_at_save": "match",
+  "first_divergence": null
+}
