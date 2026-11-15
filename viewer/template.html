@@ -338,10 +338,10 @@ document.querySelectorAll("#buglist button").forEach(b=>b.onclick=()=>{selectGal
   $("#timeline").innerHTML=`<div class="node"><div class="k">Written by</div><div class="v">the ${esc(x.model)} agent</div><div class="d">saved with save_repro while investigating</div></div><div class="node"><div class="k">Replayed in</div><div class="v">real Minecraft 26.3</div><div class="d">third-person capture, same tick semantics</div></div><div class="node"><div class="k">Accepted patch vs real game</div><div class="v" style="color:${x.accepted_patch==="match"?"var(--ok)":"var(--bad)"}">${x.accepted_patch==="match"?"exact match":"diverges"}</div></div>`;
   renderScenarioChips([x.replay]);$("#attempt").innerHTML="";location.hash="#story";});})();
 
-// ---------- all runs ----------
-(function(){const rs=D.runs.filter(r=>r.bench).sort((a,b)=>a.case.localeCompare(b.case)||a.condition.localeCompare(b.condition)||a.trial-b.trial);
- $("#alltable").innerHTML=`<tr><th>case</th><th>condition</th><th>trial</th><th>model</th><th>verdict</th><th>attempts (claim → gate)</th><th>time</th><th>cost</th></tr>`+rs.map(r=>`<tr><td>${esc(shortCase(r.case))}</td><td>${r.condition}</td><td>${r.trial}</td><td>${esc(r.model)}</td>
- <td><span class="badge ${r.accepted?"b-ok":"b-bad"}">${r.accepted?"ACCEPTED":"REJECTED"}</span></td><td class="small">${r.attempts.map(a=>`${esc(a.claim)} → ${a.accepted?"accepted":esc(a.failing_gate||"rejected")}`).join(" · ")}</td><td>${r.seconds}s</td><td>$${r.cost_usd}</td></tr>`).join("");})();
+// ---------- all runs (from results/bench.jsonl) ----------
+(function(){const rs=(D.bench_records||[]).slice().sort((a,b)=>a.case.localeCompare(b.case)||a.condition.localeCompare(b.condition)||a.trial-b.trial);
+ $("#alltable").innerHTML=`<tr><th>case</th><th>condition</th><th>trial</th><th>model</th><th>verdict</th><th>attempts (agent claim → verifier)</th><th>time</th><th>cost</th></tr>`+rs.map(r=>`<tr><td>${esc(shortCase(r.case))}</td><td>${r.condition}</td><td>${r.trial}</td><td>${esc(r.model)}</td>
+ <td><span class="badge ${r.accepted?"b-ok":"b-bad"}">${r.accepted?"ACCEPTED":"REJECTED"}</span></td><td class="small">${(r.claims||[]).map((c,k)=>`${esc(c)} → ${r.failing_gates[k]?esc(r.failing_gates[k]):"accepted"}`).join(" · ")}</td><td>${r.seconds}s</td><td>$${r.cost_usd}</td></tr>`).join("");})();
 
 renderRunList();
 (function(){const h=location.hash,run=(h.match(/run=(\d+)/)||[])[1],bug=(h.match(/bug=(\d+)/)||[])[1],t=(h.match(/t=(\d+)/)||[])[1];

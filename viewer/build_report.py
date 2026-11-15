@@ -175,6 +175,12 @@ def build_live() -> list[dict]:
     return out
 
 
+def _bench_records() -> list[dict]:
+    from factory import bench
+    keep = ("run_id", "case", "condition", "trial", "model", "accepted", "claims", "failing_gates", "seconds", "cost_usd")
+    return [{k: r.get(k) for k in keep} for r in bench.load_records()]
+
+
 def main(argv=None) -> int:
     oracle = Oracle()
     data = {"runs": build_runs(oracle), "gallery": build_gallery(oracle),
@@ -182,7 +188,7 @@ def main(argv=None) -> int:
             "selftest": util.read_json(util.RESULTS / "selftest.json") if (util.RESULTS / "selftest.json").exists() else None,
             "calibration": util.read_json(util.RESULTS / "calibration.json") if (util.RESULTS / "calibration.json").exists() else None,
             "families": {r["name"]: r["family"] for r in scenarios.corpus_table()},
-            "live": build_live()}
+            "live": build_live(), "bench_records": _bench_records()}
     cal = data["calibration"] or {}
     data["coverage"] = {"real": cal.get("oracle_coverage", 0), "mode": cal.get("mode", "thin"),
                         "dev_goldens": f"{cal.get('dev_goldens_matched', 0)}/{len(cal.get('dev_goldens', []))}"}
