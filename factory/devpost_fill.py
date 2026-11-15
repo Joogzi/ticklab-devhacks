@@ -79,7 +79,7 @@ def fill(path, vals: dict) -> list[str]:
 
 def main(argv) -> int:
     vals = values()
-    for name in ("DEVPOST.md", "README.md", "docs/ENGINEERING.md"):
+    for name in ("DEVPOST.md", "README.md"):
         p = util.ROOT / name
         if p.exists():
             miss = fill(p, vals)

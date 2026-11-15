@@ -120,7 +120,7 @@ def discover(verbose: bool = True) -> dict:
     res["instances"] = insts
     cands = [i for i in insts if "ticklab" in i["name"].lower() or "ticklab" in i["id"].lower()]
     if not cands:
-        res["problems"].append("no Prism instance whose name contains 'ticklab' (docs/CAPTURE_SETUP.md step 2)")
+        res["problems"].append("no Prism instance whose name contains 'ticklab' (see README, Recording new ground truth)")
         return res
     good = [i for i in cands if i["minecraft"] == MC_VERSION and i["fabric_loader"]]
     if not good:

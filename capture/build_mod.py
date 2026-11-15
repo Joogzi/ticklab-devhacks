@@ -49,7 +49,7 @@ def find_javac() -> str:
                 return str(c)
         except Exception:
             continue
-    raise SystemExit("No JDK >= 25 javac found (JAVA_HOME, PATH, Program Files, Prism java/). See docs/CAPTURE_SETUP.md step 1.")
+    raise SystemExit("No JDK >= 25 javac found (JAVA_HOME, PATH, Program Files, Prism java/). See the README section "Recording new ground truth".")
 
 
 def test_classpath() -> list[str]:

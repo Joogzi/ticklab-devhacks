@@ -83,7 +83,7 @@ the agent's inputs. A third capture run, in recording mode, re-recorded all 44 g
 <!--fill:oracle_coverage-->44<!--/fill--> real recordings on two fixtures (open floor and one wall). Hidden variants with other timings use the
 reference layer, which matches all of those recordings exactly. Earlier benchmark runs judged against smaller or
 pre-correction oracles are kept in `results/summary_thin_mode.json` and `results/summary_flat_only.json` and superseded
-by the numbers above (see `docs/ENGINEERING.md`). Open `report/index.html` (`python -m factory report`) to replay any run.
+by the numbers above (see Design notes below). Open `report/index.html` (`python -m factory report`) to replay any run.
 
 ## Repository map
 
@@ -94,10 +94,59 @@ by the numbers above (see `docs/ENGINEERING.md`). Open `report/index.html` (`pyt
 | `bugs/` | harness-private seeded-bug cases: patches, developer-style reports, traps, hidden variants |
 | `factory/` | the harness: verifier, selftest, calibrate, check, lab MCP server, agent driver, loop, bench, report |
 | `capture/` | TickProbe Fabric mod + Prism Launcher tooling that records real vanilla traces (optional; Windows) |
-| `docs/ENGINEERING.md` | architecture, tradeoffs, failure modes, evidence |
 
 ## Reproducing without Minecraft
 
 The simulator, verifier, harness, benchmark and report only read the committed corpus traces, so you
-don't need Minecraft to reproduce any result. Capture (`capture/`, see `docs/CAPTURE_SETUP.md`) is only for
+don't need Minecraft to reproduce any result. Capture (`capture/`, see Recording new ground truth below) is only for
 recording new ground truth.
+
+## Design notes
+
+**Flow.** A bug report (untrusted text) becomes `CASE.md` in an isolated workspace outside the repo. A fresh `claude -p`
+process per attempt edits only `sim/src/*.py`; in the lab condition it also gets the harness-owned MCP lab tools. The
+harness extracts the `git diff`, and the verifier applies only that diff to a clean checkout and runs
+G0 integrity, G1 build, G2 target repro, G3 visible suite and unit tests, G4 hidden holdouts, G5 determinism.
+Rejected attempts get feedback (identical for both conditions) and try again; accepted ones are done.
+
+**Trust boundary.** Only the diff is trusted, and candidate code runs only in a subprocess. The agent's `STATUS: FIXED`
+is recorded separately from the verdict, so a "false done" is a measured quantity. Both conditions get the same feedback,
+so the experiment isolates the lab tools.
+
+**Why hidden holdouts.** Anything the agent can see, it can satisfy without fixing the behavior (edit a test, hardcode
+the repro, fix only the reported input). Selftest shows the holdouts catch a hardcoded repro and a naive sprint fix;
+both pass G2 and G3 and fail only G4.
+
+**Why a reference layer.** Real captures are slow and finite; a pristine copy of the simulator answers variants nobody
+recorded. It is trusted only as far as it matches the 44 recordings, and every answer is labeled `vanilla` or `reference`.
+
+**Why read bytecode.** Minecraft 26.x is unobfuscated, so the per-tick order was read with `javap` and then calibrated
+against real recordings (which overturned one assumption: sprint speed does not lag a tick).
+
+**Rejected alternatives:** letting the agent run the verifier (leaks the holdouts); OS sandboxing (no time; containment is
+workspace isolation, an allow-listed shell, post-hoc tool-log scan and the G0 capability scan).
+
+| Failure | Detection / mitigation |
+|---|---|
+| Agent edits tests, tolerances, corpus, verifier | G0 path policy (only `sim/src/*.py`), protected-file hash manifest |
+| Agent special-cases the reported input | G4 hidden holdouts |
+| Agent reads oracle data / adds a dependency | G0 capability scan |
+| Agent wanders outside its workspace | permission mode, plus a tool-log scan that flags `TAMPER_SUSPECT` and G0 rejects |
+| Prompt injection via the bug report | report is quoted untrusted data; least-privilege tools |
+| LLM slow, stuck or wrong | per-attempt time and budget caps, process-tree kill, verdict never depends on the LLM |
+| Reference layer wrong | calibration against every real trace; provenance on every answer |
+| Flaky sim | G5 runs the suite twice, byte-identical |
+
+The weakest point is oracle coverage: where no real trace exists, correctness rests on the calibrated reference model.
+There is no OS-level sandbox, and time claims are agent time, not a human baseline.
+
+## Recording new ground truth (optional, Windows)
+
+Not needed to reproduce any result. Real traces come from a small Fabric client mod (TickProbe, `capture/mod/`) in a
+dedicated Prism Launcher instance; only an instance whose name contains `ticklab` is touched.
+
+1. Install a JDK 25 (`javac` on PATH; the mod is compiled with plain `javac`).
+2. In Prism, create an instance named `ticklab-capture` with Minecraft 26.3 and Fabric Loader (no Fabric API), launch once, quit.
+3. In it, create a singleplayer world named `ticklab` (Superflat, cheats on, Peaceful).
+4. `python capture/discover_prism.py`, then `python capture/build_mod.py` (add `--wall` for the wall fixture), then
+   `python capture/run_capture.py`, and `python capture/normalize.py` to write the corpus. Play the instance and open the world; the mod runs the scenarios and closes the game.

@@ -110,7 +110,7 @@ def g_harness_tests():
     return ("PASS" if p.returncode == 0 else "FAIL", " / ".join(l for l in tail[-3:] if l.strip()))
 
 
-DOCS = ["README.md", "docs/ENGINEERING.md", ("docs/CAPTURE_SETUP.md", "docs/CAPTURE_SETUP.md")]
+DOCS = ["README.md"]
 
 
 def g_docs():
