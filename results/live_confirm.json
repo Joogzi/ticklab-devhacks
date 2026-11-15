@@ -1,0 +1,115 @@
+{
+  "captured_at": "2026-11-15T01:11:38+00:00",
+  "minecraft": "26.3",
+  "note": "Scenario inputs were written by the agent (saved repros); the capture mod replayed them in real Minecraft.",
+  "items": [
+    {
+      "name": "live_b5_diag_walk_fl_exact_ulp",
+      "case": "b5_diagonal_input",
+      "run_id": "b5_diagonal_input__lab-2__20261114-152255__bench",
+      "model": "haiku",
+      "repro": "diag_walk_fl_exact_ulp",
+      "attempt": 2,
+      "patch": "results/featured/b5_diagonal_input__lab-2__20261114-152255__bench/attempt2.patch",
+      "reference": {
+        "status": "match",
+        "first_divergence": null
+      },
+      "buggy": {
+        "status": "diverge",
+        "first_divergence": {
+          "tick": 0,
+          "field": "vx",
+          "expected": 0.03860803139735231,
+          "actual": 0.03783587610664428,
+          "delta": 0.0007721552907080306
+        }
+      },
+      "accepted_patch": {
+        "status": "match",
+        "first_divergence": null
+      }
+    },
+    {
+      "name": "live_b6_air_w_hold_sprint_jump",
+      "case": "b6_air_acceleration",
+      "run_id": "b6_air_acceleration__lab-2__20261114-170648__bench",
+      "model": "haiku",
+      "repro": "air_w_hold_sprint_jump",
+      "attempt": 1,
+      "patch": "results/featured/b6_air_acceleration__lab-2__20261114-170648__bench/attempt1.patch",
+      "reference": {
+        "status": "match",
+        "first_divergence": null
+      },
+      "buggy": {
+        "status": "diverge",
+        "first_divergence": {
+          "tick": 1,
+          "field": "vz",
+          "expected": 0.18585879368564506,
+          "actual": 0.18771374359413087,
+          "delta": 0.001854949908485809
+        }
+      },
+      "accepted_patch": {
+        "status": "match",
+        "first_divergence": null
+      }
+    },
+    {
+      "name": "live_c9_sprintjump_boost_missing",
+      "case": "c9_compound_sprint_jump",
+      "run_id": "c9_compound_sprint_jump__lab-10__20261114-154410",
+      "model": "sonnet",
+      "repro": "sprintjump_boost_missing",
+      "attempt": 1,
+      "patch": "results/featured/c9_compound_sprint_jump__lab-10__20261114-154410/attempt1.patch",
+      "reference": {
+        "status": "match",
+        "first_divergence": null
+      },
+      "buggy": {
+        "status": "diverge",
+        "first_divergence": {
+          "tick": 3,
+          "field": "vz",
+          "expected": 0.23747749591399855,
+          "actual": 0.12827748323013013,
+          "delta": 0.10920001268386842
+        }
+      },
+      "accepted_patch": {
+        "status": "match",
+        "first_divergence": null
+      }
+    },
+    {
+      "name": "live_c9_c9_compound_sprint_jump_air_boost",
+      "case": "c9_compound_sprint_jump",
+      "run_id": "c9_compound_sprint_jump__lab-2__20261114-153128__bench",
+      "model": "haiku",
+      "repro": "c9_compound_sprint_jump_air_boost",
+      "attempt": 2,
+      "patch": "results/featured/c9_compound_sprint_jump__lab-2__20261114-153128__bench/attempt2.patch",
+      "reference": {
+        "status": "match",
+        "first_divergence": null
+      },
+      "buggy": {
+        "status": "diverge",
+        "first_divergence": {
+          "tick": 5,
+          "field": "vz",
+          "expected": 0.2583574005138509,
+          "actual": 0.1491573878299825,
+          "delta": 0.10920001268386842
+        }
+      },
+      "accepted_patch": {
+        "status": "match",
+        "first_divergence": null
+      }
+    }
+  ]
+}

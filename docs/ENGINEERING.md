@@ -49,6 +49,13 @@ divergences now land on real vanilla scenarios, and the selftest is still 21/21.
 argues for: a model that looked right from source reading was corrected only by recorded behavior.
 
 
+**Live confirm (agent-written scenarios in the real game).** `capture/live_confirm.py` takes the repro scenarios the agent
+saved during accepted featured runs and has TickProbe replay them in real Minecraft 26.3. Presentation mode adds a
+third-person camera and on-screen captions, and doesn't change the movement. Each recording is then compared against the
+original buggy code, the agent's accepted patch, and the reference simulator. Result: 4/4 recordings match the accepted
+patch and the reference exactly, and all 4 diverge from the buggy code (first divergence at ticks 0–5). This check is
+independent of the verifier: the inputs were authored by the agent, and the answers come from the real game, not the oracle.
+
 ## Architecture and data flow
 
 ```
