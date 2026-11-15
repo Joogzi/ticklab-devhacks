@@ -132,6 +132,7 @@ def main(argv=None) -> int:
     ap.add_argument("--no-repeat-check", action="store_true")
     ap.add_argument("--no-ready-file", action="store_true")
     ap.add_argument("--wall", action="store_true", help="wall_v1 fixture: build the wall and run only the wall scenarios")
+    ap.add_argument("--presentation", action="store_true", help="recording mode: third-person camera + small captions")
     a = ap.parse_args(argv)
     if a.test_compile:
         jar = compile_mod(test_classpath())
@@ -153,6 +154,16 @@ def main(argv=None) -> int:
         only = only or [r["name"] for r in rows if r["scenario"].get("fixture") == "wall_v1"]
         repeat = [] if a.no_repeat_check else ["wall_sprint_jump_land", "wall_glance_sprint"]
         extra["fixture_commands"] = WALL_COMMANDS
+    if a.presentation:
+        extra.update({"presentation": True, "settle_ticks": 60})
+        if a.wall:  # captions for the ground-truth wall movements
+            rows = json.loads((ROOT / "oracle" / "corpus_scenarios.json").read_text(encoding="utf-8"))["scenarios"]
+            cap = {r["name"]: r["scenario"] for r in rows}
+            sf = HERE / "out" / f"{a.batch}_scenarios.json"
+            sf.parent.mkdir(parents=True, exist_ok=True)
+            sf.write_text(json.dumps({"scenarios": [{"name": n, "scenario": dict(cap[n], _caption=f"Ground truth: {n}",
+                          _sub="wall · real Minecraft 26.3")} for n in only]}), encoding="utf-8")
+            extra["scenarios_file"] = str(sf)
     cfg = install(sel, jar, a.batch, a.order, a.seed, only, repeat, extra)
     if not a.no_ready_file:
         write_ready(sel, cfg, a.batch)

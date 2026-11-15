@@ -76,11 +76,12 @@ no recordings), so it is only as trustworthy as the calibration above.
 **Live confirm (agent-written scenarios in the real game).** `capture/live_confirm.py` takes the repro scenarios the agent
 saved during accepted featured runs and has TickProbe replay them in real Minecraft 26.3. Presentation mode adds a
 third-person camera and on-screen captions, and doesn't change the movement. Each recording is then compared against the
-original buggy code, the agent's accepted patch, and the reference simulator. Result: 4/4 recordings match the accepted
-patch and the reference exactly, and all 4 diverge from the buggy code (first divergence at ticks 0–5). This check is
+original buggy code, the agent's accepted patch, and the reference simulator. Result (latest featured runs): 3/3 recordings
+(b10 and b11 against the wall, c9 on open floor) match the accepted patch and the reference exactly, and all 3 diverge
+from the buggy code. An earlier session with the previous featured runs gave 4/4. This check is
 independent of the verifier: the inputs were authored by the agent, and the answers come from the real game, not the oracle.
-The same session re-recorded all 33 corpus scenarios in presentation mode: **33/33 byte-identical** to the committed
-corpus. That is a third independent capture run with identical output, and it shows the camera and captions don't touch movement.
+Recording mode also re-recorded all 44 corpus scenarios (two presentation batches): **44/44 byte-identical** to the
+committed corpus. That is a third independent capture run with identical output, and it shows the camera and captions don't touch movement.
 
 ## Architecture and data flow
 

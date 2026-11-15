@@ -1,16 +1,16 @@
 {
-  "captured_at": "2026-11-15T01:26:14+00:00",
+  "captured_at": "2026-11-15T06:00:58+00:00",
   "minecraft": "26.3",
   "note": "Scenario inputs were written by the agent (saved repros); the capture mod replayed them in real Minecraft.",
   "items": [
     {
-      "name": "live_b5_diag_walk_fl_exact_ulp",
-      "case": "b5_diagonal_input",
-      "run_id": "b5_diagonal_input__lab-2__20261114-152255__bench",
+      "name": "live_b10_wall_graze_keeps_sprint",
+      "case": "b10_wall_glance_sprint",
+      "run_id": "b10_wall_glance_sprint__lab-1__20261114-235758__bench",
       "model": "haiku",
-      "repro": "diag_walk_fl_exact_ulp",
-      "attempt": 2,
-      "patch": "results/featured/b5_diagonal_input__lab-2__20261114-152255__bench/attempt2.patch",
+      "repro": "wall_graze_keeps_sprint",
+      "attempt": 1,
+      "patch": "results/featured/b10_wall_glance_sprint__lab-1__20261114-235758__bench/attempt1.patch",
       "reference": {
         "status": "match",
         "first_divergence": null
@@ -18,11 +18,11 @@
       "buggy": {
         "status": "diverge",
         "first_divergence": {
-          "tick": 0,
-          "field": "vx",
-          "expected": 0.03860803139735231,
-          "actual": 0.03783587610664428,
-          "delta": 0.0007721552907080306
+          "tick": 17,
+          "field": "sprinting",
+          "expected": true,
+          "actual": false,
+          "delta": null
         }
       },
       "accepted_patch": {
@@ -31,13 +31,13 @@
       }
     },
     {
-      "name": "live_b6_air_w_hold_sprint_jump",
-      "case": "b6_air_acceleration",
-      "run_id": "b6_air_acceleration__lab-2__20261114-170648__bench",
+      "name": "live_b11_wall_airborne_sprint_jump_zeroes_blocked_vz",
+      "case": "b11_wall_air_velocity",
+      "run_id": "b11_wall_air_velocity__lab-1__20261114-235909__bench",
       "model": "haiku",
-      "repro": "air_w_hold_sprint_jump",
+      "repro": "wall_airborne_sprint_jump_zeroes_blocked_vz",
       "attempt": 1,
-      "patch": "results/featured/b6_air_acceleration__lab-2__20261114-170648__bench/attempt1.patch",
+      "patch": "results/featured/b11_wall_air_velocity__lab-1__20261114-235909__bench/attempt1.patch",
       "reference": {
         "status": "match",
         "first_divergence": null
@@ -45,11 +45,11 @@
       "buggy": {
         "status": "diverge",
         "first_divergence": {
-          "tick": 1,
+          "tick": 30,
           "field": "vz",
-          "expected": 0.18585879368564506,
-          "actual": 0.18771374359413087,
-          "delta": 0.001854949908485809
+          "expected": -0.0,
+          "actual": 0.053508008053839436,
+          "delta": 0.053508008053839436
         }
       },
       "accepted_patch": {
@@ -83,39 +83,16 @@
         "status": "match",
         "first_divergence": null
       }
-    },
-    {
-      "name": "live_c9_c9_compound_sprint_jump_air_boost",
-      "case": "c9_compound_sprint_jump",
-      "run_id": "c9_compound_sprint_jump__lab-2__20261114-153128__bench",
-      "model": "haiku",
-      "repro": "c9_compound_sprint_jump_air_boost",
-      "attempt": 2,
-      "patch": "results/featured/c9_compound_sprint_jump__lab-2__20261114-153128__bench/attempt2.patch",
-      "reference": {
-        "status": "match",
-        "first_divergence": null
-      },
-      "buggy": {
-        "status": "diverge",
-        "first_divergence": {
-          "tick": 5,
-          "field": "vz",
-          "expected": 0.2583574005138509,
-          "actual": 0.1491573878299825,
-          "delta": 0.10920001268386842
-        }
-      },
-      "accepted_patch": {
-        "status": "match",
-        "first_divergence": null
-      }
     }
   ],
   "presentation_rerecord": {
-    "scenarios": 33,
-    "byte_identical_to_corpus": 33,
+    "scenarios": 44,
+    "byte_identical_to_corpus": 44,
     "different": [],
-    "missing": 0
+    "missing": 0,
+    "batches": [
+      "live",
+      "wp"
+    ]
   }
 }

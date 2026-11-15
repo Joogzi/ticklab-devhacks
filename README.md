@@ -74,10 +74,10 @@ working directory across commands.
 seeded bugs from random scenarios and shrank each one to a minimal repro (see `results/discovery.json`).
 
 **Live confirm in the real game.** The scenarios the agent wrote while debugging (its saved repros) were replayed in
-real Minecraft 26.3 by the capture mod. In 4/4, the real recording matches the agent's accepted patch on every tick and
-diverges from the original buggy code (`results/live_confirm.json`, `python capture/live_confirm.py analyze`). The agent
-never touches the game; the mod plays the agent's inputs. A third capture run in the same session re-recorded all 33
-ground-truth scenarios byte-identically.
+real Minecraft 26.3 by the capture mod. In 3/3 (two of them against the wall, from b10 and b11; one sprint-jump from c9),
+the real recording matches the agent's accepted patch on every tick and diverges from the original buggy code
+(`results/live_confirm.json`, `python capture/live_confirm.py analyze`). The agent never touches the game; the mod plays
+the agent's inputs. A third capture run, in recording mode, re-recorded all 44 ground-truth scenarios byte-identically.
 
 **Caveats.** Small n (<!--fill:n_runs-->88<!--/fill--> runs, two models): these are counts, with no significance claims. Ground truth is
 <!--fill:oracle_coverage-->44<!--/fill--> real recordings on two fixtures (open floor and one wall). Hidden variants with other timings use the

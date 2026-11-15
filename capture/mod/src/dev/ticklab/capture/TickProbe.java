@@ -154,6 +154,7 @@ public final class TickProbe {
             JsonObject m = cfg.getAsJsonObject("fixture_commands_by_fixture");
             if (!fx.equals(builtFixture) && m.has(fx)) {
                 for (JsonElement c : m.getAsJsonArray(fx)) command(Minecraft.getInstance(), c.getAsString());
+                command(Minecraft.getInstance(), "tp @a 0.5 100 0.5 0 0");  // server-side, so the server never sees a move through the wall
                 builtFixture = fx;
             }
         }
