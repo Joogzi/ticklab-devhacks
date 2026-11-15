@@ -14,7 +14,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.phys.Vec3;
@@ -40,6 +42,7 @@ public final class TickProbe {
     private static final JsonArray failures = new JsonArray();
     private static final JsonArray timings = new JsonArray();
     private static long startedAt, scenarioStart;
+    private static boolean presentation = false;
 
     /** Physical input is blocked only while the capture drives the player inside the world (never on menus). */
     public static boolean active() { return phase == Phase.SETUP || phase == Phase.RESET || phase == Phase.SETTLE || phase == Phase.RUN; }
@@ -101,6 +104,8 @@ public final class TickProbe {
         mc.options.autoJump().set(false);
         mc.options.toggleSprint().set(false);
         mc.options.toggleCrouch().set(false);
+        presentation = cfg.has("presentation") && cfg.get("presentation").getAsBoolean();
+        if (presentation) mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
         startedAt = System.currentTimeMillis();
         phase = Phase.WAIT_WORLD;
     }
@@ -138,6 +143,12 @@ public final class TickProbe {
     private static void reset(LocalPlayer p) {
         if (qi >= queue.size()) { finish(); return; }
         cur = queue.get(qi);
+        if (presentation) {  // on-screen captions for recording; never affects movement
+            Minecraft mc = Minecraft.getInstance();
+            mc.gui.hud.setTimes(5, 50, 10);
+            mc.gui.hud.setTitle(Component.literal(cur.has("_caption") ? cur.get("_caption").getAsString() : cur.get("name").getAsString()));
+            mc.gui.hud.setSubtitle(Component.literal(cur.has("_sub") ? cur.get("_sub").getAsString() : "TickLab capture"));
+        }
         p.setSprinting(false);
         p.setPos(0.5, 100.0, 0.5);
         p.setYRot(0f); p.setXRot(0f); p.yRotO = 0f; p.xRotO = 0f;
@@ -188,6 +199,7 @@ public final class TickProbe {
 
     private static void run(Minecraft mc, LocalPlayer p) throws IOException {
         buf.append(state(p, "tick", tick)).append('\n');
+        if (presentation) mc.gui.hud.setOverlayMessage(Component.literal("TickLab · real Minecraft 26.3 · tick " + tick + " / " + (cur.get("duration").getAsInt() - 1)), false);
         if (++tick < cur.get("duration").getAsInt()) return;
         releaseKeys(mc);
         Files.writeString(outDir.resolve(curFile), buf.toString(), StandardCharsets.UTF_8);

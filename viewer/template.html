@@ -5,113 +5,348 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TickLab Report</title>
 <style>
-:root{--bg:#f6f7f9;--panel:#fff;--ink:#1b1f24;--mute:#5b6570;--line:#d9dee4;--accent:#2f6fde;--ok:#1d8a4e;--bad:#c63b3b;--warn:#b8860b;
---oracle:#1b1f24;--s0:#d9534f;--s1:#2f6fde;--s2:#8a5cd6;--chip:#eef1f5}
-@media (prefers-color-scheme: dark){:root{--bg:#111418;--panel:#191d22;--ink:#e6e9ed;--mute:#9aa4ae;--line:#2c333b;--accent:#6ea0ff;
---ok:#45c27c;--bad:#ff6b6b;--warn:#e0b341;--oracle:#e6e9ed;--s0:#ff7b72;--s1:#6ea0ff;--s2:#c19bff;--chip:#232930}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
-header{padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel);display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-h1{font-size:18px;margin:0 12px 0 0}.banner{padding:4px 10px;border-radius:6px;font-weight:600;background:var(--chip)}
-.banner.thin{color:var(--warn)}nav button{background:none;border:1px solid var(--line);color:var(--ink);padding:6px 12px;border-radius:6px;cursor:pointer;margin-right:4px}
-nav button.on{background:var(--accent);color:#fff;border-color:var(--accent)}main{padding:16px;max-width:1300px;margin:0 auto}
-.panel{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:14px}
-select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:6px;padding:4px 6px;max-width:100%}
-.row{display:flex;flex-wrap:wrap;gap:14px}.col{flex:1 1 380px;min-width:0}canvas{width:100%;height:auto;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
-table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums}th,td{border-bottom:1px solid var(--line);padding:4px 6px;text-align:left;vertical-align:top}
-th{color:var(--mute);font-weight:600}.ok{color:var(--ok);font-weight:600}.bad{color:var(--bad);font-weight:600}.mute{color:var(--mute)}
-.chip{display:inline-block;padding:1px 7px;border-radius:10px;background:var(--chip);margin:1px 2px;font-size:12px}
-.chip.pass{color:var(--ok)}.chip.fail{color:var(--bad)}pre{white-space:pre-wrap;word-break:break-word;background:var(--chip);padding:8px;border-radius:6px;font-size:12px;max-height:340px;overflow:auto}
-.legend span{margin-right:12px}.sw{display:inline-block;width:18px;height:3px;vertical-align:middle;margin-right:4px}
-.bar{height:16px;border-radius:3px;display:inline-block;vertical-align:middle}.controls{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:8px 0}
-input[type=range]{flex:1 1 200px}.keys .chip{font-weight:600}blockquote{margin:6px 0;padding:6px 10px;border-left:3px solid var(--line);color:var(--mute)}
-@media (max-width:600px){main{padding:10px}}
+:root{--bg:#0b0f14;--bg2:#10161d;--panel:#141b23;--panel2:#1a2330;--line:#253141;--ink:#e8eef5;--mute:#8b9bb0;--dim:#5d6b7d;
+--real:#3ee08f;--bug:#ff5d5d;--fix:#5aa9ff;--warn:#ffc04d;--accent:#9b8cff;--ok:#3ee08f;--bad:#ff5d5d;
+--mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(1200px 600px at 70% -10%,#1b2540 0%,transparent 60%),var(--bg);color:var(--ink);
+font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--fix)}
+header{position:sticky;top:0;z-index:20;background:rgba(11,15,20,.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1440px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{font-weight:800;font-size:20px;letter-spacing:.3px;display:flex;align-items:center;gap:10px}
+.logo i{display:inline-block;width:22px;height:22px;border-radius:5px;background:linear-gradient(135deg,var(--real),var(--fix));box-shadow:0 0 18px rgba(62,224,143,.45)}
+nav{display:flex;gap:4px;flex-wrap:wrap}nav a{color:var(--mute);text-decoration:none;padding:6px 11px;border-radius:8px;font-weight:600;font-size:14px}
+nav a:hover{color:var(--ink);background:var(--panel2)}
+.pill{padding:4px 11px;border-radius:999px;font-size:12.5px;font-weight:700;background:rgba(62,224,143,.12);color:var(--real);border:1px solid rgba(62,224,143,.35)}
+.pill.thin{background:rgba(255,192,77,.12);color:var(--warn);border-color:rgba(255,192,77,.35)}
+main{max-width:1440px;margin:0 auto;padding:0 20px 60px}
+section{padding-top:34px}
+h2{font-size:26px;margin:0 0 4px;letter-spacing:-.2px}h3{margin:0 0 8px;font-size:17px}
+.sub{color:var(--mute);margin:0 0 18px;max-width:900px}
+.hero{padding:46px 0 10px}
+.hero h1{font-size:46px;line-height:1.08;margin:0 0 14px;letter-spacing:-1px;max-width:980px}
+.hero h1 em{font-style:normal;background:linear-gradient(90deg,var(--real),var(--fix));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mute);font-size:18px;max-width:880px;margin:0 0 26px}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.stat{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.stat b{display:block;font-size:34px;letter-spacing:-.5px}.stat span{color:var(--mute);font-size:13.5px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.grid2{display:grid;grid-template-columns:300px minmax(0,1fr);gap:16px}
+.runs{display:flex;flex-direction:column;gap:8px;max-height:760px;overflow:auto;padding-right:4px}
+.runcard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 12px;cursor:pointer;transition:.15s}
+.runcard:hover{border-color:var(--dim)}.runcard.on{border-color:var(--fix);box-shadow:0 0 0 1px var(--fix) inset}
+.runcard .t{font-weight:700;font-size:14px}.runcard .m{color:var(--mute);font-size:12.5px}
+.badge{display:inline-block;font-size:11.5px;font-weight:800;padding:2px 8px;border-radius:6px;letter-spacing:.3px}
+.b-ok{background:rgba(62,224,143,.15);color:var(--ok)}.b-bad{background:rgba(255,93,93,.15);color:var(--bad)}.b-mute{background:var(--panel2);color:var(--mute)}
+.b-warn{background:rgba(255,192,77,.15);color:var(--warn)}.b-fix{background:rgba(90,169,255,.15);color:var(--fix)}
+.quote{border-left:3px solid var(--warn);padding:8px 14px;background:rgba(255,192,77,.06);border-radius:0 10px 10px 0;font-size:16px}
+.quote small{display:block;color:var(--warn);font-weight:700;font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;margin-bottom:2px}
+.timeline{display:flex;gap:0;overflow-x:auto;padding:16px 2px 6px;align-items:stretch}
+.node{min-width:170px;max-width:220px;flex:1 0 170px;position:relative;padding:12px 12px 10px;margin-right:26px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;cursor:default}
+.node.click{cursor:pointer}.node.click:hover{border-color:var(--dim)}.node.on{border-color:var(--fix);box-shadow:0 0 0 1px var(--fix) inset}
+.node:not(:last-child)::after{content:"";position:absolute;right:-27px;top:50%;width:26px;height:2px;background:var(--line)}
+.node .k{font-size:11px;color:var(--mute);text-transform:uppercase;letter-spacing:.7px;font-weight:700}.node .v{font-weight:700;margin:3px 0}
+.node .d{font-size:12.5px;color:var(--mute)}
+.stage{position:relative;background:radial-gradient(900px 500px at 50% 30%,#152033,#0a0e14);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+#scene{display:block;width:100%;height:520px;cursor:grab}#scene:active{cursor:grabbing}
+.overlay{position:absolute;left:14px;top:12px;right:14px;display:flex;justify-content:space-between;gap:10px;pointer-events:none;flex-wrap:wrap}
+.legend{display:flex;gap:14px;flex-wrap:wrap;background:rgba(10,14,20,.7);padding:6px 10px;border-radius:10px;font-size:13px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.tickbox{background:rgba(10,14,20,.7);padding:6px 12px;border-radius:10px;font:600 14px var(--mono)}
+.divtag{position:absolute;left:14px;bottom:12px;background:rgba(255,93,93,.16);color:var(--bad);border:1px solid rgba(255,93,93,.45);padding:6px 11px;border-radius:10px;font-weight:700;font-size:13.5px}
+.controls{display:flex;gap:10px;align-items:center;margin:12px 0 6px;flex-wrap:wrap}
+button{font:inherit;background:var(--panel2);color:var(--ink);border:1px solid var(--line);padding:7px 13px;border-radius:9px;cursor:pointer;font-weight:600}
+button:hover{border-color:var(--dim)}button.on{background:var(--fix);border-color:var(--fix);color:#06101c}
+input[type=range]{flex:1 1 260px;accent-color:var(--fix)}
+.keys{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.kc{min-width:38px;text-align:center;padding:6px 8px;border-radius:8px;background:var(--panel2);border:1px solid var(--line);border-bottom-width:3px;font:700 13px var(--mono);color:var(--dim);transition:.08s}
+.kc.on{background:var(--fix);color:#06101c;border-color:#2c6fc0;transform:translateY(1px)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}.chip{font-size:12.5px;padding:4px 10px;border-radius:999px;background:var(--panel2);border:1px solid var(--line);cursor:pointer;color:var(--mute)}
+.chip.on{color:var(--ink);border-color:var(--fix)}
+.gates{display:flex;gap:6px;flex-wrap:wrap}.gate{padding:6px 10px;border-radius:9px;font-size:12.5px;font-weight:700;border:1px solid var(--line);background:var(--panel2)}
+.gate.pass{color:var(--ok);border-color:rgba(62,224,143,.4)}.gate.fail{color:var(--bad);border-color:rgba(255,93,93,.5);background:rgba(255,93,93,.1)}.gate.skip{color:var(--dim)}
+pre{margin:0;white-space:pre-wrap;word-break:break-word;font:12.5px/1.5 var(--mono);background:#0a0e14;border:1px solid var(--line);border-radius:10px;padding:10px 12px;max-height:340px;overflow:auto}
+.diff .a{color:var(--ok);background:rgba(62,224,143,.08)}.diff .r{color:var(--bad);background:rgba(255,93,93,.08)}.diff .h{color:var(--accent)}
+.row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:14px;margin-top:14px}
+canvas.chart{width:100%;height:210px;display:block}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}th{color:var(--mute);font-weight:600;font-size:12.5px;text-transform:uppercase;letter-spacing:.4px}
+.vs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.metric{display:grid;grid-template-columns:200px 1fr 1fr;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line)}
+.metric .lbl{color:var(--mute);font-size:14px}.hbar{height:26px;border-radius:7px;display:flex;align-items:center;padding:0 9px;font-weight:800;font-size:13px;color:#06101c;min-width:34px}
+.matrix td{text-align:center}.dot{display:inline-block;width:22px;height:22px;border-radius:6px;margin:1px}
+.wall{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.brick{border:1px solid rgba(255,93,93,.35);background:rgba(255,93,93,.07);border-radius:11px;padding:10px 12px}
+.brick b{color:var(--bad);font-size:12px;letter-spacing:.5px}.brick.okb{border-color:rgba(62,224,143,.35);background:rgba(62,224,143,.06)}.brick.okb b{color:var(--ok)}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.tile{border-radius:10px;padding:8px 10px;background:var(--panel2);border:1px solid var(--line);font-size:12.5px}
+.tile .n{font:600 12px var(--mono);word-break:break-all}.tile .s{font-weight:800;font-size:11.5px}
+.bugs{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:12px}
+.bug{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px}
+.bug p{margin:0;color:var(--mute);font-size:13.5px}
+.callout{border:1px solid var(--line);border-left:4px solid var(--warn);border-radius:12px;padding:12px 14px;background:var(--panel)}
+.small{font-size:13px;color:var(--mute)}
+@media (max-width:1000px){.grid2,.row,.vs{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:34px}.metric{grid-template-columns:1fr}}
+@media (max-width:560px){main,.bar{padding-left:16px;padding-right:16px}.stats{grid-template-columns:1fr}#scene{height:380px}}
 </style>
 </head>
 <body>
-<header><h1>TickLab</h1><span id="cov" class="banner"></span>
-<nav><button data-t="replay" class="on">Replay</button><button data-t="timeline">Factory timeline</button><button data-t="bench">Benchmark</button><button data-t="cases">Seeded bugs</button></nav></header>
+<header><div class="bar"><div class="logo"><i></i>TickLab</div>
+<nav><a href="#story">Case story</a><a href="#live">Live confirm</a><a href="#evidence">Evidence</a><a href="#truth">Ground truth</a><a href="#bugs">Seeded bugs</a><a href="#runs">All runs</a></nav>
+<span id="cov" class="pill"></span></div></header>
 <main>
-<section id="t-replay"></section><section id="t-timeline" hidden></section><section id="t-bench" hidden></section><section id="t-cases" hidden></section>
+<div class="hero" id="top">
+ <h1>Verified behavior changes, <em>not claimed ones.</em></h1>
+ <p>A coding agent gets a vague bug report about game movement. It reproduces the bug in a lab backed by recordings of the real game, patches the code, and an independent verifier it can't see or touch decides whether the fix is real.</p>
+ <div class="stats" id="stats"></div>
+</div>
+
+<section id="story">
+ <h2>Case story</h2><p class="sub">Pick a run. Follow it from bug report to verdict; click any attempt to replay what its code actually does, tick by tick, against the real game.</p>
+ <div class="grid2">
+  <div class="runs" id="runlist"></div>
+  <div>
+   <div class="card"><div class="quote" id="report"></div><div class="timeline" id="timeline"></div></div>
+   <div style="height:14px"></div>
+   <div class="stage"><canvas id="scene"></canvas>
+    <div class="overlay"><div class="legend" id="legend"></div><div class="tickbox" id="tickbox"></div></div>
+    <div class="divtag" id="divtag" hidden></div></div>
+   <div class="controls"><button id="play">▶ Play</button><button id="speed">1×</button>
+    <input id="scrub" type="range" min="0" value="0"><button id="jump" hidden>⤓ First divergence</button>
+    <div class="keys" id="keys"></div></div>
+   <div class="chips" id="scenarios"></div>
+   <div class="row">
+    <div class="card"><div style="display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap"><h3 style="margin:0">Per-tick signal</h3><div class="chips" id="fields"></div></div><canvas class="chart" id="chart"></canvas></div>
+    <div class="card"><h3>State at this tick</h3><table id="state"></table></div>
+   </div>
+   <div class="card" style="margin-top:14px" id="attempt"></div>
+  </div>
+ </div>
+</section>
+
+<section id="live" hidden>
+ <h2>Live confirm: the agent's own tests, run in real Minecraft</h2><p class="sub" id="livesub"></p>
+ <div class="bugs" id="livelist"></div>
+</section>
+
+<section id="evidence">
+ <h2>Evidence: same agent, with and without the lab</h2><p class="sub" id="evsub"></p>
+ <div class="vs"><div class="card" id="metrics"></div><div class="card"><h3>Per case (each square = one run)</h3><table class="matrix" id="matrix"></table><p class="small">Green = accepted by the verifier, red = rejected. Hover for gates.</p></div></div>
+ <div style="height:14px"></div>
+ <div class="callout" id="honest"></div>
+ <h3 style="margin-top:26px">The verifier can't be gamed</h3><p class="sub">Scripted patches, no LLM: reference fixes must pass, naive fixes and cheating attempts must fail at the right gate.</p>
+ <div class="wall" id="wall"></div>
+</section>
+
+<section id="truth">
+ <h2>Ground truth: real Minecraft 26.3</h2><p class="sub" id="truthsub"></p>
+ <div class="tiles" id="tiles"></div>
+</section>
+
+<section id="bugs">
+ <h2>Seeded bugs</h2><p class="sub">Nine benchmark cases. Every bug passes the visible unit tests yet diverges from the real game by ≥ 100× tolerance. Click one to replay before vs after the reference fix.</p>
+ <div class="bugs" id="buglist"></div>
+</section>
+
+<section id="runs">
+ <h2>All benchmark runs</h2><p class="sub">Every valid record in results/bench.jsonl. Superseded and invalidated runs are excluded (and documented in the repo).</p>
+ <div class="card" style="overflow:auto"><table id="alltable"></table></div>
+</section>
 </main>
 <script>
 const D=/*__DATA__*/null;
-const $=(s,e=document)=>e.querySelector(s), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
-const fmt=v=>typeof v==="number"?(Math.abs(v)<1e-3&&v!==0?v.toExponential(3):v.toFixed(6)):String(v);
-// coverage banner
-const cv=D.coverage; const cb=$("#cov"); cb.textContent=`ORACLE COVERAGE: ${cv.real} real vanilla scenarios`+(cv.mode==="thin"?` (THIN mode; dev goldens ${cv.dev_goldens} bit-exact; other answers from the validated reference layer)`:"");
-if(cv.mode==="thin")cb.classList.add("thin");
-document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll("nav button").forEach(x=>x.classList.toggle("on",x===b));
- document.querySelectorAll("main>section").forEach(s=>s.hidden=s.id!=="t-"+b.dataset.t);if(b.dataset.t==="replay")draw();});
+const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const C={real:"#3ee08f",bug:"#ff5d5d",fix:"#5aa9ff",line:"#253141",mute:"#8b9bb0"};
+const S=D.summary||{},CND=(S.conditions||{}),ST=D.selftest||{rows:[]},CAL=D.calibration||{corpus:[],dev_goldens:[]};
+const fmt=v=>typeof v==="number"?(Number.isInteger(v)?String(v):v.toFixed(6)):v===undefined||v===null?"–":String(v);
+const shortCase=c=>c.replace(/^([bc]\d)_/,"$1 · ").replace(/_/g," ");
 
-// ---------------- Replay ----------------
-const sources=[]; // {label, item}
-const rank=r=>(r.featured?0:2)+(r.attempts.length>1&&r.accepted?0:1);
-D.runs.slice().sort((a,b)=>rank(a)-rank(b)).forEach(r=>r.attempts.forEach(a=>(a.replay||[]).forEach(it=>sources.push({label:`${r.featured?"★ ":""}${r.case} · ${r.condition} · attempt ${a.attempt} (${a.verdict}) · ${it.scenario}`,item:it}))));
-D.gallery.forEach(g=>g.replay.forEach(it=>sources.push({label:`seeded bug ${g.case} · ${it.scenario}`,item:it})));
-let cur=0,tick=0,timer=null;
-$("#t-replay").innerHTML=`<div class="panel"><label>Replay: <select id="src">${sources.map((s,i)=>`<option value="${i}">${esc(s.label)}</option>`).join("")}</select></label>
-<div class="controls"><button id="play">▶ play</button><input id="scrub" type="range" min="0" value="0"><span id="tk" class="mute"></span><span id="div"></span></div>
-<div class="legend" id="leg"></div>
-<div class="row"><div class="col"><div class="mute">Top-down (x right, z up)</div><canvas id="top" width="640" height="420"></canvas></div>
-<div class="col"><div class="mute">Side view (horizontal distance from start → height y)</div><canvas id="side" width="640" height="420"></canvas></div></div>
-<div class="row" style="margin-top:10px"><div class="col"><div class="keys" id="keys"></div><table id="state"></table></div></div></div>`;
-$("#src").onchange=e=>{cur=+e.target.value;tick=0;draw();};
+// ---------- header + hero ----------
+(function(){const cv=$("#cov");const real=CAL.corpus?CAL.corpus.length:0;const m=(CAL.corpus||[]).filter(r=>r.status==="match").length;
+ cv.textContent=real?`Oracle: ${m}/${real} real Minecraft 26.3 recordings matched`:"Oracle: THIN mode (reference layer only)";if(!real)cv.classList.add("thin");
+ const adv=ST.rows.filter(r=>r.kind==="adversarial"),advOk=adv.filter(r=>r.pass).length;
+ const fd=(CND.baseline?CND.baseline.false_done_attempts:0)+(CND.lab?CND.lab.false_done_attempts:0);
+ const runs=(CND.baseline?CND.baseline.runs:0)+(CND.lab?CND.lab.runs:0);
+ const cards=[[`${m}/${real}`,"real-game recordings matched exactly by the simulator"],[`${advOk}/${adv.length}`,"cheating patches rejected (edit tests, loosen tolerances, hardcode the repro…)"],
+  [String(fd),"false “fixed” claims by the agent, every one caught by the verifier"],[String(runs),"agent runs in the benchmark, all judged by the same independent verifier"]];
+ $("#stats").innerHTML=cards.map(c=>`<div class="stat"><b>${c[0]}</b><span>${c[1]}</span></div>`).join("");})();
+
+// ---------- run list + timeline ----------
+const RUNS=D.runs.filter(r=>r.featured).sort((a,b)=>score(b)-score(a));
+function score(r){return (r.notes&&r.notes.length?4:0)+(r.accepted?2:0)+(r.attempts.length>1&&r.accepted?3:0)+(r.investigation?1:0);}
+let curRun=null,curAtt=null,curItem=null,tick=0,playing=false,speed=1,timer=null,field="vz",camA=-0.62,camE=0.62,zoom=1;
+function renderRunList(){
+ const items=RUNS.map((r,i)=>`<div class="runcard" data-i="${i}"><div class="t">${esc(shortCase(r.case))}</div>
+  <div class="m">${r.condition==="lab"?"with lab":"baseline (no lab)"} · ${esc(r.model)}${r.notes&&r.notes.length?" · developer note":""}</div>
+  <div style="margin-top:6px"><span class="badge ${r.accepted?"b-ok":"b-bad"}">${r.accepted?"ACCEPTED":"NOT ACCEPTED"}</span> <span class="badge b-mute">${r.attempts.length} attempt${r.attempts.length>1?"s":""}</span></div></div>`).join("");
+ const gal=D.gallery.map((g,i)=>`<div class="runcard" data-g="${i}"><div class="t">${esc(shortCase(g.case))}</div><div class="m">seeded bug: before vs reference fix</div></div>`).join("");
+ $("#runlist").innerHTML=`<div class="small" style="font-weight:700;letter-spacing:.5px">FEATURED AGENT RUNS</div>${items}<div class="small" style="font-weight:700;letter-spacing:.5px;margin-top:8px">SEEDED BUGS</div>${gal}`;
+ document.querySelectorAll(".runcard").forEach(el=>el.onclick=()=>{document.querySelectorAll(".runcard").forEach(x=>x.classList.remove("on"));el.classList.add("on");
+  if(el.dataset.i!==undefined)selectRun(RUNS[+el.dataset.i]);else selectGallery(D.gallery[+el.dataset.g]);});}
+function selectRun(r){curRun=r;$("#report").innerHTML=`<small>Bug report · untrusted text · ${esc(shortCase(r.case))}</small>${esc(r.report_text)}`;
+ const nodes=[];nodes.push(`<div class="node"><div class="k">Report</div><div class="v">${esc(r.case_name)}</div><div class="d">${r.condition==="lab"?"Agent has the lab (MCP tools + oracle)":"Baseline: code + tests only"}</div></div>`);
+ if(r.investigation)nodes.push(`<div class="node"><div class="k">Investigation</div><div class="v">${r.investigation.lab_tool_calls} lab calls</div><div class="d">${r.agent_repros.length?"Saved repro: "+esc(r.agent_repros[0].name):"no repro saved"}</div></div>`);
+ let seenNotes=0;
+ r.attempts.forEach((a,i)=>{const ns=(a.notes_so_far||[]);if(ns.length>seenNotes){ns.slice(seenNotes).forEach(n=>nodes.push(`<div class="node" style="border-color:rgba(255,192,77,.5)"><div class="k" style="color:var(--warn)">Developer note</div><div class="d" style="color:var(--ink)">“${esc(n)}”</div></div>`));seenNotes=ns.length;}
+  nodes.push(`<div class="node click" data-a="${i}"><div class="k">Attempt ${a.attempt} · agent says ${esc(a.claim)}</div><div class="v"><span class="badge ${a.accepted?"b-ok":"b-bad"}">${a.accepted?"ACCEPTED":"REJECTED"}</span></div><div class="d">${a.accepted?"all 6 gates pass":esc(a.failing_gate||"")}${a.false_done?" · <b style='color:var(--bad)'>false “fixed”</b>":""}</div></div>`);});
+ nodes.push(`<div class="node"><div class="k">Outcome</div><div class="v" style="color:${r.accepted?"var(--ok)":"var(--bad)"}">${r.accepted?"Fix verified":"Not shipped"}</div><div class="d">${r.seconds}s · $${r.cost_usd}</div></div>`);
+ $("#timeline").innerHTML=nodes.join("");document.querySelectorAll(".node.click").forEach(el=>el.onclick=()=>selectAttempt(+el.dataset.a));
+ const firstRej=r.attempts.findIndex(a=>!a.accepted);selectAttempt(firstRej>=0?firstRej:r.attempts.length-1);}
+function selectAttempt(i){curAtt=curRun.attempts[i];document.querySelectorAll(".node.click").forEach(el=>el.classList.toggle("on",+el.dataset.a===i));
+ renderScenarioChips(curAtt.replay||[]);renderAttempt(curAtt);}
+function selectGallery(g){curRun=null;curAtt=null;$("#report").innerHTML=`<small>Seeded bug report · ${esc(shortCase(g.case))}</small>${esc(g.report)}`;
+ $("#timeline").innerHTML=`<div class="node"><div class="k">Seeded bug</div><div class="v">${esc(g.name)}</div><div class="d">${g.plausible?"plausible-looking: hard to spot by reading":"spot-able by reading"}</div></div>
+ <div class="node"><div class="k">Diverges from real game</div><div class="v">${g.vanilla_hits} recordings</div><div class="d">of ${g.corpus_hits} corpus scenarios hit</div></div>
+ <div class="node"><div class="k">Reference fix</div><div class="v"><span class="badge b-ok">ACCEPTED</span></div><div class="d">${g.trap?"naive fix trap: "+esc(g.trap_note):"no trap"}</div></div>`;
+ renderScenarioChips(g.replay);$("#attempt").innerHTML=`<h3>Reference fix</h3>${diffHtml(g.fix_patch)}`;}
+function renderScenarioChips(items){$("#scenarios").innerHTML=items.map((it,i)=>`<span class="chip" data-s="${i}">${esc(it.scenario)} <span class="small">(${it.provenance==="reference"?"reference":"real game"})</span></span>`).join("");
+ document.querySelectorAll("#scenarios .chip").forEach(el=>el.onclick=()=>{loadItem(items[+el.dataset.s]);document.querySelectorAll("#scenarios .chip").forEach(x=>x.classList.toggle("on",x===el));});
+ const pick=items.findIndex(it=>Object.values(it.series).some(s=>s.status!=="match"));const k=pick>=0?pick:0;
+ if(items.length){loadItem(items[k]);document.querySelectorAll("#scenarios .chip")[k].classList.add("on");}}
+function diffHtml(p){if(!p)return '<p class="small">(empty diff)</p>';return `<pre class="diff">${p.split("\n").map(l=>{const c=l.startsWith("+++")||l.startsWith("---")||l.startsWith("diff")?"h":l.startsWith("@@")?"h":l.startsWith("+")?"a":l.startsWith("-")?"r":"";return `<span class="${c}">${esc(l)}</span>`;}).join("\n")}</pre>`;}
+function renderAttempt(a){const G=["G0 integrity","G1 build","G2 target repro","G3 visible suite","G4 holdouts","G5 determinism"];
+ const gm={};(a.gates||[]).forEach(g=>gm[g.gate]=g);
+ $("#attempt").innerHTML=`<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center"><h3 style="margin:0">Attempt ${a.attempt}: agent claimed <span class="badge ${a.claim==="FIXED"?"b-fix":"b-mute"}">${esc(a.claim)}</span> → verifier <span class="badge ${a.accepted?"b-ok":"b-bad"}">${esc(a.verdict)}</span></h3>
+ <span class="small">${a.seconds}s · ${a.lab_tool_calls??0} lab calls · ${a.diff?a.diff.files.length+" file(s), +"+a.diff.added+"/−"+a.diff.removed:""}</span></div>
+ <div class="gates" style="margin:12px 0">${G.map(n=>{const g=gm[n]||{status:"not run",detail:""};const c=g.status==="pass"?"pass":g.status==="fail"?"fail":"skip";return `<div class="gate ${c}" title="${esc(g.detail)}">${n} · ${esc(g.status)}</div>`;}).join("")}</div>
+ <div class="row" style="margin-top:0"><div><div class="small" style="font-weight:700;margin-bottom:6px">THE AGENT'S OWN SUMMARY (not trusted)</div><pre>${esc(a.agent_text||"")}</pre>
+ <div class="small" style="font-weight:700;margin:10px 0 6px">VERIFIER FEEDBACK SENT BACK (same for both conditions)</div><pre>${esc(a.feedback||"")}</pre></div>
+ <div><div class="small" style="font-weight:700;margin-bottom:6px">THE CODE CHANGE</div>${diffHtml(a.patch)}</div></div>`;}
+
+// ---------- replay stage ----------
+const cv=$("#scene"),g=cv.getContext("2d");let DPR=1;
+const provLabel=p=>p==="vanilla"?"recorded":p==="live"?"live recording":"reference";
+function resize(){DPR=window.devicePixelRatio||1;const r=cv.getBoundingClientRect();cv.width=r.width*DPR;cv.height=r.height*DPR;draw();}
+window.addEventListener("resize",resize);
+function series(){if(!curItem)return[];const out=[{key:"real",label:"Real game ("+provLabel(curItem.provenance)+")",t:curItem.oracle,color:C.real,ghost:true}];
+ Object.entries(curItem.series).forEach(([k,v])=>out.push({key:k,label:k,t:v.trace,color:k.startsWith("before")?C.bug:C.fix,status:v.status,first:v.first}));return out;}
+function loadItem(it){curItem=it;tick=0;const n=it.oracle.x.length;$("#scrub").max=n-1;
+ const ss=series();$("#legend").innerHTML=ss.map(s=>`<span><i style="background:${s.color}"></i>${esc(s.label)}${s.status?` <b style="color:${s.status==="match"?C.real:C.bug}">${s.status==="match"?"✓ matches":"✗ diverges"}</b>`:""}</span>`).join("");
+ const d=ss.find(s=>s.first);$("#jump").hidden=!d;fitCamera();draw();}
+let fit={cx:0,cz:0,cy:100,S:40,span:10};
+function rot(x,z){const a=camA;return[(x-fit.cx)*Math.cos(a)-(z-fit.cz)*Math.sin(a),(x-fit.cx)*Math.sin(a)+(z-fit.cz)*Math.cos(a)];}
+function P(x,y,z){const[rx,rz]=rot(x,z);const W=cv.width,H=cv.height;return[W/2+fit.S*zoom*rx,H*0.58-fit.S*zoom*(rz*Math.sin(camE)*0.9+(y-100)*Math.cos(camE)*1.6),rz];}
+function fitCamera(){const ss=series();let xs=[],zs=[];ss.forEach(s=>{xs=xs.concat(s.t.x);zs=zs.concat(s.t.z);});
+ const mnx=Math.min(...xs),mxx=Math.max(...xs),mnz=Math.min(...zs),mxz=Math.max(...zs);fit.cx=(mnx+mxx)/2;fit.cz=(mnz+mxz)/2;
+ const o=ss[0].t,k=o.x.length-1,dx=o.x[k]-o.x[0],dz=o.z[k]-o.z[0];if(Math.hypot(dx,dz)>0.5)camA=Math.atan2(-dz,dx)+0.45;
+ fit.span=Math.max(mxx-mnx,mxz-mnz,4)+7;}
+function poly(pts,fill,stroke,lw){g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();if(fill){g.fillStyle=fill;g.fill();}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||1;g.stroke();}}
+function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,gg=(n>>8)&255,b=n&255;r=Math.min(255,Math.round(r*f));gg=Math.min(255,Math.round(gg*f));b=Math.min(255,Math.round(b*f));return`rgb(${r},${gg},${b})`;}
+function box(x,y,z,hw,h,color,ghost){const c=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>[x+a*hw,z+b*hw]);
+ const bot=c.map(([px,pz])=>P(px,y,pz)),top=c.map(([px,pz])=>P(px,y+h,pz));
+ const faces=[0,1,2,3].map(i=>{const j=(i+1)%4;return{pts:[bot[i],bot[j],top[j],top[i]],d:(bot[i][2]+bot[j][2])/2,i};}).sort((a,b)=>b.d-a.d);
+ if(ghost){g.setLineDash([5,4]);faces.forEach(f=>poly(f.pts,null,color,1.6));poly(top,"rgba(62,224,143,.10)",color,1.6);g.setLineDash([]);return;}
+ faces.forEach((f,k)=>poly(f.pts,shade(color,0.45+0.18*(f.i%2)+0.08*k),"rgba(0,0,0,.35)",1));poly(top,shade(color,1.15),"rgba(0,0,0,.35)",1);}
+function figure(x,y,z,pose,color,ghost){const crouch=pose==="CROUCHING";const body=crouch?1.0:1.3;box(x,y,z,0.3,body,color,ghost);box(x,y+body,z,0.25,0.5,color,ghost);}
+function draw(){if(!curItem){g.clearRect(0,0,cv.width,cv.height);return;}const W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
+ fit.S=Math.min(W*0.8,H*1.25)/(fit.span||10);
+ const ss=series();let xs=[],zs=[];ss.forEach(s=>{xs=xs.concat(s.t.x);zs=zs.concat(s.t.z);});
+ const x0=Math.max(-48,Math.floor(Math.min(...xs))-3),x1=Math.min(49,Math.ceil(Math.max(...xs))+3),z0=Math.max(-48,Math.floor(Math.min(...zs))-3),z1=Math.min(49,Math.ceil(Math.max(...zs))+3);
+ const tiles=[];for(let bx=x0;bx<x1;bx++)for(let bz=z0;bz<z1;bz++){const q=[P(bx,100,bz),P(bx+1,100,bz),P(bx+1,100,bz+1),P(bx,100,bz+1)];tiles.push({q,d:(q[0][2]+q[2][2])/2,c:(bx+bz)&1});}
+ tiles.sort((a,b)=>b.d-a.d).forEach(t=>poly(t.q,t.c?"#202a36":"#1a222d","#121820",1));
+ const n=curItem.oracle.x.length;
+ ss.forEach(s=>{const t=s.t;g.lineWidth=2*DPR;g.strokeStyle="rgba(0,0,0,.35)";g.beginPath();for(let i=0;i<n;i++){const p=P(t.x[i],100,t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();});
+ ss.forEach(s=>{const t=s.t;g.save();g.shadowColor=s.color;g.shadowBlur=s.ghost?0:10*DPR;g.strokeStyle=s.color;g.lineWidth=(s.ghost?3.2:2.4)*DPR;if(s.ghost)g.setLineDash([]);
+  g.globalAlpha=0.25;g.beginPath();for(let i=0;i<n;i++){const p=P(t.x[i],t.y[i],t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();
+  g.globalAlpha=1;g.beginPath();for(let i=0;i<=Math.min(tick,n-1);i++){const p=P(t.x[i],t.y[i],t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();g.restore();});
+ const fig=ss.map(s=>{const i=Math.min(tick,n-1);return{s,i,d:P(s.t.x[i],100,s.t.z[i])[2]};}).sort((a,b)=>b.d-a.d);
+ fig.forEach(f=>{const t=f.s.t,i=f.i,hh=Math.max(0,t.y[i]-100),r=0.45/(1+hh*0.6);const q=[[-r,-r],[r,-r],[r,r],[-r,r]].map(([a,b])=>P(t.x[i]+a,100,t.z[i]+b));
+  poly(q,`rgba(0,0,0,${0.45/(1+hh)})`,null);});
+
+ fig.filter(f=>!f.s.ghost).forEach(f=>figure(f.s.t.x[f.i],f.s.t.y[f.i],f.s.t.z[f.i],f.s.t.pose?f.s.t.pose[f.i]:"STANDING",f.s.color,false));
+ fig.filter(f=>f.s.ghost).forEach(f=>figure(f.s.t.x[f.i],f.s.t.y[f.i],f.s.t.z[f.i],f.s.t.pose?f.s.t.pose[f.i]:"STANDING",f.s.color,true));
+ {const gi=Math.min(tick,n-1),o=ss[0].t;ss.slice(1).forEach(s=>{const t=s.t,dx=t.x[gi]-o.x[gi],dy=t.y[gi]-o.y[gi],dz=t.z[gi]-o.z[gi],dist=Math.hypot(dx,dy,dz);
+  if(dist<0.01)return;const a=P(o.x[gi],o.y[gi]+0.9,o.z[gi]),b=P(t.x[gi],t.y[gi]+0.9,t.z[gi]);g.save();g.strokeStyle=s.color;g.setLineDash([4*DPR,4*DPR]);g.lineWidth=2*DPR;
+  g.beginPath();g.moveTo(a[0],a[1]);g.lineTo(b[0],b[1]);g.stroke();g.setLineDash([]);const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2-14*DPR;
+  const txt=`${dist.toFixed(dist<1?3:2)} blocks off`;g.font=`700 ${13*DPR}px system-ui`;const w=g.measureText(txt).width+12*DPR;
+  g.fillStyle="rgba(10,14,20,.85)";g.fillRect(mx-w/2,my-11*DPR,w,20*DPR);g.fillStyle=s.color;g.textAlign="center";g.fillText(txt,mx,my+4*DPR);g.textAlign="left";g.restore();});}
+ let tag=null;ss.filter(s=>s.first).forEach(s=>{const k=Math.min(s.first.tick,n-1);const p=P(s.t.x[k],s.t.y[k],s.t.z[k]);const pulse=tick>=k?1:0.55;
+  g.strokeStyle=C.bug;g.lineWidth=2.5*DPR;g.globalAlpha=pulse;g.beginPath();g.arc(p[0],p[1],(12+4*Math.sin(Date.now()/180))*DPR,0,7);g.stroke();g.globalAlpha=1;
+  if(!tag)tag=`${s.label}: first diverges from the real game at tick ${s.first.tick} (${s.first.field})`;});
+ const dt=$("#divtag");if(tag){dt.hidden=false;dt.textContent="✗ "+tag;}else{dt.hidden=false;dt.style.color="var(--ok)";dt.style.borderColor="rgba(62,224,143,.45)";dt.style.background="rgba(62,224,143,.12)";dt.textContent="✓ every series matches the real game on every tick";}
+ if(tag){dt.style.color="";dt.style.borderColor="";dt.style.background="";}
+ $("#tickbox").textContent=`tick ${String(tick).padStart(3," ")} / ${n-1}`;$("#scrub").value=tick;renderKeys();renderState();drawChart();}
+setInterval(()=>{if(curItem&&series().some(s=>s.first))draw();},120);
+// drag to orbit
+let drag=null;cv.addEventListener("pointerdown",e=>{drag={x:e.clientX,a:camA,y:e.clientY,e:camE};cv.setPointerCapture(e.pointerId);});
+cv.addEventListener("pointermove",e=>{if(!drag)return;camA=drag.a+(e.clientX-drag.x)*0.008;camE=Math.max(0.2,Math.min(1.2,drag.e+(e.clientY-drag.y)*0.004));draw();});
+cv.addEventListener("pointerup",()=>drag=null);cv.addEventListener("wheel",e=>{e.preventDefault();zoom=Math.max(0.4,Math.min(4,zoom*(e.deltaY<0?1.1:0.9)));draw();},{passive:false});
 $("#scrub").oninput=e=>{tick=+e.target.value;draw();};
-$("#play").onclick=()=>{if(timer){clearInterval(timer);timer=null;$("#play").textContent="▶ play";return;}
- $("#play").textContent="❚❚ pause";timer=setInterval(()=>{const n=sources[cur].item.oracle.x.length;tick=(tick+1)%n;draw();},80);};
-function seriesList(it){const cols=[css("--s0"),css("--s1"),css("--s2")];return Object.entries(it.series).map(([k,v],i)=>({label:k,...v,color:cols[i%3]}));}
-function plot(cv,it,mode){const g=cv.getContext("2d"),W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
- const S=[{label:"oracle ("+it.provenance+")",trace:it.oracle,color:css("--oracle"),w:3}].concat(seriesList(it).map(s=>({...s,w:2,dash:[6,4]})));
- const pts=s=>{const t=s.trace;return t.x.map((_,i)=>mode==="top"?[t.x[i],t.z[i]]:[Math.hypot(t.x[i]-t.x[0],t.z[i]-t.z[0]),t.y[i]]);};
- let all=S.flatMap(pts),xs=all.map(p=>p[0]),ys=all.map(p=>p[1]);let x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);
- if(mode==="side"){y0=Math.min(y0,100);y1=Math.max(y1,100.3);}const pad=0.08,dx=(x1-x0)||1,dy=(y1-y0)||1;
- if(mode==="top"){const m=Math.max(dx,dy);x0-=(m-dx)/2;x1=x0+m;y0-=(m-dy)/2;y1=y0+m;}
- const X=v=>40+(v-x0)/((x1-x0)||1)*(W-60)*(1-pad)+ (W-60)*pad/2, Y=v=>H-30-(v-y0)/((y1-y0)||1)*(H-50)*(1-pad)-(H-50)*pad/2;
- g.strokeStyle=css("--line");g.lineWidth=1;g.strokeRect(40,10,W-50,H-40);g.fillStyle=css("--mute");g.font="12px system-ui";
- g.fillText(fmt(x0).slice(0,8),40,H-12);g.fillText(fmt(x1).slice(0,8),W-80,H-12);g.fillText(fmt(y1).slice(0,9),2,22);g.fillText(fmt(y0).slice(0,9),2,H-34);
- S.forEach(s=>{const p=pts(s);g.strokeStyle=s.color;g.lineWidth=s.w;g.setLineDash(s.dash||[]);g.beginPath();p.forEach((q,i)=>i?g.lineTo(X(q[0]),Y(q[1])):g.moveTo(X(q[0]),Y(q[1])));g.stroke();g.setLineDash([]);
-  const q=p[Math.min(tick,p.length-1)];g.fillStyle=s.color;g.beginPath();g.arc(X(q[0]),Y(q[1]),5,0,7);g.fill();
-  if(s.first){const f=p[Math.min(s.first.tick,p.length-1)];g.strokeStyle=css("--bad");g.lineWidth=2;g.beginPath();g.arc(X(f[0]),Y(f[1]),9,0,7);g.stroke();}});}
-function draw(){if(!sources.length){$("#t-replay").innerHTML='<div class="panel">No replays yet.</div>';return;}
- const it=sources[cur].item,n=it.oracle.x.length;$("#scrub").max=n-1;$("#scrub").value=tick;$("#tk").textContent=`tick ${tick} / ${n-1}`;
- const ss=seriesList(it);$("#leg").innerHTML=`<span><i class="sw" style="background:${css("--oracle")}"></i>oracle (${it.provenance})</span>`+ss.map(s=>`<span><i class="sw" style="background:${s.color}"></i>${esc(s.label)}: <b class="${s.status==="match"?"ok":"bad"}">${s.status}</b></span>`).join("");
- $("#div").innerHTML=ss.filter(s=>s.first).map(s=>`<span class="chip fail">${esc(s.label)} first diverges @ tick ${s.first.tick} (${esc(s.first.field)})</span> <button onclick="tick=${s.first.tick};draw()">jump</button>`).join(" ");
- plot($("#top"),it,"top");plot($("#side"),it,"side");
- $("#keys").innerHTML="inputs held: "+((it.keys[tick]||[]).map(k=>`<span class="chip">${k}</span>`).join("")||'<span class="mute">none</span>');
- const fields=Object.keys(it.oracle);let h=`<tr><th>field</th><th>oracle</th>${ss.map(s=>`<th>${esc(s.label)}</th><th>Δ</th>`).join("")}</tr>`;
- fields.forEach(f=>{const o=it.oracle[f][tick];h+=`<tr><td>${f}</td><td>${fmt(o)}</td>`+ss.map(s=>{const a=s.trace[f]?s.trace[f][tick]:undefined;
-  const d=typeof o==="number"&&typeof a==="number"?Math.abs(a-o):(a===o?0:"≠");const bad=d==="≠"||d>1e-7;return `<td>${fmt(a)}</td><td class="${bad?"bad":"mute"}">${d==="≠"?"≠":d===0?"0":d.toExponential(1)}</td>`;}).join("")+"</tr>";});
- $("#state").innerHTML=h;}
-draw();
+$("#play").onclick=()=>{playing=!playing;$("#play").textContent=playing?"❚❚ Pause":"▶ Play";$("#play").classList.toggle("on",playing);if(playing)loop();};
+$("#speed").onclick=()=>{speed=speed===1?0.5:speed===0.5?0.25:1;$("#speed").textContent=speed+"×";};
+$("#jump").onclick=()=>{const d=series().find(s=>s.first);if(d){tick=Math.max(0,d.first.tick-2);draw();}};
+let last=0;function loop(t){if(!playing)return;requestAnimationFrame(loop);if(!t||t-last<50/speed)return;last=t;const n=curItem.oracle.x.length;tick=(tick+1)%n;draw();}
+// keys + state
+const KEYS=[["W","forward"],["A","left"],["S","backward"],["D","right"],["Space","jump"],["Shift","shift"],["Ctrl","sprint"]];
+function renderKeys(){const held=(curItem.keys[tick]||[]);$("#keys").innerHTML=KEYS.map(([k,n])=>`<span class="kc ${held.includes(n)?"on":""}" title="${n}">${k}</span>`).join("");}
+function renderState(){const ss=series();const fs=["x","y","z","vx","vy","vz","on_ground","sprinting","sneaking","pose"].filter(f=>curItem.oracle[f]);
+ let h=`<tr><th>field</th>${ss.map(s=>`<th style="color:${s.color}">${esc(s.key==="real"?"real game":s.key)}</th>`).join("")}</tr>`;
+ fs.forEach(f=>{const o=curItem.oracle[f][tick];h+=`<tr><td>${f}</td>`+ss.map(s=>{const v=s.t[f]?s.t[f][tick]:undefined;const bad=s.key!=="real"&&(typeof o==="number"?Math.abs(v-o)>1e-7:v!==o);
+  return `<td style="font-family:var(--mono);font-size:12.5px;${bad?"color:var(--bad);font-weight:700":""}">${fmt(v)}</td>`;}).join("")+"</tr>";});$("#state").innerHTML=h;}
+// chart
+const FIELDS=[["vz","forward velocity (vz)"],["vx","sideways velocity (vx)"],["vy","vertical velocity (vy)"],["y","height (y)"],["hs","horizontal speed"]];
+$("#fields").innerHTML=FIELDS.map(([k,l])=>`<span class="chip ${k===field?"on":""}" data-f="${k}">${l}</span>`).join("");
+document.querySelectorAll("#fields .chip").forEach(el=>el.onclick=()=>{field=el.dataset.f;document.querySelectorAll("#fields .chip").forEach(x=>x.classList.toggle("on",x===el));drawChart();});
+function val(t,i){return field==="hs"?Math.hypot(t.vx[i],t.vz[i]):t[field][i];}
+function drawChart(){const c=$("#chart"),d=window.devicePixelRatio||1,r=c.getBoundingClientRect();c.width=r.width*d;c.height=r.height*d;const x=c.getContext("2d");
+ const W=c.width,H=c.height,L=50*d,R=10*d,T=10*d,B=24*d;x.clearRect(0,0,W,H);const ss=series(),n=curItem.oracle.x.length;
+ let vals=[];ss.forEach(s=>{for(let i=0;i<n;i++)vals.push(val(s.t,i));});let lo=Math.min(...vals),hi=Math.max(...vals);if(hi-lo<1e-9){hi+=1;lo-=1;}const pad=(hi-lo)*0.1;lo-=pad;hi+=pad;
+ const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
+ x.fillStyle="#8b9bb0";x.font=`${11*d}px system-ui`;x.strokeStyle="#1f2935";x.lineWidth=1;
+ for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;x.beginPath();x.moveTo(L,Y(v));x.lineTo(W-R,Y(v));x.stroke();x.fillText(v.toFixed(3),4*d,Y(v)+4*d);}
+ for(let i=0;i<n;i+=10){x.fillText(String(i),X(i)-4*d,H-6*d);}
+ ss.filter(s=>s.first).forEach(s=>{x.fillStyle="rgba(255,93,93,.10)";x.fillRect(X(s.first.tick),T,W-R-X(s.first.tick),H-T-B);});
+ ss.forEach(s=>{x.strokeStyle=s.color;x.lineWidth=(s.ghost?3:2)*d;x.setLineDash(s.ghost?[]:[6*d,4*d]);x.beginPath();for(let i=0;i<n;i++){i?x.lineTo(X(i),Y(val(s.t,i))):x.moveTo(X(i),Y(val(s.t,i)));}x.stroke();});
+ x.setLineDash([]);x.strokeStyle="#e8eef5";x.lineWidth=1*d;x.beginPath();x.moveTo(X(tick),T);x.lineTo(X(tick),H-B);x.stroke();}
 
-// ---------------- Factory timeline ----------------
-const gchip=g=>`<span class="chip ${g.status==="pass"?"pass":g.status==="fail"?"fail":""}" title="${esc(g.detail)}">${esc(g.gate.split(" ")[0])} ${g.status}</span>`;
-$("#t-timeline").innerHTML=D.runs.length?D.runs.slice().reverse().map(r=>`<div class="panel"><b>${r.featured?"★ ":""}${esc(r.case)}</b> · ${r.condition} · model ${esc(r.model)} · trial ${r.trial}
- · <b class="${r.accepted?"ok":"bad"}">${r.accepted?"ACCEPTED":"NOT ACCEPTED"}</b> after ${r.attempts_used} attempt(s) · ${r.seconds}s · $${r.cost_usd}
- <blockquote>${esc(r.report_text)}</blockquote>${(r.notes||[]).length?`<div>Developer notes: ${r.notes.map(n=>`<span class="chip">${esc(n)}</span>`).join("")}</div>`:""}
- <table><tr><th>#</th><th>agent claim</th><th>verifier</th><th>gates</th><th>diff</th><th>time</th><th>lab calls</th></tr>
- ${r.attempts.map(a=>`<tr><td>${a.attempt}</td><td>${esc(a.claim)}${a.false_done?' <span class="chip fail">false done</span>':""}</td>
- <td class="${a.accepted?"ok":"bad"}">${esc(a.verdict)}${a.failing_gate?" @ "+esc(a.failing_gate):""}</td><td>${a.gates.map(gchip).join("")}</td>
- <td>${a.diff?`${a.diff.files.length} file(s) +${a.diff.added}/-${a.diff.removed}`:""}</td><td>${a.seconds}s</td><td>${a.lab_tool_calls??"-"}</td></tr>
- <tr><td></td><td colspan="6"><details><summary>verifier feedback &amp; patch</summary><pre>${esc(a.feedback)}</pre><pre>${esc(a.patch)}</pre></details></td></tr>`).join("")}</table></div>`).join("")
- :'<div class="panel">No agent runs recorded yet.</div>';
+// ---------- evidence ----------
+(function(){const b=CND.baseline||{},l=CND.lab||{};
+ $("#evsub").textContent=`${(b.runs||0)+(l.runs||0)} runs · model ${(l.models||b.models||[]).join(", ")} · up to 2 attempts per run · judged against ${CAL.corpus.length} real Minecraft recordings. Counts, not significance claims.`;
+ const rows=[["Accepted by the verifier","accepted","runs",true],["Wrong “FIXED” claims","false_done_attempts","fixed_claims",false],["Regressions shipped","regressions_in_final_patch",null,false],["Median time to accept (s)","median_time_to_accept_s",null,null],["Mean cost per run ($)","mean_cost_usd",null,null]];
+ const mx=k=>Math.max(b[k]||0,l[k]||0)||1;
+ $("#metrics").innerHTML=`<h3>Baseline (no lab) vs lab</h3><div class="metric"><span></span><span class="small" style="color:${C.bug};font-weight:700">BASELINE</span><span class="small" style="color:${C.fix};font-weight:700">WITH LAB</span></div>`+rows.map(([lbl,k,den])=>{
+  const bar=(o,col)=>`<div class="hbar" style="width:${Math.max(12,100*(o[k]||0)/mx(k))}%;background:${col}">${o[k]??"–"}${den&&o[den]!==undefined?" / "+o[den]:""}</div>`;
+  return `<div class="metric"><span class="lbl">${lbl}</span>${bar(b,C.bug)}${bar(l,C.fix)}</div>`;}).join("");
+ const cases=Object.keys(S.cases||{}).sort();$("#matrix").innerHTML=`<tr><th style="text-align:left">case</th><th>baseline</th><th>lab</th></tr>`+cases.map(c=>`<tr><td style="text-align:left">${esc(shortCase(c))}</td>`+["baseline","lab"].map(cd=>`<td>${(S.cases[c][cd]||[]).map(r=>`<span class="dot" style="background:${r.accepted?C.real:C.bug}" title="${esc((r.gates||[]).map(x=>x||"accepted").join(" → "))}"></span>`).join("")}</td>`).join("")+"</tr>").join("");
+ $("#honest").innerHTML=`<b>What this shows, honestly.</b> With this small model, the lab barely changed <i>how many</i> bugs got fixed (six easy bugs were fixed every time either way; the hard ones rarely). It changed how often the agent was <i>wrongly confident</i>: ${b.false_done_attempts} wrong “FIXED” claims without the lab vs ${l.false_done_attempts} with it, and in both conditions every one was caught by the verifier before it could ship. That is the point of TickLab: verification is the bottleneck, so it's done by something the agent can't influence.`;
+ const label={"a_corpus_edit":"Edit a real-game recording","b_tolerance":"Loosen the comparison tolerance","b2_verifier_edit":"Edit the verifier to accept everything","c_skip_test":"Skip a visible unit test","d_hardcode_repro":"Hardcode the reported scenario","e_dependency":"Add a dependency (import numpy)","f_read_oracle":"Read oracle files at runtime","g_outside_workspace":"Change protected files outside the workspace"};
+ const adv=ST.rows.filter(r=>r.kind==="adversarial"),other=ST.rows.filter(r=>r.kind!=="adversarial");
+ $("#wall").innerHTML=adv.map(r=>`<div class="brick"><b>${r.pass?"✗ REJECTED":"!! UNEXPECTED"} · ${esc((r.actual.split("@")[1]||"").trim())}</b><div style="font-weight:700;margin-top:2px">${esc(label[r.patch]||r.patch)}</div><div class="small">${esc(r.desc)}</div></div>`).join("")
+  +`<div class="brick okb"><b>✓ ${other.filter(r=>r.kind==="reference fix"&&r.pass).length}/${other.filter(r=>r.kind==="reference fix").length} REFERENCE FIXES ACCEPTED</b><div class="small" style="margin-top:4px">and ${other.filter(r=>r.kind.startsWith("trap")&&r.pass).length}/${other.filter(r=>r.kind.startsWith("trap")).length} plausible-but-wrong “naive” fixes rejected at the expected gate</div></div>`;})();
 
-// ---------------- Benchmark ----------------
-(function(){const S=D.summary,T=D.selftest;let h="";
- if(S&&S.conditions&&Object.keys(S.conditions).length){const C=S.conditions,ks=["runs","accepted","acceptance_rate","false_done_attempts","runs_with_false_done","mean_attempts","median_time_to_accept_s","mean_cost_usd","regressions_in_final_patch","tamper_suspect_runs","models"];
-  h+=`<div class="panel"><h3>Baseline vs lab (same agent, same verifier)</h3><table><tr><th>metric</th>${Object.keys(C).map(c=>`<th>${c}</th>`).join("")}</tr>${ks.map(k=>`<tr><td>${k}</td>${Object.keys(C).map(c=>`<td>${esc(Array.isArray(C[c][k])?C[c][k].join(","):C[c][k])}</td>`).join("")}</tr>`).join("")}</table>
-  <div style="margin-top:10px">${Object.keys(C).map(c=>`<div>${c}: <span class="bar" style="width:${Math.round(300*C[c].acceptance_rate)}px;background:${c==="lab"?css("--s1"):css("--s0")}"></span> ${C[c].accepted}/${C[c].runs} accepted</div>`).join("")}</div>
-  <p class="mute">Small n: counts, not significance. ${S.n_records} run records in results/bench.jsonl.</p>
-  <h3>Per case</h3><table><tr><th>case</th><th>baseline</th><th>lab</th></tr>${Object.entries(S.cases).map(([k,v])=>`<tr><td>${esc(k)}</td>${["baseline","lab"].map(c=>`<td>${(v[c]||[]).map(x=>`<span class="chip ${x.accepted?"pass":"fail"}">${x.accepted?"accepted":"rejected"} (${x.attempts})</span>`).join("")||'<span class="mute">-</span>'}</td>`).join("")}</tr>`).join("")}</table></div>`;}
- else h+='<div class="panel">No benchmark results yet (results/summary.json).</div>';
- if(T)h+=`<div class="panel"><h3>Verifier selftest: ${T.passed}/${T.total} as expected</h3><p class="mute">${esc(T.note)}</p><table><tr><th>kind</th><th>case</th><th>patch</th><th>expected</th><th>actual</th><th></th></tr>${T.rows.map(r=>`<tr><td>${esc(r.kind)}</td><td>${esc(r.case)}</td><td title="${esc(r.desc)}">${esc(r.patch)}</td><td>${esc(r.expected)}</td><td>${esc(r.actual)}</td><td class="${r.pass?"ok":"bad"}">${r.pass?"PASS":"FAIL"}</td></tr>`).join("")}</table></div>`;
- const K=D.calibration;if(K)h+=`<div class="panel"><h3>Calibration (pristine sim vs real vanilla)</h3><table><tr><th>source</th><th>scenario</th><th>status</th><th>ticks</th></tr>${K.corpus.concat(K.dev_goldens).map(r=>`<tr><td>${r.file.includes("dev_goldens")?"dev golden":"corpus"}</td><td>${esc(r.name)}</td><td class="${r.status==="match"?"ok":"bad"}">${r.status}</td><td>${r.ticks}</td></tr>`).join("")}</table></div>`;
- $("#t-bench").innerHTML=h;})();
+// ---------- ground truth ----------
+(function(){const corpus=CAL.corpus||[];const m=corpus.filter(r=>r.status==="match").length;
+ $("#truthsub").innerHTML=corpus.length?`A small Fabric mod (TickProbe) drove the real game through ${corpus.length} scripted movement scenarios via Prism Launcher, twice in different orders: every recording came out <b>byte-identical</b>. The simulator now matches <b>${m}/${corpus.length}</b> of them exactly (and ${CAL.dev_goldens_matched}/${(CAL.dev_goldens||[]).length} earlier recordings). The recordings also caught our own model's sprint timing being off by one tick, a mistake source-reading missed.`:"No real recordings yet: thin mode.";
+ const fam=D.families||{};const famColor={walk:"#5aa9ff",sprint:"#ff9f43",jump:"#9b8cff",diagonal:"#3ee08f",strafe:"#f368e0",sneak:"#ffc04d",look:"#48dbfb"};
+ $("#tiles").innerHTML=corpus.map(r=>`<div class="tile" style="border-left:4px solid ${famColor[fam[r.name]]||"#555"}"><div class="n">${esc(r.name)}</div><div class="s" style="color:${r.status==="match"?C.real:C.bug}">${r.status==="match"?"✓ exact match":"✗ "+r.status}</div><div class="small">${esc(fam[r.name]||"")} · ${r.ticks} ticks</div></div>`).join("");})();
 
-// ---------------- Seeded bugs ----------------
-$("#t-cases").innerHTML=D.gallery.map(g=>`<div class="panel"><b>${esc(g.case)}</b> — ${esc(g.name)} <span class="mute">(${g.families.join(", ")})</span><blockquote>${esc(g.report)}</blockquote>
- ${g.replay.map(it=>{const s=it.series.buggy;return `<span class="chip">${esc(it.scenario)}: ${s.status}${s.first?` @ tick ${s.first.tick} ${esc(s.first.field)}`:""}</span>`;}).join("")}</div>`).join("");
+// ---------- bugs gallery ----------
+$("#buglist").innerHTML=D.gallery.map((gx,i)=>`<div class="bug"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(shortCase(gx.case))}</b><span>${gx.plausible?'<span class="badge b-warn">plausible-looking</span>':'<span class="badge b-mute">obvious</span>'} ${gx.trap?'<span class="badge b-bad">trap</span>':""}</span></div>
+ <div style="font-weight:600">${esc(gx.name)}</div><p>“${esc(gx.report)}”</p><div class="small">diverges on ${gx.vanilla_hits} real-game recordings</div><div><button data-g="${i}">▶ Replay before / after</button></div></div>`).join("");
+document.querySelectorAll("#buglist button").forEach(b=>b.onclick=()=>{selectGallery(D.gallery[+b.dataset.g]);document.querySelectorAll(".runcard").forEach(x=>x.classList.toggle("on",x.dataset.g===b.dataset.g));location.hash="#story";});
+
+// ---------- live confirm ----------
+(function(){const L=D.live||[];if(!L.length)return;$("#live").hidden=false;
+ const ok=L.filter(x=>x.accepted_patch==="match").length,bug=L.filter(x=>x.buggy!=="match").length;
+ $("#livesub").innerHTML=`While debugging, the agent wrote its own reproduction scenarios. We replayed exactly those inputs in real Minecraft 26.3 (the agent never touches the game; the capture mod plays its inputs). <b>${ok}/${L.length}</b> real recordings match the agent's accepted patch on every tick, and <b>${bug}/${L.length}</b> diverge from the original buggy code: an independent confirmation on top of the verifier.`;
+ $("#livelist").innerHTML=L.map((x,i)=>`<div class="bug"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(x.repro)}</b><span class="badge ${x.accepted_patch==="match"?"b-ok":"b-bad"}">${x.accepted_patch==="match"?"✓ PATCH MATCHES REAL GAME":"✗ PATCH DIVERGES"}</span></div>
+  <p>Written by the ${esc(x.model)} agent on ${esc(shortCase(x.case))}. Buggy code vs real game: <b style="color:${x.buggy==="match"?C.real:C.bug}">${x.buggy==="match"?"matches":"diverges"}</b>.</p>
+  <div><button data-l="${i}">▶ Replay real recording vs code</button></div></div>`).join("");
+ document.querySelectorAll("#livelist button").forEach(b=>b.onclick=()=>{const x=L[+b.dataset.l];curRun=null;curAtt=null;
+  $("#report").innerHTML=`<small>Live confirm · agent-written scenario · ${esc(shortCase(x.case))}</small>${esc(x.repro)}`;
+  $("#timeline").innerHTML=`<div class="node"><div class="k">Written by</div><div class="v">the ${esc(x.model)} agent</div><div class="d">saved with save_repro while investigating</div></div><div class="node"><div class="k">Replayed in</div><div class="v">real Minecraft 26.3</div><div class="d">third-person capture, same tick semantics</div></div><div class="node"><div class="k">Accepted patch vs real game</div><div class="v" style="color:${x.accepted_patch==="match"?"var(--ok)":"var(--bad)"}">${x.accepted_patch==="match"?"exact match":"diverges"}</div></div>`;
+  renderScenarioChips([x.replay]);$("#attempt").innerHTML="";location.hash="#story";});})();
+
+// ---------- all runs ----------
+(function(){const rs=D.runs.filter(r=>r.bench).sort((a,b)=>a.case.localeCompare(b.case)||a.condition.localeCompare(b.condition)||a.trial-b.trial);
+ $("#alltable").innerHTML=`<tr><th>case</th><th>condition</th><th>trial</th><th>model</th><th>verdict</th><th>attempts (claim → gate)</th><th>time</th><th>cost</th></tr>`+rs.map(r=>`<tr><td>${esc(shortCase(r.case))}</td><td>${r.condition}</td><td>${r.trial}</td><td>${esc(r.model)}</td>
+ <td><span class="badge ${r.accepted?"b-ok":"b-bad"}">${r.accepted?"ACCEPTED":"REJECTED"}</span></td><td class="small">${r.attempts.map(a=>`${esc(a.claim)} → ${a.accepted?"accepted":esc(a.failing_gate||"rejected")}`).join(" · ")}</td><td>${r.seconds}s</td><td>$${r.cost_usd}</td></tr>`).join("");})();
+
+renderRunList();
+(function(){const h=location.hash,run=(h.match(/run=(\d+)/)||[])[1],bug=(h.match(/bug=(\d+)/)||[])[1],t=(h.match(/t=(\d+)/)||[])[1];
+ const el=bug!==undefined?document.querySelector(`.runcard[data-g="${bug}"]`):document.querySelector(`.runcard[data-i="${run||0}"]`)||document.querySelector(".runcard");
+ if(el)el.click();resize();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}})();
 </script>
 </body>
 </html>

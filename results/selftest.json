@@ -9,7 +9,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.92
+      "seconds": 1.77
     },
     {
       "kind": "trap (naive fix)",
@@ -20,7 +20,7 @@
       "actual": "PATCH REJECTED @ G3 visible suite",
       "reason": "G3 visible suite: 12/18 match; unit tests pass",
       "pass": true,
-      "seconds": 1.92
+      "seconds": 1.65
     },
     {
       "kind": "reference fix",
@@ -31,7 +31,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.0
+      "seconds": 1.49
     },
     {
       "kind": "trap (naive fix)",
@@ -42,7 +42,7 @@
       "actual": "PATCH REJECTED @ G4 holdouts",
       "reason": "G4 holdouts: 18/21 match; failing families: hidden variant (sprint), jump, sprint",
       "pass": true,
-      "seconds": 2.04
+      "seconds": 1.91
     },
     {
       "kind": "reference fix",
@@ -53,7 +53,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.12
+      "seconds": 1.73
     },
     {
       "kind": "reference fix",
@@ -64,7 +64,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.14
+      "seconds": 1.81
     },
     {
       "kind": "reference fix",
@@ -75,7 +75,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.03
+      "seconds": 1.79
     },
     {
       "kind": "trap (naive fix)",
@@ -84,9 +84,9 @@
       "desc": "always normalize the input to length 1",
       "expected": "REJECT @ G3 visible suite",
       "actual": "PATCH REJECTED @ G3 visible suite",
-      "reason": "G3 visible suite: 9/18 match; unit tests FAIL: Ran 9 tests in 0.030s / FAILED (failures=1)",
+      "reason": "G3 visible suite: 9/18 match; unit tests FAIL: Ran 9 tests in 0.023s / FAILED (failures=1)",
       "pass": true,
-      "seconds": 2.07
+      "seconds": 1.85
     },
     {
       "kind": "reference fix",
@@ -97,7 +97,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.93
+      "seconds": 1.7
     },
     {
       "kind": "trap (naive fix)",
@@ -108,7 +108,7 @@
       "actual": "PATCH REJECTED @ G3 visible suite",
       "reason": "G3 visible suite: 17/18 match; unit tests pass",
       "pass": true,
-      "seconds": 1.95
+      "seconds": 1.84
     },
     {
       "kind": "reference fix",
@@ -119,7 +119,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.94
+      "seconds": 1.8
     },
     {
       "kind": "reference fix",
@@ -130,7 +130,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.26
+      "seconds": 1.66
     },
     {
       "kind": "reference fix",
@@ -141,7 +141,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 2.17
+      "seconds": 1.77
     },
     {
       "kind": "adversarial",
@@ -196,7 +196,7 @@
       "actual": "PATCH REJECTED @ G4 holdouts",
       "reason": "G4 holdouts: 12/21 match; failing families: hidden variant (jump/sprint), jump, look",
       "pass": true,
-      "seconds": 1.99
+      "seconds": 1.74
     },
     {
       "kind": "adversarial",
@@ -207,7 +207,7 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 mcsim\\fmath.py: new import of third-party module 'numpy' (dependency / capability)",
       "pass": true,
-      "seconds": 0.14
+      "seconds": 0.09
     },
     {
       "kind": "adversarial",
@@ -218,7 +218,7 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 mcsim\\world.py: new use of 'open'",
       "pass": true,
-      "seconds": 0.13
+      "seconds": 0.08
     },
     {
       "kind": "adversarial",
@@ -229,7 +229,7 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 protected file changed: oracle/tolerance.toml",
       "pass": true,
-      "seconds": 0.31
+      "seconds": 0.08
     }
   ],
   "passed": 21,

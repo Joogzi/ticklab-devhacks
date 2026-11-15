@@ -86,7 +86,7 @@ def compile_mod(classpath: list[str]) -> Path:
     return jar
 
 
-def install(sel: dict, jar: Path, batch: str, order: str, seed: int, only: list[str], repeat: list[str]) -> dict:
+def install(sel: dict, jar: Path, batch: str, order: str, seed: int, only: list[str], repeat: list[str], extra: dict | None = None) -> dict:
     if "ticklab" not in sel["name"].lower() and "ticklab" not in sel["id"].lower():
         raise SystemExit(f"refusing to touch instance {sel['name']!r}: name must contain 'ticklab'")
     game = Path(sel["game_dir"])
@@ -99,6 +99,7 @@ def install(sel: dict, jar: Path, batch: str, order: str, seed: int, only: list[
     cfg = {"enabled": True, "scenarios_file": str(ROOT / "oracle" / "corpus_scenarios.json"), "out_dir": str(out_dir),
            "settle_ticks": 30, "order": order, "seed": seed, "repeat_check": repeat, "only": only,
            "quit_when_done": True}
+    cfg.update(extra or {})
     with open(game / "config" / "ticklab_capture.json", "w", encoding="utf-8", newline="\n") as f:
         json.dump(cfg, f, indent=2)
     return cfg
