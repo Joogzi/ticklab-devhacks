@@ -188,7 +188,9 @@ def main(argv=None) -> int:
             "selftest": util.read_json(util.RESULTS / "selftest.json") if (util.RESULTS / "selftest.json").exists() else None,
             "calibration": util.read_json(util.RESULTS / "calibration.json") if (util.RESULTS / "calibration.json").exists() else None,
             "families": {r["name"]: r["family"] for r in scenarios.corpus_table()},
-            "live": build_live(), "bench_records": _bench_records()}
+            "live": build_live(), "bench_records": _bench_records(),
+            "live_rerecord": (util.read_json(util.RESULTS / "live_confirm.json").get("presentation_rerecord")
+                              if (util.RESULTS / "live_confirm.json").exists() else None)}
     cal = data["calibration"] or {}
     data["coverage"] = {"real": cal.get("oracle_coverage", 0), "mode": cal.get("mode", "thin"),
                         "dev_goldens": f"{cal.get('dev_goldens_matched', 0)}/{len(cal.get('dev_goldens', []))}"}

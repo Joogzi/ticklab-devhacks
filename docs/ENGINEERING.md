@@ -55,6 +55,8 @@ third-person camera and on-screen captions, and doesn't change the movement. Eac
 original buggy code, the agent's accepted patch, and the reference simulator. Result: 4/4 recordings match the accepted
 patch and the reference exactly, and all 4 diverge from the buggy code (first divergence at ticks 0–5). This check is
 independent of the verifier: the inputs were authored by the agent, and the answers come from the real game, not the oracle.
+The same session re-recorded all 33 corpus scenarios in presentation mode: **33/33 byte-identical** to the committed
+corpus. That is a third independent capture run with identical output, and it shows the camera and captions don't touch movement.
 
 ## Architecture and data flow
 

@@ -105,7 +105,11 @@ public final class TickProbe {
         mc.options.toggleSprint().set(false);
         mc.options.toggleCrouch().set(false);
         presentation = cfg.has("presentation") && cfg.get("presentation").getAsBoolean();
-        if (presentation) mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+        if (presentation) {
+            mc.options.setCameraType(CameraType.THIRD_PERSON_BACK);
+            mc.options.guiScale().set(cfg.has("gui_scale") ? cfg.get("gui_scale").getAsInt() : 2);  // smaller on-screen text
+            mc.resizeGui();
+        }
         startedAt = System.currentTimeMillis();
         phase = Phase.WAIT_WORLD;
     }
@@ -145,9 +149,10 @@ public final class TickProbe {
         cur = queue.get(qi);
         if (presentation) {  // on-screen captions for recording; never affects movement
             Minecraft mc = Minecraft.getInstance();
-            mc.gui.hud.setTimes(5, 50, 10);
-            mc.gui.hud.setTitle(Component.literal(cur.has("_caption") ? cur.get("_caption").getAsString() : cur.get("name").getAsString()));
-            mc.gui.hud.setSubtitle(Component.literal(cur.has("_sub") ? cur.get("_sub").getAsString() : "TickLab capture"));
+            // Small captions: an empty title + a subtitle line (the big title font is too large to record).
+            mc.gui.hud.setTimes(5, 60, 10);
+            mc.gui.hud.setTitle(Component.literal(" "));
+            mc.gui.hud.setSubtitle(Component.literal(cur.has("_caption") ? cur.get("_caption").getAsString() : cur.get("name").getAsString()));
         }
         p.setSprinting(false);
         p.setPos(0.5, 100.0, 0.5);
@@ -199,7 +204,8 @@ public final class TickProbe {
 
     private static void run(Minecraft mc, LocalPlayer p) throws IOException {
         buf.append(state(p, "tick", tick)).append('\n');
-        if (presentation) mc.gui.hud.setOverlayMessage(Component.literal("TickLab · real Minecraft 26.3 · tick " + tick + " / " + (cur.get("duration").getAsInt() - 1)), false);
+        if (presentation) mc.gui.hud.setOverlayMessage(Component.literal((cur.has("_sub") ? cur.get("_sub").getAsString() + "  ·  " : "")
+                + "tick " + tick + " / " + (cur.get("duration").getAsInt() - 1)), false);
         if (++tick < cur.get("duration").getAsInt()) return;
         releaseKeys(mc);
         Files.writeString(outDir.resolve(curFile), buf.toString(), StandardCharsets.UTF_8);

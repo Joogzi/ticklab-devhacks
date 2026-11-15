@@ -62,7 +62,8 @@ baseline would be 14/18, so treat acceptance as a tie. The scan has since been f
 **Live confirm in the real game.** The scenarios the agent wrote while debugging (its saved repros) were replayed in
 real Minecraft 26.3 by the capture mod. In 4/4, the real recording matches the agent's accepted patch on every tick and
 diverges from the original buggy code (`results/live_confirm.json`, `python capture/live_confirm.py analyze`). The agent
-never touches the game; the mod plays the agent's inputs.
+never touches the game; the mod plays the agent's inputs. A third capture run in the same session re-recorded all 33
+ground-truth scenarios byte-identically.
 
 **Caveats.** Small n (<!--fill:n_runs-->36<!--/fill--> runs, one model): these are counts, with no significance claims. Oracle: <!--fill:oracle_coverage-->33<!--/fill-->
 real Minecraft 26.3 recordings (<!--fill:oracle_mode-->full<!--/fill--> mode), which the simulator matches exactly. Hidden *variants* with other

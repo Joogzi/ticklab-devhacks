@@ -1,5 +1,5 @@
 {
-  "captured_at": "2026-11-15T01:11:38+00:00",
+  "captured_at": "2026-11-15T01:26:14+00:00",
   "minecraft": "26.3",
   "note": "Scenario inputs were written by the agent (saved repros); the capture mod replayed them in real Minecraft.",
   "items": [
@@ -111,5 +111,11 @@
         "first_divergence": null
       }
     }
-  ]
+  ],
+  "presentation_rerecord": {
+    "scenarios": 33,
+    "byte_identical_to_corpus": 33,
+    "different": [],
+    "missing": 0
+  }
 }
