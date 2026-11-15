@@ -95,6 +95,18 @@ td.m,.m{font-family:var(--mono);font-size:12.5px}
 .bug p{margin:0;color:var(--mute);font-size:13.5px}
 .callout{border-left:3px solid var(--ink);padding:4px 0 4px 16px;max-width:860px;font-size:15px}
 .small{font-size:12.5px;color:var(--mute)}
+/* #focus=<hero|story|stage|signal|attempt|live|evidence|truth|discovery|bugs|runs> for clean captures (video assets) */
+.focus header,.focus .hero-off{display:none}
+.focus main{padding-top:24px}
+.f-stage .runs,.f-stage .row,.f-stage #attempt,.f-stage .chips#scenarios{display:none}
+.f-stage .grid2,.f-signal .grid2,.f-attempt .grid2{grid-template-columns:1fr}
+.f-stage section>h2,.f-stage section>.sub,.f-signal section>h2,.f-signal section>.sub,.f-attempt section>h2,.f-attempt section>.sub{display:none}
+.f-stage section,.f-signal section,.f-attempt section{padding-top:0}
+.f-stage #scene{height:640px}
+.f-signal .runs,.f-signal .stage,.f-signal .controls,.f-signal .quote,.f-signal .timeline,.f-signal #attempt,.f-signal #scenarios,.f-signal .row>.card:nth-child(2){display:none}
+.f-signal .row{grid-template-columns:1fr}.f-signal canvas.chart{height:420px}
+.f-attempt .runs,.f-attempt .stage,.f-attempt .controls,.f-attempt .quote,.f-attempt .timeline,.f-attempt .row:not(#attempt .row),.f-attempt #scenarios{display:none}
+.f-attempt #attempt{margin-top:0}
 @media (max-width:1000px){.grid2,.row,.vs{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.hero h1{font-size:32px}.metric{grid-template-columns:1fr}}
 @media (max-width:560px){main,.bar{padding-left:16px;padding-right:16px}.stats{grid-template-columns:1fr}#scene{height:380px}.pill{margin-left:0}}
 </style>
@@ -383,7 +395,14 @@ document.getElementById("theme").onclick=()=>{setTheme(document.documentElement.
  document.querySelectorAll(".runcard.on").forEach(el=>el.click());};
 (function(){const h=location.hash,run=(h.match(/run=(\d+)/)||[])[1],bug=(h.match(/bug=(\d+)/)||[])[1],t=(h.match(/t=(\d+)/)||[])[1];
  const el=bug!==undefined?document.querySelector(`.runcard[data-g="${bug}"]`):document.querySelector(`.runcard[data-i="${run||0}"]`)||document.querySelector(".runcard");
- if(el)el.click();resize();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}})();
+ if(el)el.click();resize();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}
+ const md=(h.match(/model=(\w+)/)||[])[1];if(md&&(S.by_model||{})[md])renderEvidence(md);
+ const sc=(h.match(/scn=(\d+)/)||[])[1];if(sc!==undefined){const c=document.querySelectorAll("#scenarios .chip")[+sc];if(c)c.click();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}}
+ const at=(h.match(/att=(\d+)/)||[])[1];if(at!==undefined){const n=document.querySelectorAll(".node.click")[+at];if(n)n.click();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}}
+ const f=(h.match(/focus=(\w+)/)||[])[1];if(f){document.documentElement.classList.add("focus");document.body.classList.add("f-"+f);
+  if(f==="hero"){document.querySelectorAll("main>section").forEach(x=>x.hidden=true);}
+  else{document.querySelector(".hero").hidden=true;const keep=["stage","signal","attempt"].includes(f)?"story":f;document.querySelectorAll("main>section").forEach(x=>{if(x.id!==keep)x.hidden=true;});}
+  resize();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}}})();
 </script>
 </body>
 </html>
