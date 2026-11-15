@@ -1,3 +1,11 @@
+video/
+video_assets/
+devpost_images/
+*.mp4
+*.mov
+*.mkv
+*.webm
+*.avi
 __pycache__/
 *.pyc
 .venv/
