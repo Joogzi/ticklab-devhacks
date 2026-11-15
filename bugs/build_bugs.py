@@ -44,7 +44,7 @@ _SPRINT_OK = """        self.crouching = self.last_keys.shift
         forward = move[1] > 1.0e-5
         if not self.sprinting and forward and not self.crouching and keys.sprint:
             self.sprinting = True
-        if self.sprinting and (not forward or self.horizontal_collision):
+        if self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
             self.sprinting = False
 """
 _SPRINT_BUG = """        self.crouching = self.last_keys.shift
@@ -52,19 +52,19 @@ _SPRINT_BUG = """        self.crouching = self.last_keys.shift
         move = inp.move_vector(keys)
         self.last_keys = keys.copy()
         forward = move[1] > 1.0e-5
-        if self.sprinting and (not was_forward or self.horizontal_collision):
+        if self.sprinting and (not was_forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
             self.sprinting = False
         if not self.sprinting and forward and not self.crouching and keys.sprint:
             self.sprinting = True
 """
 E_B2 = [(PLAYER, _SPRINT_OK, _SPRINT_BUG)]
-T_B2 = [(PLAYER, """        if self.sprinting and (not was_forward or self.horizontal_collision):
+T_B2 = [(PLAYER, """        if self.sprinting and (not was_forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
             self.sprinting = False
         if not self.sprinting and forward and not self.crouching and keys.sprint:
             self.sprinting = True
 """, """        if not self.sprinting and forward and not self.crouching and keys.sprint:
             self.sprinting = True
-        if self.sprinting and (not forward or not keys.sprint or self.horizontal_collision):
+        if self.sprinting and (not forward or not keys.sprint or (self.horizontal_collision and not self.minor_horizontal_collision)):
             self.sprinting = False
 """)]
 
@@ -176,6 +176,31 @@ H_FRICTION = [S("h_f_run_jump", 45, hold("forward", 0, 30), hold("jump", 6, 7)),
               S("h_f_release_air", 40, hold("forward", 0, 8), hold("jump", 5, 6)),
               S("h_f_diag_jump", 45, hold("forward", 0, 30), hold("right", 0, 30), hold("jump", 10, 11))]
 
+def SW(name, dur, *groups):
+    """Hidden variant on the wall_v1 fixture."""
+    return dict(S(name, dur, *groups), fixture="wall_v1")
+
+
+_STOP_OK = "        if self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):\n"
+E_B10 = [(PLAYER, _STOP_OK, "        if self.sprinting and (not forward or self.horizontal_collision):\n")]
+T_B10 = [(PLAYER, "        if self.sprinting and (not forward or self.horizontal_collision):\n", "        if self.sprinting and not forward:\n")]
+E_B11 = [(PHYS, "    if hit_x:\n        p.vx = 0.0\n    if hit_z:\n        p.vz = 0.0\n",
+          "    if hit_x and p.on_ground:\n        p.vx = 0.0\n    if hit_z and p.on_ground:\n        p.vz = 0.0\n")]
+T_B11 = [(PHYS, "    if hit_x and p.on_ground:\n        p.vx = 0.0\n    if hit_z and p.on_ground:\n        p.vz = 0.0\n",
+          "    if hit_x and p.on_ground:\n        p.vx = 0.0\n    if hit_z and (p.on_ground or p.sprinting):\n        p.vz = 0.0\n")]
+H_WALL_SPRINT = [SW("h_w_glance_80", 55, hold("forward", 0, 18), look(20, 80), hold("forward", 20, 50), hold("sprint", 20, 50)),
+                 SW("h_w_glance_m84", 55, hold("forward", 0, 18), look(20, -84), hold("forward", 20, 50), hold("sprint", 20, 50)),
+                 SW("h_w_steep_45", 55, hold("forward", 0, 18), look(20, 45), hold("forward", 20, 50), hold("sprint", 20, 50)),
+                 SW("h_w_sprint_into_late", 45, hold("forward", 0, 35), hold("sprint", 4, 35)),
+                 SW("h_w_diag_sprint_r", 45, hold("forward", 0, 35), hold("right", 0, 35), hold("sprint", 0, 35)),
+                 SW("h_w_glance_jump", 55, hold("forward", 0, 18), look(20, 84), hold("forward", 20, 50), hold("sprint", 20, 50), hold("jump", 30, 31))]
+H_WALL_AIR = [SW("h_w_jump_into_early", 45, hold("forward", 0, 35), hold("sprint", 0, 35), hold("jump", 4, 5)),
+              SW("h_w_walk_jump_into", 45, hold("forward", 0, 35), hold("jump", 8, 9)),
+              SW("h_w_land_then_jump", 55, hold("forward", 0, 45), hold("sprint", 0, 45), hold("jump", 24, 25)),
+              SW("h_w_diag_jump_slide", 45, hold("forward", 0, 35), hold("left", 0, 35), hold("jump", 12, 13)),
+              SW("h_w_hold_jump_wall", 55, hold("forward", 0, 45), hold("jump", 16, 45)),
+              SW("h_w_back_jump_off", 50, hold("forward", 0, 20), hold("backward", 24, 40), hold("jump", 26, 27))]
+
 CASES = [
     {"id": "b1_sprint_jump_boost", "name": "Sprint-jump boost missing", "families": ["jump", "sprint"],
      "plausible": False, "edits": E_B1, "trap": T_B1, "trap_note": "boost on every jump (also walking jumps)",
@@ -220,6 +245,15 @@ CASES = [
      "families": ["jump", "sprint"], "plausible": True, "edits": E_B1 + E_B6, "trap": None, "components": ["b1_sprint_jump_boost", "b6_air_acceleration"],
      "repro": ["diag_sprint_jump_fr"], "hidden": H_SPRINT_JUMP + H_AIR,
      "report": "Sprint-jumping is off."},
+    {"id": "b10_wall_glance_sprint", "name": "Any wall contact cancels sprint", "families": ["wall", "sprint"],
+     "plausible": True, "edits": E_B10, "trap": T_B10, "trap_note": "never let a wall stop sprinting",
+     "repro": ["wall_glance_sprint"], "hidden": H_WALL_SPRINT,
+     "report": "If I sprint along a wall at a shallow angle, our character drops out of sprint the moment it brushes the "
+               "wall. In the real game you keep sprinting while you skim along it."},
+    {"id": "b11_wall_air_velocity", "name": "Wall hits in the air keep the blocked velocity", "families": ["wall", "jump"],
+     "plausible": True, "edits": E_B11, "trap": None,
+     "repro": ["wall_sprint_jump_land"], "hidden": H_WALL_AIR,
+     "report": "Sprint-jumping after landing against a wall gives the player the wrong velocity."},
 ]
 
 

@@ -9,6 +9,8 @@
     "b6_air_acceleration",
     "b7_stop_threshold",
     "b8_air_friction_timing",
-    "c9_compound_sprint_jump"
+    "c9_compound_sprint_jump",
+    "b10_wall_glance_sprint",
+    "b11_wall_air_velocity"
   ]
 }

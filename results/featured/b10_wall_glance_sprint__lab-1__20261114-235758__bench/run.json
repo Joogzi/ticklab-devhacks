@@ -1,0 +1,129 @@
+{
+  "run_id": "b10_wall_glance_sprint__lab-1__20261114-235758__bench",
+  "case": "b10_wall_glance_sprint",
+  "condition": "lab",
+  "trial": 1,
+  "model": "haiku",
+  "max_attempts": 2,
+  "workspace": "~\\.ticklab\\ws\\b10_wall_glance_sprint\\lab-1",
+  "started": "20261114-235758",
+  "attempts": [
+    {
+      "tag": "attempt1",
+      "model": "haiku",
+      "seconds": 55.5,
+      "timed_out": false,
+      "exit_code": 0,
+      "claim": "FIXED",
+      "final_text": "The bug is fixed. Sprint was being cancelled by any horizontal wall contact, but the real game only cancels it for a head-on hit.\n\n**Cause:** In `sim/src/mcsim/player.py`, the sprint-cancel check used `horizontal_collision`, which is true for any clipped horizontal movement. The simulator already computed `minor_horizontal_collision` (a clip where the actual movement stays within about 8\u00b0 of the input direction) but never used it.\n\n**Change:** The sprint-cancel condition now ignores minor horizontal collisions:\n```python\nif self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):\n```\n\n**Verification:**\n- Reproduced the bug first: sprint held at yaw 0, then yaw 84 at tick 11 on `wall_v1`. The oracle kept sprinting at tick 17; the sim dropped it. The divergence was in `sprinting`, and the position drifted after that.\n- With the fix, that scenario matches the oracle exactly.\n- A head-on wall hit (yaw 20) still matches, so non-minor collisions still drop sprint as before.\n- `run_regressions`: 25 scenarios pass, unit tests pass (9 of 9).\n- Saved the graze scenario as the repro `wall_graze_keeps_sprint`.\n\nI only edited `sim/src/mcsim/player.py`. The shell was restricted in this session, so I read the source with the file tools and ran only the `run.py test` command and the lab tools.\n\nSTATUS: FIXED",
+      "cost_usd": 0.011451870000000003,
+      "usage": {
+        "input_tokens": 26,
+        "cache_creation_input_tokens": 26113,
+        "cache_read_input_tokens": 253647,
+        "output_tokens": 7105,
+        "output_tokens_details": {
+          "thinking_tokens": 3850
+        },
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 26113,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "global",
+        "iterations": [
+          {
+            "input_tokens": 2,
+            "output_tokens": 521,
+            "cache_read_input_tokens": 31935,
+            "cache_creation_input_tokens": 458,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 458
+            },
+            "type": "message"
+          }
+        ],
+        "speed": "standard",
+        "fallback_credit": null
+      },
+      "num_turns": 17,
+      "tool_counts": {
+        "Read": 4,
+        "Bash": 2,
+        "Glob": 1,
+        "mcp__lab__compare_with_oracle": 5,
+        "mcp__lab__get_trace": 1,
+        "Edit": 1,
+        "mcp__lab__run_regressions": 1,
+        "mcp__lab__save_repro": 1
+      },
+      "denials": 1,
+      "tool_scan": {
+        "tamper_suspect": false,
+        "hits": []
+      },
+      "lab_tool_calls": 7,
+      "stream": "runs/b10_wall_glance_sprint__lab-1__20261114-235758__bench/attempt1.stream.jsonl",
+      "attempt": 1,
+      "verdict": "PATCH ACCEPTED",
+      "accepted": true,
+      "failing_gate": null,
+      "gates": [
+        {
+          "gate": "G0 integrity",
+          "status": "pass",
+          "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+        },
+        {
+          "gate": "G1 build",
+          "status": "pass",
+          "detail": "compiles and imports"
+        },
+        {
+          "gate": "G2 target repro",
+          "status": "pass",
+          "detail": "2/2 match"
+        },
+        {
+          "gate": "G3 visible suite",
+          "status": "pass",
+          "detail": "25/25 match; unit tests pass"
+        },
+        {
+          "gate": "G4 holdouts",
+          "status": "pass",
+          "detail": "25/25 match"
+        },
+        {
+          "gate": "G5 determinism",
+          "status": "pass",
+          "detail": "51/51 byte-identical across two runs"
+        }
+      ],
+      "diff": {
+        "files": [
+          "sim/src/mcsim/player.py"
+        ],
+        "added": 1,
+        "removed": 1
+      },
+      "regressions": [],
+      "feedback": "Verifier verdict: **PATCH ACCEPTED**\n- G0 integrity: pass\n- G1 build: pass\n- G2 target repro: pass\n- G3 visible suite: pass\n- G4 holdouts: pass\n- G5 determinism: pass",
+      "tamper_suspect": false,
+      "false_done": false,
+      "notes_so_far": []
+    }
+  ],
+  "accepted": true,
+  "interactive": false,
+  "notes": [],
+  "seconds": 57.7,
+  "attempts_used": 1,
+  "cost_usd": 0.0115,
+  "finished": "20261114-235856"
+}

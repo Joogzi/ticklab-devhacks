@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "h_w_back_jump_off",
+  "duration": 50,
+  "fixture": "wall_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 20,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 24,
+      "key": "backward",
+      "down": true
+    },
+    {
+      "at": 26,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 27,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 40,
+      "key": "backward",
+      "down": false
+    }
+  ]
+}

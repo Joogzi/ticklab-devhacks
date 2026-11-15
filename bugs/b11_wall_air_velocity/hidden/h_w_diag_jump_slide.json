@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "name": "h_w_diag_jump_slide",
+  "duration": 45,
+  "fixture": "wall_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 0,
+      "key": "left",
+      "down": true
+    },
+    {
+      "at": 12,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 13,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 35,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 35,
+      "key": "left",
+      "down": false
+    }
+  ]
+}

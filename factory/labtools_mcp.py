@@ -80,8 +80,8 @@ def describe_lab() -> str:
     """Explain the lab: oracle, provenance, scenario format, tick semantics and the available tools."""
     n_van = sum(1 for s in [r["scenario"] for r in scenarios.corpus_table()] if ORACLE.has_vanilla(s))
     return (f"TickLab lab for case {CASE['id']}. ORACLE COVERAGE: {n_van} real vanilla scenarios in the corpus.\n"
-            "The oracle answers any valid scenario on the flat_stone_v1 fixture (flat stone floor at y=100, player starts at "
-            "(0.5,100,0.5), yaw 0 faces +Z, settled on the ground). Answers carry provenance 'vanilla' (recorded from the real "
+            "The oracle answers any valid scenario on fixture flat_stone_v1 (flat stone floor at y=100) or wall_v1 (same floor plus "
+            "a 3-tall stone wall whose near face is the plane z=4); the player starts at (0.5,100,0.5), yaw 0 faces +Z, settled. Answers carry provenance 'vanilla' (recorded from the real "
             "game) or 'reference' (a validated reference model, used where no recording exists).\n"
             "Tick semantics: at the start of tick t, actions with at==t apply; record t = state after tick t.\n"
             "Fields: x,y,z, vx,vy,vz (velocity after the tick), on_ground, yaw, pitch, pose, sprinting, sneaking.\n"

@@ -1,7 +1,7 @@
 diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
 --- a/sim/src/mcsim/player.py
 +++ b/sim/src/mcsim/player.py
-@@ -26,14 +26,13 @@
+@@ -29,14 +29,13 @@
      def tick(self, keys: inp.Keys, world) -> None:
          # Client input step: crouch state comes from the shift key as of the previous tick.
          self.crouching = self.last_keys.shift
@@ -9,11 +9,11 @@ diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
          move = inp.move_vector(keys)
          self.last_keys = keys.copy()
          forward = move[1] > 1.0e-5
--        if self.sprinting and (not was_forward or self.horizontal_collision):
+-        if self.sprinting and (not was_forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
 -            self.sprinting = False
          if not self.sprinting and forward and not self.crouching and keys.sprint:
              self.sprinting = True
-+        if self.sprinting and (not forward or self.horizontal_collision):
++        if self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
 +            self.sprinting = False
  
          # Movement speed follows the sprint state of this tick (real 26.3 traces: no one-tick lag).

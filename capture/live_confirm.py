@@ -43,7 +43,7 @@ def collect() -> list[dict]:
         for rp in sorted((d.parent / "store" / "repros").glob("*.json"))[:1]:
             r = util.read_json(rp)
             sc = dict(r["scenario"])
-            name = re.sub(r"[^A-Za-z0-9_]", "_", f"live_{run['case'][:2]}_{r['name']}")[:60]
+            name = re.sub(r"[^A-Za-z0-9_]", "_", f"live_{run['case'].split('_')[0]}_{r['name']}")[:60]
             if name in seen or scenarios.validate(dict(sc, name=name)):
                 continue
             seen.add(name)
@@ -69,7 +69,7 @@ def prepare() -> int:
     for it in items:
         s = dict(it["scenario"])
         s["_caption"] = f"Agent-written test: {it['repro']}"
-        s["_sub"] = f"bug {it['case'][:2]} · written by the {it['model']} agent · replayed in real Minecraft"
+        s["_sub"] = f"bug {it['case'].split('_')[0]} · written by the {it['model']} agent · replayed in real Minecraft"
         mod_scen.append({"name": it["name"], "family": "live", "scenario": s})
     corpus_names = []
     if "--no-corpus" not in sys.argv:  # longer footage: all ground-truth movements too (also re-checks determinism)
@@ -85,7 +85,10 @@ def prepare() -> int:
     util.write_json(HERE / "out" / "live_plan_corpus.json", corpus_names)
     jar = build_mod.compile_mod(sel["classpath"])
     cfg = build_mod.install(sel, jar, BATCH, "listed", 7, [], [],
-                            extra={"scenarios_file": str(sf), "presentation": True, "settle_ticks": 60})
+                            extra={"scenarios_file": str(sf), "presentation": True, "settle_ticks": 60,
+                                   "fixture_commands_by_fixture": {
+                                       "wall_v1": build_mod.WALL_COMMANDS,
+                                       "flat_stone_v1": [c.replace("minecraft:stone", "minecraft:air") for c in build_mod.WALL_COMMANDS]}})
     util.write_text(ROOT / "CAPTURE_READY.md", f"""# CAPTURE_READY — live confirm (recording-friendly)
 
 Start your screen recorder, then in Prism click **Play** on **{sel['name']}** and open the world **ticklab**.
@@ -105,6 +108,8 @@ def analyze() -> int:
            "note": "Scenario inputs were written by the agent (saved repros); the capture mod replayed them in real Minecraft.",
            "items": []}
     OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for old in OUT_DIR.glob("*.jsonl"):  # results describe the latest capture only
+        old.unlink()
     for it in items:
         raw_p = HERE / "out" / BATCH / f"{it['name']}.raw.jsonl"
         if not raw_p.exists():

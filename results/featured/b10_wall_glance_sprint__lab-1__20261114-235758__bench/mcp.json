@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lab": {
+      "type": "stdio",
+      "command": "<repo>\\.venv\\Scripts\\python.exe",
+      "args": [
+        "<repo>\\factory\\labtools_mcp.py",
+        "--case",
+        "b10_wall_glance_sprint",
+        "--workspace",
+        "~\\.ticklab\\ws\\b10_wall_glance_sprint\\lab-1",
+        "--store",
+        "<repo>\\runs\\b10_wall_glance_sprint__lab-1__20261114-235758__bench\\store"
+      ]
+    }
+  }
+}

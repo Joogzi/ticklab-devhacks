@@ -10,7 +10,8 @@
     "jump_sprint_hold",
     "jump_sprint_release_forward_air",
     "jump_sprint_release_sprint_air",
-    "look_sprint_jump_turn"
+    "look_sprint_jump_turn",
+    "wall_sprint_jump_into"
   ],
   "hidden_hits": [
     "h_sj_early",
@@ -24,7 +25,8 @@
     "jump_sprint_hold",
     "jump_sprint_release_forward_air",
     "jump_sprint_release_sprint_air",
-    "look_sprint_jump_turn"
+    "look_sprint_jump_turn",
+    "wall_sprint_jump_into"
   ],
   "trap_hits": [
     "back_jump",

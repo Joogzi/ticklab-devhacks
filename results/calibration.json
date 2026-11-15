@@ -593,6 +593,204 @@
       },
       "diverging_ticks": 0,
       "ticks": 50
+    },
+    {
+      "name": "wall_back_off",
+      "file": "oracle/corpus/wall_back_off.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "wall_diag_slide",
+      "file": "oracle/corpus/wall_diag_slide.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "wall_diag_sprint_slide",
+      "file": "oracle/corpus/wall_diag_sprint_slide.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "wall_glance_sprint",
+      "file": "oracle/corpus/wall_glance_sprint.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "wall_jump_hold",
+      "file": "oracle/corpus/wall_jump_hold.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "wall_sprint_into",
+      "file": "oracle/corpus/wall_sprint_into.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 40
+    },
+    {
+      "name": "wall_sprint_jump_into",
+      "file": "oracle/corpus/wall_sprint_jump_into.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 45
+    },
+    {
+      "name": "wall_sprint_jump_land",
+      "file": "oracle/corpus/wall_sprint_jump_land.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "wall_steep_sprint",
+      "file": "oracle/corpus/wall_steep_sprint.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 55
+    },
+    {
+      "name": "wall_strafe_after",
+      "file": "oracle/corpus/wall_strafe_after.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 50
+    },
+    {
+      "name": "wall_walk_into",
+      "file": "oracle/corpus/wall_walk_into.jsonl",
+      "status": "match",
+      "first_divergence": null,
+      "max_delta": {
+        "pitch": 0.0,
+        "vx": 0.0,
+        "vy": 0.0,
+        "vz": 0.0,
+        "x": 0.0,
+        "y": 0.0,
+        "yaw": 0.0,
+        "z": 0.0
+      },
+      "diverging_ticks": 0,
+      "ticks": 40
     }
   ],
   "dev_goldens": [
@@ -670,11 +868,30 @@
     }
   ],
   "mode": "full",
-  "oracle_coverage": 33,
-  "corpus_matched": 33,
+  "oracle_coverage": 44,
+  "corpus_matched": 44,
   "dev_goldens_matched": 4,
-  "vanilla_backed_scenarios": 33,
+  "vanilla_backed_scenarios": 44,
   "bug_coverage": [
+    {
+      "case": "b10_wall_glance_sprint",
+      "vanilla_scenarios": [
+        "wall_glance_sprint",
+        "wall_sprint_into",
+        "wall_sprint_jump_into",
+        "wall_sprint_jump_land"
+      ],
+      "coverage": "vanilla"
+    },
+    {
+      "case": "b11_wall_air_velocity",
+      "vanilla_scenarios": [
+        "wall_jump_hold",
+        "wall_sprint_jump_into",
+        "wall_sprint_jump_land"
+      ],
+      "coverage": "vanilla"
+    },
     {
       "case": "b1_sprint_jump_boost",
       "vanilla_scenarios": [
@@ -683,7 +900,8 @@
         "jump_sprint_hold",
         "jump_sprint_release_forward_air",
         "jump_sprint_release_sprint_air",
-        "look_sprint_jump_turn"
+        "look_sprint_jump_turn",
+        "wall_sprint_jump_into"
       ],
       "coverage": "vanilla"
     },
@@ -700,7 +918,13 @@
         "sprint_late_press",
         "sprint_release_forward",
         "sprint_release_sprint",
-        "sprint_run"
+        "sprint_run",
+        "wall_diag_sprint_slide",
+        "wall_glance_sprint",
+        "wall_sprint_into",
+        "wall_sprint_jump_into",
+        "wall_sprint_jump_land",
+        "wall_steep_sprint"
       ],
       "coverage": "vanilla"
     },
@@ -708,7 +932,8 @@
       "case": "b3_jump_cooldown",
       "vanilla_scenarios": [
         "jump_hold",
-        "jump_sprint_hold"
+        "jump_sprint_hold",
+        "wall_jump_hold"
       ],
       "coverage": "vanilla"
     },
@@ -747,7 +972,18 @@
         "walk_back",
         "walk_f10",
         "walk_f20",
-        "walk_f35"
+        "walk_f35",
+        "wall_back_off",
+        "wall_diag_slide",
+        "wall_diag_sprint_slide",
+        "wall_glance_sprint",
+        "wall_jump_hold",
+        "wall_sprint_into",
+        "wall_sprint_jump_into",
+        "wall_sprint_jump_land",
+        "wall_steep_sprint",
+        "wall_strafe_after",
+        "wall_walk_into"
       ],
       "coverage": "vanilla"
     },
@@ -760,7 +996,9 @@
         "diag_walk_fl",
         "diag_walk_fr",
         "look_diag_turn",
-        "sneak_diag"
+        "sneak_diag",
+        "wall_diag_slide",
+        "wall_diag_sprint_slide"
       ],
       "coverage": "vanilla"
     },
@@ -775,7 +1013,8 @@
         "jump_sprint_hold",
         "jump_sprint_release_forward_air",
         "jump_sprint_release_sprint_air",
-        "look_sprint_jump_turn"
+        "look_sprint_jump_turn",
+        "wall_sprint_jump_into"
       ],
       "coverage": "vanilla"
     },
@@ -804,7 +1043,8 @@
         "jump_sprint_hold",
         "jump_sprint_release_forward_air",
         "jump_sprint_release_sprint_air",
-        "look_sprint_jump_turn"
+        "look_sprint_jump_turn",
+        "wall_sprint_jump_into"
       ],
       "coverage": "vanilla"
     },
@@ -819,7 +1059,8 @@
         "jump_sprint_hold",
         "jump_sprint_release_forward_air",
         "jump_sprint_release_sprint_air",
-        "look_sprint_jump_turn"
+        "look_sprint_jump_turn",
+        "wall_sprint_jump_into"
       ],
       "coverage": "vanilla"
     }

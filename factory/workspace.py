@@ -89,6 +89,8 @@ You have a laboratory connected to recorded **real game behavior** (the oracle).
              "- Scenario format: `{\"schema_version\":1,\"name\":...,\"duration\":N,\"fixture\":\"flat_stone_v1\",\"actions\":"
              "[{\"at\":t,\"key\":k,\"down\":true|false} | {\"at\":t,\"yaw\":deg,\"pitch\":deg}]}`; keys: forward, backward, left, right, "
              "jump, shift, sprint. At the start of tick t all actions with at==t apply; record t is the state after tick t.",
+             "- Fixtures: `flat_stone_v1` (flat stone floor, top at y=100) and `wall_v1` (same floor plus a 3-block-tall stone wall "
+             "whose near face is the plane z=4). The player starts at (0.5, 100, 0.5); yaw 0 faces +Z (toward the wall).",
              "- An independent verifier (which you cannot see or change) decides whether your patch is accepted. It runs hidden scenarios too,",
              "  so fix the actual behavior rather than special-casing an input.",
              "- End your final message with exactly one line: `STATUS: FIXED` or `STATUS: UNABLE`.", tools]

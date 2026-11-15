@@ -68,6 +68,26 @@ def input_vector(xxa: float, zza: float, speed: float, yaw: float):
     return x * c - z * s, z * c + x * s
 
 
+MINOR_COLLISION_ANGLE = 0.13962633907794952  # about 8 degrees
+MINOR_EPS = 9.999999747378752e-06
+
+
+def collision_is_minor(p, mx: float, mz: float) -> bool:
+    """A wall hit is 'minor' when the actual movement stays within ~8 degrees of the input direction."""
+    r = fmul(p.yaw, DEG_TO_RAD_F)
+    s, c = mth_sin(r), mth_cos(r)
+    gx = p.xxa * c - p.zza * s
+    gz = p.zza * c + p.xxa * s
+    want = gx * gx + gz * gz
+    got = mx * mx + mz * mz
+    if want < MINOR_EPS or got < MINOR_EPS:
+        return False
+    cosang = (gx * mx + gz * mz) / math.sqrt(want * got)
+    if not -1.0 <= cosang <= 1.0:
+        return False  # acos would be NaN in Java; NaN < x is false
+    return math.acos(cosang) < MINOR_COLLISION_ANGLE
+
+
 def move(p, world) -> None:
     """Move by the current velocity with collision; update flags and zero blocked components."""
     mx, my, mz = p.vx, p.vy, p.vz
@@ -79,6 +99,7 @@ def move(p, world) -> None:
     hit_z = abs(cz - mz) >= 1.0e-5
     vertical = my != cy
     p.horizontal_collision = hit_x or hit_z
+    p.minor_horizontal_collision = p.horizontal_collision and collision_is_minor(p, cx, cz)
     p.on_ground = vertical and my < 0.0
     if hit_x:
         p.vx = 0.0

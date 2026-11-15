@@ -1,15 +1,15 @@
 diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
 --- a/sim/src/mcsim/player.py
 +++ b/sim/src/mcsim/player.py
-@@ -30,10 +30,10 @@
+@@ -33,10 +33,10 @@
          move = inp.move_vector(keys)
          self.last_keys = keys.copy()
          forward = move[1] > 1.0e-5
--        if self.sprinting and (not was_forward or self.horizontal_collision):
+-        if self.sprinting and (not was_forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
 -            self.sprinting = False
          if not self.sprinting and forward and not self.crouching and keys.sprint:
              self.sprinting = True
-+        if self.sprinting and (not forward or not keys.sprint or self.horizontal_collision):
++        if self.sprinting and (not forward or not keys.sprint or (self.horizontal_collision and not self.minor_horizontal_collision)):
 +            self.sprinting = False
  
          # Movement speed follows the sprint state of this tick (real 26.3 traces: no one-tick lag).

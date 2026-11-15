@@ -1,0 +1,23 @@
+{
+  "id": "b11_wall_air_velocity",
+  "unit_tests_pass": true,
+  "repro": {
+    "wall_sprint_jump_land": 1418410.5980509943
+  },
+  "corpus_hits": [
+    "wall_jump_hold",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land"
+  ],
+  "hidden_hits": [
+    "h_w_hold_jump_wall",
+    "h_w_jump_into_early",
+    "h_w_land_then_jump",
+    "h_w_walk_jump_into"
+  ],
+  "vanilla_hits": [
+    "wall_jump_hold",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land"
+  ]
+}

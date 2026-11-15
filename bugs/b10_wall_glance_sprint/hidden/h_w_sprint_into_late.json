@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "name": "h_w_sprint_into_late",
+  "duration": 45,
+  "fixture": "wall_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 4,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 35,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 35,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "case": "b6_air_acceleration",
+  "accepted": false,
+  "verdict": "PATCH REJECTED",
+  "failing_gate": "G4 holdouts",
+  "reason": "G4 holdouts: 21/25 match; failing families: hidden variant (jump), jump",
+  "gates": [
+    {
+      "gate": "G0 integrity",
+      "status": "pass",
+      "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+    },
+    {
+      "gate": "G1 build",
+      "status": "pass",
+      "detail": "compiles and imports"
+    },
+    {
+      "gate": "G2 target repro",
+      "status": "pass",
+      "detail": "1/1 match",
+      "total": 1,
+      "failed": 0,
+      "failures": []
+    },
+    {
+      "gate": "G3 visible suite",
+      "status": "pass",
+      "detail": "25/25 match; unit tests pass",
+      "total": 25,
+      "failed": 0,
+      "unit_tests": "pass",
+      "failures": []
+    },
+    {
+      "gate": "G4 holdouts",
+      "status": "fail",
+      "detail": "21/25 match; failing families: hidden variant (jump), jump",
+      "total": 25,
+      "failed": 4,
+      "failed_families": [
+        "hidden variant (jump)",
+        "jump"
+      ],
+      "vanilla_failed": 3
+    },
+    {
+      "gate": "G5 determinism",
+      "status": "pass",
+      "detail": "50/50 byte-identical across two runs"
+    }
+  ],
+  "diff": {
+    "files": [
+      "sim/src/mcsim/physics.py"
+    ],
+    "added": 7,
+    "removed": 1
+  },
+  "regressions": [],
+  "first_divergence": null,
+  "verifier": "factory/verifier.py",
+  "provenance": {
+    "vanilla": 44,
+    "reference": 6
+  },
+  "seconds": 3.56,
+  "summary": "PATCH REJECTED  (case b6_air_acceleration, failing gate: G4 holdouts)\n  G0 integrity       PASS     1 file(s), all under sim/src; manifest + tool log clean\n  G1 build           PASS     compiles and imports\n  G2 target repro    PASS     1/1 match\n  G3 visible suite   PASS     25/25 match; unit tests pass\n  G4 holdouts        FAIL     21/25 match; failing families: hidden variant (jump), jump\n  G5 determinism     PASS     50/50 byte-identical across two runs"
+}

@@ -1,7 +1,7 @@
 diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
 --- a/sim/src/mcsim/physics.py
 +++ b/sim/src/mcsim/physics.py
-@@ -95,7 +95,7 @@
+@@ -116,7 +116,7 @@
      p.vx += dx
      p.vz += dz
      move(p, world)

@@ -17,7 +17,7 @@ from concurrent.futures import ThreadPoolExecutor
 from . import bugs, driver, loop, util
 
 BUDGET_CASES = ["b2_sprint_stop_late", "b3_jump_cooldown", "b5_diagonal_input", "b6_air_acceleration",
-                "b8_air_friction_timing", "c9_compound_sprint_jump"]
+                "b8_air_friction_timing", "c9_compound_sprint_jump", "b10_wall_glance_sprint", "b11_wall_air_velocity"]
 BENCH = util.RESULTS / "bench.jsonl"
 _lock = threading.Lock()
 
@@ -57,10 +57,8 @@ def to_record(rec: dict, settings: dict) -> dict:
             "timed_out": [a.get("timed_out") for a in atts], "settings": settings}
 
 
-def summarize(records: list[dict] | None = None) -> dict:
-    recs = records if records is not None else load_records()
-    out = {"n_records": len(recs), "n_invalidated": sum(1 for r in load_all() if "invalidate" in r),
-           "conditions": {}, "cases": {}}
+def _conditions(recs: list[dict]) -> dict:
+    out = {}
     for cond in ("baseline", "lab"):
         rs = [r for r in recs if r["condition"] == cond]
         if not rs:
@@ -69,7 +67,7 @@ def summarize(records: list[dict] | None = None) -> dict:
         fixed_claims = sum(c == "FIXED" for r in rs for c in r["claims"])
         false_done = sum(r["false_done_attempts"] for r in rs)
         tta = [r["time_to_accept_s"] for r in acc if r["time_to_accept_s"] is not None]
-        out["conditions"][cond] = {
+        out[cond] = {
             "runs": len(rs), "accepted": len(acc), "acceptance_rate": round(len(acc) / len(rs), 3),
             "fixed_claims": fixed_claims, "false_done_attempts": false_done,
             "false_done_rate": round(false_done / fixed_claims, 3) if fixed_claims else None,
@@ -82,19 +80,39 @@ def summarize(records: list[dict] | None = None) -> dict:
             "regressions_in_final_patch": sum(r["regressions_final"] for r in rs),
             "tamper_suspect_runs": sum(1 for r in rs if r["tamper_suspect"]),
             "models": sorted({r["model"] for r in rs})}
-    for r in recs:
-        c = out["cases"].setdefault(r["case"], {})
-        c.setdefault(r["condition"], []).append({"accepted": r["accepted"], "attempts": r["attempts_used"],
-                                                 "gates": r["failing_gates"], "claims": r["claims"], "run_id": r["run_id"]})
+    return out
+
+
+def summarize(records: list[dict] | None = None) -> dict:
+    """Aggregates are per model (never mix models). `conditions`/`cases` = the primary model (haiku if present)."""
+    recs = records if records is not None else load_records()
+    models = sorted({r["model"] for r in recs})
+    primary = "haiku" if "haiku" in models else (models[0] if models else None)
+    out = {"n_records": len(recs), "n_invalidated": sum(1 for r in load_all() if "invalidate" in r),
+           "primary_model": primary, "models": models, "by_model": {}, "conditions": {}, "cases": {}}
+    for m in models:
+        rs = [r for r in recs if r["model"] == m]
+        cases = {}
+        for r in rs:
+            c = cases.setdefault(r["case"], {})
+            c.setdefault(r["condition"], []).append({"accepted": r["accepted"], "attempts": r["attempts_used"],
+                                                     "gates": r["failing_gates"], "claims": r["claims"], "run_id": r["run_id"]})
+        out["by_model"][m] = {"n_records": len(rs), "conditions": _conditions(rs), "cases": cases}
+    if primary:
+        out["conditions"] = out["by_model"][primary]["conditions"]
+        out["cases"] = out["by_model"][primary]["cases"]
     sel = util.RESULTS / "selftest.json"
     if sel.exists():
-        s = util.read_json(sel)
-        out["selftest"] = {"passed": s["passed"], "total": s["total"]}
+        st = util.read_json(sel)
+        out["selftest"] = {"passed": st["passed"], "total": st["total"]}
     cal = util.RESULTS / "calibration.json"
     if cal.exists():
         c = util.read_json(cal)
         out["oracle"] = {"mode": c["mode"], "coverage_real_vanilla": c["oracle_coverage"], "corpus_matched": c["corpus_matched"],
                          "dev_goldens_matched": c["dev_goldens_matched"]}
+    disc = util.RESULTS / "discovery.json"
+    if disc.exists():
+        out["discovery"] = util.read_json(disc).get("recall")
     util.write_json(util.RESULTS / "summary.json", out)
     return out
 

@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "name": "h_w_glance_jump",
+  "duration": 55,
+  "fixture": "wall_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 18,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 20,
+      "yaw": 84,
+      "pitch": 0
+    },
+    {
+      "at": 20,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 20,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 30,
+      "key": "jump",
+      "down": true
+    },
+    {
+      "at": 31,
+      "key": "jump",
+      "down": false
+    },
+    {
+      "at": 50,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 50,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

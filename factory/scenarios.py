@@ -1,4 +1,4 @@
-"""Scenario format helpers and the 33-scenario corpus table (PROJECT.md §3).
+"""Scenario format helpers and the corpus scenario table (PROJECT.md §3).
 
 `python -m factory.scenarios` regenerates oracle/corpus_scenarios.json.
 """
@@ -44,7 +44,20 @@ look_walk_turn look 50 forward↓0 yaw90/pitch0@10 forward↑35
 look_sprint_jump_turn look 55 forward↓0 sprint↓0 jump↓10 jump↑11 yaw45/pitch0@14 forward↑40 sprint↑40
 look_diag_turn look 50 forward↓0 left↓0 yaw-60/pitch0@8 yaw30/pitch0@20 forward↑35 left↑35
 look_pitch_walk look 45 yaw0/pitch60@2 forward↓3 forward↑30
+wall_walk_into wall 40 forward↓0 forward↑30
+wall_sprint_into wall 40 forward↓0 sprint↓0 forward↑30 sprint↑30
+wall_sprint_jump_land wall 50 forward↓0 sprint↓0 jump↓20 jump↑21 forward↑40 sprint↑40
+wall_sprint_jump_into wall 45 forward↓0 sprint↓0 jump↓6 jump↑7 forward↑35 sprint↑35
+wall_diag_slide wall 45 forward↓0 left↓0 forward↑35 left↑35
+wall_diag_sprint_slide wall 45 forward↓0 left↓0 sprint↓0 forward↑35 left↑35 sprint↑35
+wall_glance_sprint wall 55 forward↓0 forward↑18 yaw84/pitch0@20 forward↓20 sprint↓20 forward↑50 sprint↑50
+wall_steep_sprint wall 55 forward↓0 forward↑18 yaw60/pitch0@20 forward↓20 sprint↓20 forward↑50 sprint↑50
+wall_back_off wall 50 forward↓0 forward↑22 backward↓25 backward↑40
+wall_jump_hold wall 50 forward↓0 jump↓18 jump↑40 forward↑40
+wall_strafe_after wall 50 forward↓0 forward↑20 left↓20 left↑40
 """
+FIXTURE_OF_FAMILY = {"wall": "wall_v1"}
+FIXTURES = ("flat_stone_v1", "wall_v1")
 
 _KEY_RE = re.compile(r"^(\w+)([↓↑])(\d+)$")
 _LOOK_RE = re.compile(r"^yaw(-?[\d.]+)/pitch(-?[\d.]+)@(\d+)$")
@@ -70,8 +83,8 @@ def parse_actions(tokens: list[str]) -> list[dict]:
     return sorted(acts, key=lambda a: a["at"])  # stable: table order kept within a tick
 
 
-def make(name: str, duration: int, actions: list[dict]) -> dict:
-    return {"schema_version": 1, "name": name, "duration": duration, "fixture": "flat_stone_v1", "actions": actions}
+def make(name: str, duration: int, actions: list[dict], fixture: str = "flat_stone_v1") -> dict:
+    return {"schema_version": 1, "name": name, "duration": duration, "fixture": fixture, "actions": actions}
 
 
 def corpus_table() -> list[dict]:
@@ -79,7 +92,8 @@ def corpus_table() -> list[dict]:
     out = []
     for line in TABLE.strip().splitlines():
         name, fam, dur, *toks = line.split()
-        out.append({"name": name, "family": fam, "scenario": make(name, int(dur), parse_actions(toks))})
+        out.append({"name": name, "family": fam,
+                    "scenario": make(name, int(dur), parse_actions(toks), FIXTURE_OF_FAMILY.get(fam, "flat_stone_v1"))})
     return out
 
 
@@ -96,8 +110,8 @@ def validate(s: dict) -> list[str]:
     if not isinstance(d, int) or not 1 <= d <= 200:
         probs.append("duration must be an int in 1..200")
         d = 0
-    if s.get("fixture", "flat_stone_v1") != "flat_stone_v1":
-        probs.append("fixture must be flat_stone_v1")
+    if s.get("fixture", "flat_stone_v1") not in FIXTURES:
+        probs.append(f"fixture must be one of {FIXTURES}")
     last = -1
     for a in s.get("actions", []):
         at = a.get("at")

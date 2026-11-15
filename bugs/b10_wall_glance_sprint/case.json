@@ -1,0 +1,26 @@
+{
+  "id": "b10_wall_glance_sprint",
+  "name": "Any wall contact cancels sprint",
+  "families": [
+    "wall",
+    "sprint"
+  ],
+  "report": "If I sprint along a wall at a shallow angle, our character drops out of sprint the moment it brushes the wall. In the real game you keep sprinting while you skim along it.",
+  "plausible": true,
+  "repro_scenarios": [
+    "wall_glance_sprint"
+  ],
+  "trap": true,
+  "trap_note": "never let a wall stop sprinting",
+  "components": [
+    "b10_wall_glance_sprint"
+  ],
+  "hidden_variants": [
+    "h_w_glance_80",
+    "h_w_glance_m84",
+    "h_w_steep_45",
+    "h_w_sprint_into_late",
+    "h_w_diag_sprint_r",
+    "h_w_glance_jump"
+  ]
+}

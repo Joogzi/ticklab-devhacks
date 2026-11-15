@@ -43,6 +43,7 @@ public final class TickProbe {
     private static final JsonArray timings = new JsonArray();
     private static long startedAt, scenarioStart;
     private static boolean presentation = false;
+    private static String builtFixture = null;
 
     /** Physical input is blocked only while the capture drives the player inside the world (never on menus). */
     public static boolean active() { return phase == Phase.SETUP || phase == Phase.RESET || phase == Phase.SETTLE || phase == Phase.RUN; }
@@ -133,6 +134,7 @@ public final class TickProbe {
                 "fill -48 99 -48 48 99 48 minecraft:stone"};
             for (String c : cmds) command(mc, c);
             for (int y = 100; y <= 120; y++) command(mc, "fill -48 " + y + " -48 48 " + y + " 48 minecraft:air");
+            for (String c : names(cfg, "fixture_commands")) command(mc, c);  // e.g. build the wall for wall_v1
             command(mc, "tp @a 0.5 100 0.5 0 0");
         }
         if (++wait >= 60) { phase = Phase.RESET; wait = 0; }
@@ -147,6 +149,14 @@ public final class TickProbe {
     private static void reset(LocalPlayer p) {
         if (qi >= queue.size()) { finish(); return; }
         cur = queue.get(qi);
+        if (cfg.has("fixture_commands_by_fixture")) {  // mixed batches: (re)build the fixture this scenario needs
+            String fx = cur.has("fixture") ? cur.get("fixture").getAsString() : "flat_stone_v1";
+            JsonObject m = cfg.getAsJsonObject("fixture_commands_by_fixture");
+            if (!fx.equals(builtFixture) && m.has(fx)) {
+                for (JsonElement c : m.getAsJsonArray(fx)) command(Minecraft.getInstance(), c.getAsString());
+                builtFixture = fx;
+            }
+        }
         if (presentation) {  // on-screen captions for recording; never affects movement
             Minecraft mc = Minecraft.getInstance();
             // Small captions: an empty title + a subtitle line (the big title font is too large to record).

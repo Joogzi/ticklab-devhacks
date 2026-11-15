@@ -86,6 +86,7 @@ def scan_tool_log(tool_calls: list[dict], ws: Path) -> dict:
     hits = []
     ws_s = str(ws).replace("\\", "/").lower()
     repo_s = str(util.ROOT).replace("\\", "/").lower()
+    shell = {"cwd": "."}  # Claude Code keeps the shell's working directory between Bash calls
     for tc in tool_calls:
         name = tc.get("name") or ""
         if name.startswith("mcp__lab__"):
@@ -103,19 +104,23 @@ def scan_tool_log(tool_calls: list[dict], ws: Path) -> dict:
                 if not m.startswith(ws_s) and not m.startswith("/" + ws_s.replace(":", "")):
                     hits.append(f"{name}: absolute path outside workspace: {m[:120]}")
                     break
-            if re.search(r"(^|[\s\"'/=])\.\.(/|$|[\s\"'])", s) and _escapes_workspace(s, name):
+            if name in ("Bash", "PowerShell"):
+                esc_ = _escapes_workspace(s, name, shell)
+            else:
+                esc_ = bool(re.search(r"(^|[\s\"'/=])\.\.(/|$|[\s\"'])", s)) and _escapes_workspace(s, name)
+            if esc_:
                 hits.append(f"{name}: parent-directory traversal out of the workspace")
     return {"tamper_suspect": bool(hits), "hits": hits[:20]}
 
 
-def _escapes_workspace(text: str, tool: str) -> bool:
+def _escapes_workspace(text: str, tool: str, shell: dict | None = None) -> bool:
     """True if a relative path containing '..' resolves outside the workspace root.
 
     For shell commands, a virtual cwd (relative to the workspace root) is tracked across `cd` segments, so
     `cd scenarios/visible && ... && cd ../..` is not flagged, while `cat ../../bugs/x` from the root is.
     """
     import posixpath
-    cwd = "."
+    cwd = shell["cwd"] if shell else "."
     segments = re.split(r"&&|\|\||;|\|", text) if tool in ("Bash", "PowerShell") else [text]
     for seg in segments:
         toks = [t.strip("\"'") for t in seg.split()]
@@ -126,6 +131,8 @@ def _escapes_workspace(text: str, tool: str) -> bool:
             if nxt == ".." or nxt.startswith("../"):
                 return True
             cwd = nxt
+            if shell is not None:
+                shell["cwd"] = cwd
             continue
         for t in toks:
             if ".." in t.split("/"):

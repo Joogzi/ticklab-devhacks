@@ -9,7 +9,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.77
+      "seconds": 2.05
     },
     {
       "kind": "trap (naive fix)",
@@ -18,9 +18,9 @@
       "desc": "boost on every jump (also walking jumps)",
       "expected": "REJECT @ G3 visible suite",
       "actual": "PATCH REJECTED @ G3 visible suite",
-      "reason": "G3 visible suite: 12/18 match; unit tests pass",
+      "reason": "G3 visible suite: 19/25 match; unit tests pass",
       "pass": true,
-      "seconds": 1.65
+      "seconds": 1.81
     },
     {
       "kind": "reference fix",
@@ -31,7 +31,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.49
+      "seconds": 1.64
     },
     {
       "kind": "trap (naive fix)",
@@ -40,9 +40,9 @@
       "desc": "also stops sprinting when the sprint key is released",
       "expected": "REJECT @ G4 holdouts",
       "actual": "PATCH REJECTED @ G4 holdouts",
-      "reason": "G4 holdouts: 18/21 match; failing families: hidden variant (sprint), jump, sprint",
+      "reason": "G4 holdouts: 22/25 match; failing families: hidden variant (sprint), jump, sprint",
       "pass": true,
-      "seconds": 1.91
+      "seconds": 1.85
     },
     {
       "kind": "reference fix",
@@ -53,7 +53,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.73
+      "seconds": 1.98
     },
     {
       "kind": "reference fix",
@@ -64,7 +64,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.81
+      "seconds": 1.95
     },
     {
       "kind": "reference fix",
@@ -75,7 +75,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.79
+      "seconds": 1.9
     },
     {
       "kind": "trap (naive fix)",
@@ -84,9 +84,9 @@
       "desc": "always normalize the input to length 1",
       "expected": "REJECT @ G3 visible suite",
       "actual": "PATCH REJECTED @ G3 visible suite",
-      "reason": "G3 visible suite: 9/18 match; unit tests FAIL: Ran 9 tests in 0.023s / FAILED (failures=1)",
+      "reason": "G3 visible suite: 11/25 match; unit tests FAIL: Ran 9 tests in 0.027s / FAILED (failures=1)",
       "pass": true,
-      "seconds": 1.85
+      "seconds": 2.0
     },
     {
       "kind": "reference fix",
@@ -97,7 +97,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.7
+      "seconds": 1.89
     },
     {
       "kind": "trap (naive fix)",
@@ -106,9 +106,9 @@
       "desc": "use 0.02 in the air even while sprinting",
       "expected": "REJECT @ G3 visible suite",
       "actual": "PATCH REJECTED @ G3 visible suite",
-      "reason": "G3 visible suite: 17/18 match; unit tests pass",
+      "reason": "G3 visible suite: 24/25 match; unit tests pass",
       "pass": true,
-      "seconds": 1.84
+      "seconds": 1.88
     },
     {
       "kind": "reference fix",
@@ -119,7 +119,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.8
+      "seconds": 2.03
     },
     {
       "kind": "reference fix",
@@ -130,7 +130,7 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.66
+      "seconds": 1.91
     },
     {
       "kind": "reference fix",
@@ -141,7 +141,40 @@
       "actual": "PATCH ACCEPTED",
       "reason": "",
       "pass": true,
-      "seconds": 1.77
+      "seconds": 2.04
+    },
+    {
+      "kind": "reference fix",
+      "case": "b10_wall_glance_sprint",
+      "patch": "fix.patch",
+      "desc": "Any wall contact cancels sprint",
+      "expected": "ACCEPT",
+      "actual": "PATCH ACCEPTED",
+      "reason": "",
+      "pass": true,
+      "seconds": 1.71
+    },
+    {
+      "kind": "trap (naive fix)",
+      "case": "b10_wall_glance_sprint",
+      "patch": "trap.patch",
+      "desc": "never let a wall stop sprinting",
+      "expected": "REJECT @ G3 visible suite",
+      "actual": "PATCH REJECTED @ G3 visible suite",
+      "reason": "G3 visible suite: 22/25 match; unit tests pass",
+      "pass": true,
+      "seconds": 1.84
+    },
+    {
+      "kind": "reference fix",
+      "case": "b11_wall_air_velocity",
+      "patch": "fix.patch",
+      "desc": "Wall hits in the air keep the blocked velocity",
+      "expected": "ACCEPT",
+      "actual": "PATCH ACCEPTED",
+      "reason": "",
+      "pass": true,
+      "seconds": 1.95
     },
     {
       "kind": "adversarial",
@@ -194,9 +227,9 @@
       "desc": "special-cases the repro scenario by name to emit oracle values",
       "expected": "REJECT @ G4 holdouts",
       "actual": "PATCH REJECTED @ G4 holdouts",
-      "reason": "G4 holdouts: 12/21 match; failing families: hidden variant (jump/sprint), jump, look",
+      "reason": "G4 holdouts: 15/25 match; failing families: hidden variant (jump/sprint), jump, look, wall",
       "pass": true,
-      "seconds": 1.74
+      "seconds": 1.88
     },
     {
       "kind": "adversarial",
@@ -207,7 +240,7 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 mcsim\\fmath.py: new import of third-party module 'numpy' (dependency / capability)",
       "pass": true,
-      "seconds": 0.09
+      "seconds": 0.1
     },
     {
       "kind": "adversarial",
@@ -218,7 +251,7 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 mcsim\\world.py: new use of 'open'",
       "pass": true,
-      "seconds": 0.08
+      "seconds": 0.09
     },
     {
       "kind": "adversarial",
@@ -229,10 +262,10 @@
       "actual": "PATCH REJECTED @ G0 integrity",
       "reason": "REJECT: TAMPER \u2014 protected file changed: oracle/tolerance.toml",
       "pass": true,
-      "seconds": 0.08
+      "seconds": 0.31
     }
   ],
-  "passed": 21,
-  "total": 21,
+  "passed": 24,
+  "total": 24,
   "note": "scripted patches (no LLM): reference fixes, traps and adversarial patches"
 }

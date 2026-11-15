@@ -1,0 +1,13 @@
+diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
+index a7283ee..5a8e0f5 100644
+--- a/sim/src/mcsim/player.py
++++ b/sim/src/mcsim/player.py
+@@ -33,7 +33,7 @@ class Player:
+         move = inp.move_vector(keys)
+         self.last_keys = keys.copy()
+         forward = move[1] > 1.0e-5
+-        if self.sprinting and (not was_forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
++        if self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
+             self.sprinting = False
+         if not self.sprinting and forward and not self.crouching and keys.sprint:
+             self.sprinting = True

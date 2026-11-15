@@ -1,0 +1,4 @@
+{"t": 1794720154.017, "tool": "compare_with_oracle", "args": {"name": "s", "scenario": {"schema_version": 1, "name": "s", "duration": 30, "fixture": "flat_stone_v1", "actions": [{"at": 0, "key": "forward", "down": true}, {"at": 0, "key": "sprint", "down": true}, {"at": 15, "key": "forward", "down": false}, {"at": 15, "key": "sprint", "down": false}]}}, "secs": 0.687, "result_status": "match"}
+{"t": 1794720155.556, "tool": "run_regressions", "args": {}, "secs": 0.911, "result_status": "fail"}
+{"t": 1794720163.043, "tool": "compare_with_oracle", "args": {"name": "w", "scenario": {"schema_version": 1, "name": "w", "duration": 30, "fixture": "wall_v1", "actions": [{"at": 0, "key": "forward", "down": true}, {"at": 0, "key": "sprint", "down": true}]}}, "secs": 0.791, "result_status": "diverge"}
+{"t": 1794720169.864, "tool": "run_regressions", "args": {}, "secs": 0.98, "result_status": "pass"}

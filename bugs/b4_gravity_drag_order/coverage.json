@@ -37,7 +37,18 @@
     "walk_back",
     "walk_f10",
     "walk_f20",
-    "walk_f35"
+    "walk_f35",
+    "wall_back_off",
+    "wall_diag_slide",
+    "wall_diag_sprint_slide",
+    "wall_glance_sprint",
+    "wall_jump_hold",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land",
+    "wall_steep_sprint",
+    "wall_strafe_after",
+    "wall_walk_into"
   ],
   "hidden_hits": [
     "h_g_hold",
@@ -80,6 +91,17 @@
     "walk_back",
     "walk_f10",
     "walk_f20",
-    "walk_f35"
+    "walk_f35",
+    "wall_back_off",
+    "wall_diag_slide",
+    "wall_diag_sprint_slide",
+    "wall_glance_sprint",
+    "wall_jump_hold",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land",
+    "wall_steep_sprint",
+    "wall_strafe_after",
+    "wall_walk_into"
   ]
 }

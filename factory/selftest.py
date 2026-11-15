@@ -17,7 +17,8 @@ from pathlib import Path
 from . import bugs, integrity, patchutil, util, verifier
 
 TRAP_EXPECTED = {"b1_sprint_jump_boost": "G3 visible suite", "b2_sprint_stop_late": "G4 holdouts",
-                 "b5_diagonal_input": "G3 visible suite", "b6_air_acceleration": "G3 visible suite"}
+                 "b5_diagonal_input": "G3 visible suite", "b6_air_acceleration": "G3 visible suite",
+                 "b10_wall_glance_sprint": "G3 visible suite"}
 
 
 def _buggy_text(cid: str, rel: str) -> str:

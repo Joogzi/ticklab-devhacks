@@ -1,7 +1,7 @@
 diff --git a/sim/src/mcsim/player.py b/sim/src/mcsim/player.py
 --- a/sim/src/mcsim/player.py
 +++ b/sim/src/mcsim/player.py
-@@ -38,7 +38,7 @@
+@@ -41,7 +41,7 @@
          self.speed = physics.movement_speed(self.sprinting)
  
          # Living-entity step.

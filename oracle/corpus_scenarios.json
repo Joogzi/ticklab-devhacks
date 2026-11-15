@@ -1072,6 +1072,408 @@
           }
         ]
       }
+    },
+    {
+      "name": "wall_walk_into",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_walk_into",
+        "duration": 40,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_sprint_into",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_sprint_into",
+        "duration": 40,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 30,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 30,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_sprint_jump_land",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_sprint_jump_land",
+        "duration": 50,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 20,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 21,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_sprint_jump_into",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_sprint_jump_into",
+        "duration": 45,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 6,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 7,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_diag_slide",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_diag_slide",
+        "duration": 45,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_diag_sprint_slide",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_diag_sprint_slide",
+        "duration": 45,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 0,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 35,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "left",
+            "down": false
+          },
+          {
+            "at": 35,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_glance_sprint",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_glance_sprint",
+        "duration": 55,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 18,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 20,
+            "yaw": 84,
+            "pitch": 0
+          },
+          {
+            "at": 20,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 20,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 50,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 50,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_steep_sprint",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_steep_sprint",
+        "duration": 55,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 18,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 20,
+            "yaw": 60,
+            "pitch": 0
+          },
+          {
+            "at": 20,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 20,
+            "key": "sprint",
+            "down": true
+          },
+          {
+            "at": 50,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 50,
+            "key": "sprint",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_back_off",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_back_off",
+        "duration": 50,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 22,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 25,
+            "key": "backward",
+            "down": true
+          },
+          {
+            "at": 40,
+            "key": "backward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_jump_hold",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_jump_hold",
+        "duration": 50,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 18,
+            "key": "jump",
+            "down": true
+          },
+          {
+            "at": 40,
+            "key": "jump",
+            "down": false
+          },
+          {
+            "at": 40,
+            "key": "forward",
+            "down": false
+          }
+        ]
+      }
+    },
+    {
+      "name": "wall_strafe_after",
+      "family": "wall",
+      "scenario": {
+        "schema_version": 1,
+        "name": "wall_strafe_after",
+        "duration": 50,
+        "fixture": "wall_v1",
+        "actions": [
+          {
+            "at": 0,
+            "key": "forward",
+            "down": true
+          },
+          {
+            "at": 20,
+            "key": "forward",
+            "down": false
+          },
+          {
+            "at": 20,
+            "key": "left",
+            "down": true
+          },
+          {
+            "at": 40,
+            "key": "left",
+            "down": false
+          }
+        ]
+      }
     }
   ]
 }

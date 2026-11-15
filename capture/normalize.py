@@ -74,7 +74,7 @@ def normalize_batch(batch: str) -> tuple[dict, dict]:
 def write_corpus(batches: list[str]) -> dict:
     scen = load_scenarios()
     norm = {b: normalize_batch(b) for b in batches}
-    primary, done = norm[batches[0]]
+    done = norm[batches[0]][1]
     CORPUS.mkdir(parents=True, exist_ok=True)
     index = {"schema_version": 1, "minecraft": done.get("minecraft"), "mod": done.get("mod"), "java": done.get("java"),
              "batches": {b: {"order": norm[b][1].get("order"), "captured": norm[b][1].get("captured"),
@@ -83,9 +83,16 @@ def write_corpus(batches: list[str]) -> dict:
     for name, row in scen.items():
         entry = {"name": name, "family": row["family"], "file": f"{name}.jsonl",
                  "scenario_hash": adapters.scenario_hash(row["scenario"]), "usable": False, "notes": []}
+        have = [b for b in batches if name in norm[b][0]]
+        if not have:
+            entry["notes"].append(f"not captured in batches {batches}")
+            index["scenarios"].append(entry)
+            continue
+        pb = have[0]
+        primary = norm[pb][0]
         tr = primary.get(name)
+        entry["batch"] = pb
         if tr is None:
-            entry["notes"].append(f"not captured in batch {batches[0]}")
             index["scenarios"].append(entry)
             continue
         probs = validate(tr, row["scenario"])
@@ -93,9 +100,8 @@ def write_corpus(batches: list[str]) -> dict:
         rep = primary.get(name + ".repeat")
         if rep is not None:
             det["repeat_in_batch"] = body(rep) == body(tr)
-        for b in batches[1:]:
-            other = norm[b][0].get(name)
-            det[f"order_vs_{b}"] = None if other is None else body(other) == body(tr)
+        for b in have[1:]:
+            det[f"order_vs_{b}"] = body(norm[b][0][name]) == body(tr)
         entry["determinism"] = det
         bad_det = [k for k, v in det.items() if v is False]
         if bad_det:

@@ -10,6 +10,10 @@
 --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif;
 --sans:"Segoe UI",system-ui,-apple-system,Roboto,sans-serif;
 --mono:"Cascadia Mono",Consolas,ui-monospace,"Liberation Mono",monospace}
+[data-theme=dark]{--paper:#161512;--sheet:#1e1d19;--ink:#ece8dc;--mute:#a7a194;--faint:#6f6a5f;--rule:#3b3932;--rule2:#2a2924;
+--real:#56c48a;--bug:#ef6b5f;--fix:#7aa6ee;--note:#d6ad4f}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--paper:#161512;--sheet:#1e1d19;--ink:#ece8dc;--mute:#a7a194;--faint:#6f6a5f;--rule:#3b3932;--rule2:#2a2924;
+--real:#56c48a;--bug:#ef6b5f;--fix:#7aa6ee;--note:#d6ad4f}}
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--sans)}
 a{color:var(--fix)}
@@ -19,7 +23,8 @@ header{position:sticky;top:0;z-index:20;background:var(--paper);border-bottom:1p
 .logo i{display:inline-block;width:9px;height:9px;background:var(--bug);margin-right:8px}
 nav{display:flex;gap:18px;flex-wrap:wrap}nav a{color:var(--ink);text-decoration:none;font-size:13.5px;border-bottom:1px solid transparent}
 nav a:hover{border-bottom-color:var(--ink)}
-.pill{margin-left:auto;font:12.5px var(--mono);color:var(--real)}.pill.thin{color:var(--note)}
+.pill{margin-left:auto;font:12.5px var(--mono);color:var(--real)}
+#theme{font:12px var(--mono);padding:3px 9px}.pill.thin{color:var(--note)}
 main{max-width:1360px;margin:0 auto;padding:0 24px 70px;counter-reset:sec}
 section{padding-top:44px}
 h2{font:400 27px/1.2 var(--serif);margin:0 0 6px;padding-top:12px;border-top:1px solid var(--ink)}
@@ -70,7 +75,7 @@ input[type=range]{flex:1 1 260px;accent-color:var(--ink)}
 .gate{padding:6px 12px;font:12px var(--mono);border-right:1px solid var(--rule);flex:1 1 auto}
 .gate.pass{color:var(--real)}.gate.fail{color:var(--sheet);background:var(--bug)}.gate.skip{color:var(--faint)}
 pre{margin:0;white-space:pre-wrap;word-break:break-word;font:12.5px/1.55 var(--mono);background:var(--paper);border:1px solid var(--rule);padding:10px 12px;max-height:340px;overflow:auto}
-.diff .a{color:var(--real);background:rgba(31,122,77,.09)}.diff .r{color:var(--bug);background:rgba(200,55,45,.08)}.diff .h{color:var(--faint)}
+.diff .a{color:var(--real);background:color-mix(in srgb,var(--real) 10%,transparent)}.diff .r{color:var(--bug);background:color-mix(in srgb,var(--bug) 9%,transparent)}.diff .h{color:var(--faint)}
 .row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:18px;margin-top:18px}
 .lbl2{font:11.5px var(--mono);color:var(--mute);margin:0 0 6px}
 canvas.chart{width:100%;height:210px;display:block}
@@ -96,8 +101,8 @@ td.m,.m{font-family:var(--mono);font-size:12.5px}
 </head>
 <body>
 <header><div class="bar"><div class="logo"><i></i>ticklab</div>
-<nav><a href="#story">Cases</a><a href="#live">Live confirm</a><a href="#evidence">Evidence</a><a href="#truth">Ground truth</a><a href="#bugs">Seeded bugs</a><a href="#runs">Run log</a></nav>
-<span id="cov" class="pill"></span></div></header>
+<nav><a href="#story">Cases</a><a href="#live">Live confirm</a><a href="#evidence">Evidence</a><a href="#truth">Ground truth</a><a href="#discovery">Discovery</a><a href="#bugs">Seeded bugs</a><a href="#runs">Run log</a></nav>
+<span id="cov" class="pill"></span><button id="theme" title="Switch light / dark">dark</button></div></header>
 <main>
 <div class="hero" id="top">
  <h1>Verified behavior changes, <em>not claimed ones.</em></h1>
@@ -135,6 +140,7 @@ td.m,.m{font-family:var(--mono);font-size:12.5px}
 
 <section id="evidence">
  <h2>Evidence: same agent, with and without the lab</h2><p class="sub" id="evsub"></p>
+ <div class="chips" id="models" style="margin:-6px 0 16px"></div>
  <div class="vs"><div class="card" id="metrics"></div><div class="card"><h3>Per case</h3><table class="matrix" id="matrix"></table><p class="small">One square per run. Filled = accepted by the verifier, outlined = rejected. Hover for the gates.</p></div></div>
  <div style="height:22px"></div>
  <div class="callout" id="honest"></div>
@@ -145,6 +151,11 @@ td.m,.m{font-family:var(--mono);font-size:12.5px}
 <section id="truth">
  <h2>Ground truth: real Minecraft 26.3</h2><p class="sub" id="truthsub"></p>
  <table id="tiles"></table>
+</section>
+
+<section id="discovery" hidden>
+ <h2>Discovery: finding bugs nobody reported</h2><p class="sub" id="discsub"></p>
+ <div style="overflow:auto"><table id="disctable"></table></div>
 </section>
 
 <section id="bugs">
@@ -160,7 +171,12 @@ td.m,.m{font-family:var(--mono);font-size:12.5px}
 <script>
 const D=/*__DATA__*/null;
 const $=s=>document.querySelector(s), esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-const C={real:"#1f7a4d",bug:"#c8372d",fix:"#2456a6",ink:"#1c1b19",mute:"#6b675e",rule:"#d8d4c6",sheet:"#fffdf7"};
+const C={};
+function readTheme(){const cs=getComputedStyle(document.documentElement);["real","bug","fix","ink","mute","rule","rule2","sheet","paper","faint"].forEach(k=>C[k]=cs.getPropertyValue("--"+k).trim());}
+function setTheme(t){try{localStorage.setItem("ticklab-theme",t);}catch(e){}document.documentElement.setAttribute("data-theme",t);readTheme();
+ const b=document.getElementById("theme");if(b)b.textContent=t==="dark"?"light":"dark";if(typeof draw==="function"){draw();}}
+(function(){let t=(location.hash.match(/theme=(dark|light)/)||[])[1];if(!t){try{t=localStorage.getItem("ticklab-theme");}catch(e){}}
+ if(!t)t=window.matchMedia&&matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);readTheme();})();
 const S=D.summary||{},CND=(S.conditions||{}),ST=D.selftest||{rows:[]},CAL=D.calibration||{corpus:[],dev_goldens:[]};
 const fmt=v=>typeof v==="number"?(Number.isInteger(v)?String(v):v.toFixed(6)):v===undefined||v===null?"–":String(v);
 const shortCase=c=>c.replace(/^([bc]\d)_/,"$1 · ").replace(/_/g," ");
@@ -169,10 +185,10 @@ const shortCase=c=>c.replace(/^([bc]\d)_/,"$1 · ").replace(/_/g," ");
 (function(){const cv=$("#cov");const real=CAL.corpus?CAL.corpus.length:0;const m=(CAL.corpus||[]).filter(r=>r.status==="match").length;
  cv.textContent=real?`Oracle: ${m}/${real} real Minecraft 26.3 recordings matched`:"Oracle: THIN mode (reference layer only)";if(!real)cv.classList.add("thin");
  const adv=ST.rows.filter(r=>r.kind==="adversarial"),advOk=adv.filter(r=>r.pass).length;
- const fd=(CND.baseline?CND.baseline.false_done_attempts:0)+(CND.lab?CND.lab.false_done_attempts:0);
- const runs=(CND.baseline?CND.baseline.runs:0)+(CND.lab?CND.lab.runs:0);
+ const BM=S.by_model||{"":{conditions:CND}};let fd=0,runs=0;
+ Object.values(BM).forEach(m=>["baseline","lab"].forEach(c=>{const x=(m.conditions||{})[c];if(x){fd+=x.false_done_attempts;runs+=x.runs;}}));
  const cards=[[`${m}/${real}`,"real-game recordings matched exactly by the simulator"],[`${advOk}/${adv.length}`,"cheating patches rejected (edit tests, loosen tolerances, hardcode the repro…)"],
-  [String(fd),"false “fixed” claims by the agent, every one caught by the verifier"],[String(runs),"agent runs in the benchmark, all judged by the same independent verifier"]];
+  [String(fd),"false “fixed” claims by the agent, every one caught by the verifier"],[String(runs),`agent runs in the benchmark (${Object.keys(BM).filter(Boolean).join(" + ")||"one model"}), all judged by the same independent verifier`]];
  $("#stats").innerHTML=cards.map(c=>`<div class="stat"><b>${c[0]}</b><span>${c[1]}</span></div>`).join("");})();
 
 // ---------- run list + timeline ----------
@@ -235,11 +251,12 @@ function fitCamera(){const ss=series();let xs=[],zs=[];ss.forEach(s=>{xs=xs.conc
  const o=ss[0].t,k=o.x.length-1,dx=o.x[k]-o.x[0],dz=o.z[k]-o.z[0];if(Math.hypot(dx,dz)>0.5)camA=Math.atan2(-dz,dx)+0.45;
  fit.span=Math.max(mxx-mnx,mxz-mnz,4)+7;}
 function poly(pts,fill,stroke,lw){g.beginPath();pts.forEach((p,i)=>i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]));g.closePath();if(fill){g.fillStyle=fill;g.fill();}if(stroke){g.strokeStyle=stroke;g.lineWidth=lw||1;g.stroke();}}
+function alpha(hex,a){const n=parseInt(hex.slice(1),16);return`rgba(${n>>16},${(n>>8)&255},${n&255},${a})`;}
 function shade(hex,f){const n=parseInt(hex.slice(1),16);let r=n>>16,gg=(n>>8)&255,b=n&255;r=Math.min(255,Math.round(r*f));gg=Math.min(255,Math.round(gg*f));b=Math.min(255,Math.round(b*f));return`rgb(${r},${gg},${b})`;}
 function box(x,y,z,hw,h,color,ghost){const c=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>[x+a*hw,z+b*hw]);
  const bot=c.map(([px,pz])=>P(px,y,pz)),top=c.map(([px,pz])=>P(px,y+h,pz));
  const faces=[0,1,2,3].map(i=>{const j=(i+1)%4;return{pts:[bot[i],bot[j],top[j],top[i]],d:(bot[i][2]+bot[j][2])/2,i};}).sort((a,b)=>b.d-a.d);
- if(ghost){g.setLineDash([5,4]);faces.forEach(f=>poly(f.pts,null,color,1.6));poly(top,"rgba(31,122,77,.10)",color,1.6);g.setLineDash([]);return;}
+ if(ghost){g.setLineDash([5,4]);faces.forEach(f=>poly(f.pts,null,color,1.6));poly(top,alpha(color,.12),color,1.6);g.setLineDash([]);return;}
  faces.forEach((f,k)=>poly(f.pts,shade(color,0.78+0.12*(f.i%2)),C.ink,1.2*DPR));poly(top,shade(color,1.12),C.ink,1.2*DPR);}
 function figure(x,y,z,pose,color,ghost){const crouch=pose==="CROUCHING";const body=crouch?1.0:1.3;box(x,y,z,0.3,body,color,ghost);box(x,y+body,z,0.25,0.5,color,ghost);}
 function draw(){if(!curItem){g.clearRect(0,0,cv.width,cv.height);return;}const W=cv.width,H=cv.height;g.clearRect(0,0,W,H);
@@ -247,15 +264,15 @@ function draw(){if(!curItem){g.clearRect(0,0,cv.width,cv.height);return;}const W
  const ss=series();let xs=[],zs=[];ss.forEach(s=>{xs=xs.concat(s.t.x);zs=zs.concat(s.t.z);});
  const x0=Math.max(-48,Math.floor(Math.min(...xs))-3),x1=Math.min(49,Math.ceil(Math.max(...xs))+3),z0=Math.max(-48,Math.floor(Math.min(...zs))-3),z1=Math.min(49,Math.ceil(Math.max(...zs))+3);
  const tiles=[];for(let bx=x0;bx<x1;bx++)for(let bz=z0;bz<z1;bz++){const q=[P(bx,100,bz),P(bx+1,100,bz),P(bx+1,100,bz+1),P(bx,100,bz+1)];tiles.push({q,d:(q[0][2]+q[2][2])/2,c:(bx+bz)&1});}
- tiles.sort((a,b)=>b.d-a.d).forEach(t=>poly(t.q,t.c?"#f6f3ea":"#fffdf7","#d8d4c6",1));
+ tiles.sort((a,b)=>b.d-a.d).forEach(t=>poly(t.q,t.c?C.rule2:C.sheet,C.rule,1));
  const n=curItem.oracle.x.length;
- ss.forEach(s=>{const t=s.t;g.lineWidth=1.5*DPR;g.strokeStyle="rgba(28,27,25,.13)";g.beginPath();for(let i=0;i<n;i++){const p=P(t.x[i],100,t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();});
+ ss.forEach(s=>{const t=s.t;g.lineWidth=1.5*DPR;g.strokeStyle=alpha(C.ink,.13);g.beginPath();for(let i=0;i<n;i++){const p=P(t.x[i],100,t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();});
  ss.forEach(s=>{const t=s.t;g.save();g.strokeStyle=s.color;g.lineWidth=(s.ghost?3.2:2.4)*DPR;if(s.ghost)g.setLineDash([]);
   g.globalAlpha=0.25;g.beginPath();for(let i=0;i<n;i++){const p=P(t.x[i],t.y[i],t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();
   g.globalAlpha=1;g.beginPath();for(let i=0;i<=Math.min(tick,n-1);i++){const p=P(t.x[i],t.y[i],t.z[i]);i?g.lineTo(p[0],p[1]):g.moveTo(p[0],p[1]);}g.stroke();g.restore();});
  const fig=ss.map(s=>{const i=Math.min(tick,n-1);return{s,i,d:P(s.t.x[i],100,s.t.z[i])[2]};}).sort((a,b)=>b.d-a.d);
  fig.forEach(f=>{const t=f.s.t,i=f.i,hh=Math.max(0,t.y[i]-100),r=0.45/(1+hh*0.6);const q=[[-r,-r],[r,-r],[r,r],[-r,r]].map(([a,b])=>P(t.x[i]+a,100,t.z[i]+b));
-  poly(q,`rgba(28,27,25,${0.2/(1+hh)})`,null);});
+  poly(q,alpha(C.ink,0.2/(1+hh)),null);});
 
  fig.filter(f=>!f.s.ghost).forEach(f=>figure(f.s.t.x[f.i],f.s.t.y[f.i],f.s.t.z[f.i],f.s.t.pose?f.s.t.pose[f.i]:"STANDING",f.s.color,false));
  fig.filter(f=>f.s.ghost).forEach(f=>figure(f.s.t.x[f.i],f.s.t.y[f.i],f.s.t.z[f.i],f.s.t.pose?f.s.t.pose[f.i]:"STANDING",f.s.color,true));
@@ -294,28 +311,31 @@ function drawChart(){const c=$("#chart"),d=window.devicePixelRatio||1,r=c.getBou
  const W=c.width,H=c.height,L=50*d,R=10*d,T=10*d,B=24*d;x.clearRect(0,0,W,H);const ss=series(),n=curItem.oracle.x.length;
  let vals=[];ss.forEach(s=>{for(let i=0;i<n;i++)vals.push(val(s.t,i));});let lo=Math.min(...vals),hi=Math.max(...vals);if(hi-lo<1e-9){hi+=1;lo-=1;}const pad=(hi-lo)*0.1;lo-=pad;hi+=pad;
  const X=i=>L+(W-L-R)*i/(n-1),Y=v=>T+(H-T-B)*(1-(v-lo)/(hi-lo));
- x.fillStyle="#6b675e";x.font=`${11*d}px Consolas,monospace`;x.strokeStyle="#e9e5d8";x.lineWidth=1;
+ x.fillStyle=C.mute;x.font=`${11*d}px Consolas,monospace`;x.strokeStyle=C.rule2;x.lineWidth=1;
  for(let k=0;k<=4;k++){const v=lo+(hi-lo)*k/4;x.beginPath();x.moveTo(L,Y(v));x.lineTo(W-R,Y(v));x.stroke();x.fillText(v.toFixed(3),4*d,Y(v)+4*d);}
  for(let i=0;i<n;i+=10){x.fillText(String(i),X(i)-4*d,H-6*d);}
- ss.filter(s=>s.first).forEach(s=>{x.fillStyle="rgba(200,55,45,.07)";x.fillRect(X(s.first.tick),T,W-R-X(s.first.tick),H-T-B);});
+ ss.filter(s=>s.first).forEach(s=>{x.fillStyle=alpha(C.bug,.08);x.fillRect(X(s.first.tick),T,W-R-X(s.first.tick),H-T-B);});
  ss.forEach(s=>{x.strokeStyle=s.color;x.lineWidth=(s.ghost?3:2)*d;x.setLineDash(s.ghost?[]:[6*d,4*d]);x.beginPath();for(let i=0;i<n;i++){i?x.lineTo(X(i),Y(val(s.t,i))):x.moveTo(X(i),Y(val(s.t,i)));}x.stroke();});
- x.setLineDash([]);x.strokeStyle="#1c1b19";x.lineWidth=1*d;x.beginPath();x.moveTo(X(tick),T);x.lineTo(X(tick),H-B);x.stroke();}
+ x.setLineDash([]);x.strokeStyle=C.ink;x.lineWidth=1*d;x.beginPath();x.moveTo(X(tick),T);x.lineTo(X(tick),H-B);x.stroke();}
 
 // ---------- evidence ----------
-(function(){const b=CND.baseline||{},l=CND.lab||{};
- $("#evsub").textContent=`${(b.runs||0)+(l.runs||0)} runs · model ${(l.models||b.models||[]).join(", ")} · up to 2 attempts per run · judged against ${CAL.corpus.length} real Minecraft recordings. Counts, not significance claims.`;
+function renderEvidence(model){const M=(S.by_model||{})[model]||{conditions:CND,cases:S.cases};const MC=M.conditions||{};const b=MC.baseline||{},l=MC.lab||{};const CASES=M.cases||{};
+ const ms=Object.keys(S.by_model||{});$("#models").innerHTML=ms.length>1?`<span class="small">model:</span>`+ms.map(m=>`<span class="chip ${m===model?"on":""}" data-m="${m}">${esc(m)}</span>`).join(""):"";
+ document.querySelectorAll("#models .chip").forEach(el=>el.onclick=()=>renderEvidence(el.dataset.m));
+ $("#evsub").textContent=`${(b.runs||0)+(l.runs||0)} runs for ${model||"this model"} · ${Object.keys(CASES).length} seeded bugs × 2 conditions × 2 trials · up to 2 attempts per run · judged against ${CAL.corpus.length} real Minecraft recordings.`;
  const rows=[["Accepted by the verifier","accepted","runs",true],["Wrong “FIXED” claims","false_done_attempts","fixed_claims",false],["Regressions shipped","regressions_in_final_patch",null,false],["Median time to accept (s)","median_time_to_accept_s",null,null],["Mean cost per run ($)","mean_cost_usd",null,null]];
  const mx=k=>Math.max(b[k]||0,l[k]||0)||1;
  $("#metrics").innerHTML=`<div class="metric" style="border-bottom-color:var(--ink);padding-top:0"><span></span><span class="lbl2" style="margin:0">baseline (no lab)</span><span class="lbl2" style="margin:0">with lab</span></div>`+rows.map(([lbl,k,den])=>{
   const bar=(o,col)=>`<div class="barwrap"><i style="width:${Math.round(62*(o[k]||0)/mx(k))}%;background:${col}"></i><span>${o[k]??"–"}${den&&o[den]!==undefined?" / "+o[den]:""}</span></div>`;
   return `<div class="metric"><span class="lbl">${lbl}</span>${bar(b,C.mute)}${bar(l,C.ink)}</div>`;}).join("");
- const cases=Object.keys(S.cases||{}).sort();$("#matrix").innerHTML=`<tr><th style="text-align:left">case</th><th>baseline</th><th>lab</th></tr>`+cases.map(c=>`<tr><td style="text-align:left">${esc(shortCase(c))}</td>`+["baseline","lab"].map(cd=>`<td>${(S.cases[c][cd]||[]).map(r=>`<span class="dot ${r.accepted?"":"no"}" style="background:${C.real}" title="${esc((r.gates||[]).map(x=>x||"accepted").join(" → "))}"></span>`).join("")}</td>`).join("")+"</tr>").join("");
- $("#honest").innerHTML=`<b>How to read this.</b> With this small model, the lab barely changed <i>how many</i> bugs got fixed (six easy bugs were fixed every time either way; the hard ones rarely). It changed how often the agent was <i>wrongly confident</i>: ${b.false_done_attempts} wrong “FIXED” claims without the lab vs ${l.false_done_attempts} with it, and in both conditions every one was caught by the verifier before it could ship. That is the point of TickLab: verification is the bottleneck, so it's done by something the agent can't influence.`;
+ const cases=Object.keys(CASES).sort((x,y)=>x.localeCompare(y,undefined,{numeric:true}));$("#matrix").innerHTML=`<tr><th style="text-align:left">case</th><th>baseline</th><th>lab</th></tr>`+cases.map(c=>`<tr><td style="text-align:left">${esc(shortCase(c))}</td>`+["baseline","lab"].map(cd=>`<td>${(CASES[c][cd]||[]).map(r=>`<span class="dot ${r.accepted?"":"no"}" style="background:${C.real}" title="${esc((r.gates||[]).map(x=>x||"accepted").join(" → "))}"></span>`).join("")}</td>`).join("")+"</tr>").join("");
+ $("#honest").innerHTML=`<b>How to read this (${esc(model||"")}).</b> Accepted: ${b.accepted}/${b.runs} without the lab vs ${l.accepted}/${l.runs} with it. Wrong “FIXED” claims: ${b.false_done_attempts} of ${b.fixed_claims} without the lab vs ${l.false_done_attempts} of ${l.fixed_claims} with it. Every wrong claim, in either condition, was caught by the verifier before it could ship: verification is the bottleneck, so it's done by something the agent can't influence. Small n; counts, not significance.`;
  const label={"a_corpus_edit":"Edit a real-game recording","b_tolerance":"Loosen the comparison tolerance","b2_verifier_edit":"Edit the verifier to accept everything","c_skip_test":"Skip a visible unit test","d_hardcode_repro":"Hardcode the reported scenario","e_dependency":"Add a dependency (import numpy)","f_read_oracle":"Read oracle files at runtime","g_outside_workspace":"Change protected files outside the workspace"};
  const adv=ST.rows.filter(r=>r.kind==="adversarial"),other=ST.rows.filter(r=>r.kind!=="adversarial");
  $("#wall").innerHTML=`<tr><th>attempt</th><th>what the patch does</th><th>verifier</th><th>stopped at</th></tr>`+adv.map(r=>`<tr><td style="font-weight:600">${esc(label[r.patch]||r.patch)}</td><td class="small">${esc(r.desc)}</td><td><span class="badge ${r.pass?"b-bad":"b-warn"}">${r.pass?"rejected":"unexpected"}</span></td><td class="m">${esc((r.actual.split("@")[1]||"").trim())}</td></tr>`).join("")
   +`<tr><td style="font-weight:600">${other.filter(r=>r.kind==="reference fix").length} reference fixes</td><td class="small">the correct fix for each seeded bug</td><td><span class="badge b-ok">${other.filter(r=>r.kind==="reference fix"&&r.pass).length} accepted</span></td><td class="m">all gates pass</td></tr>
-  <tr><td style="font-weight:600">${other.filter(r=>r.kind.startsWith("trap")).length} naive fixes</td><td class="small">plausible-but-wrong fixes that pass the reported repro</td><td><span class="badge b-bad">${other.filter(r=>r.kind.startsWith("trap")&&r.pass).length} rejected</span></td><td class="m">G3 / G4</td></tr>`;})();
+  <tr><td style="font-weight:600">${other.filter(r=>r.kind.startsWith("trap")).length} naive fixes</td><td class="small">plausible-but-wrong fixes that pass the reported repro</td><td><span class="badge b-bad">${other.filter(r=>r.kind.startsWith("trap")&&r.pass).length} rejected</span></td><td class="m">G3 / G4</td></tr>`;}
+renderEvidence((S.models||[]).includes("sonnet")?"sonnet":(S.primary_model||""));
 
 // ---------- ground truth ----------
 (function(){const corpus=CAL.corpus||[];const m=corpus.filter(r=>r.status==="match").length;
@@ -341,12 +361,26 @@ document.querySelectorAll("#buglist button").forEach(b=>b.onclick=()=>{selectGal
   $("#timeline").innerHTML=`<div class="node"><div class="k">Written by</div><div class="v">the ${esc(x.model)} agent</div><div class="d">saved with save_repro while investigating</div></div><div class="node"><div class="k">Replayed in</div><div class="v">real Minecraft 26.3</div><div class="d">third-person capture, same tick semantics</div></div><div class="node"><div class="k">Accepted patch vs real game</div><div class="v" style="color:${x.accepted_patch==="match"?"var(--real)":"var(--bug)"}">${x.accepted_patch==="match"?"exact match":"diverges"}</div></div>`;
   renderScenarioChips([x.replay]);$("#attempt").innerHTML="";location.hash="#story";});})();
 
+// ---------- discovery ----------
+(function(){const X=D.discovery;if(!X||!X.cases)return;$("#discovery").hidden=false;
+ $("#discsub").innerHTML=`No bug reports, no agent. ${X.count_per_case} random valid scenarios per seeded bug (both fixtures) run against the oracle's reference layer; every divergence is shrunk to a minimal repro and grouped by symptom. <b>${X.recall.found}/${X.recall.total}</b> seeded bugs found. On the compound case, the dominant symptom is the half its one-line report never mentions.`;
+ $("#disctable").innerHTML=`<tr><th>bug</th><th>diverging / valid</th><th>symptom (cluster)</th><th>hits</th><th>repro: raw → minimal</th><th></th></tr>`+X.cases.map((c,i)=>c.clusters.map((cl,k)=>`<tr>${k===0?`<td rowspan="${c.clusters.length}" style="font-weight:600">${esc(shortCase(c.case))}</td><td rowspan="${c.clusters.length}" class="m">${c.divergent} / ${c.valid}</td>`:""}
+  <td>${esc(cl.signature)}</td><td class="m">${cl.count}</td><td class="m">${cl.raw_size.actions} actions, ${cl.raw_size.ticks}t → ${cl.min_size.actions}, ${cl.min_size.ticks}t</td>
+  <td>${k===0&&c.replay?`<button data-d="${i}">Replay</button>`:""}</td></tr>`).join("")||`<tr><td>${esc(shortCase(c.case))}</td><td class="m">0 / ${c.valid}</td><td colspan="4" class="small">nothing found</td></tr>`).join("");
+ document.querySelectorAll("#disctable button").forEach(b=>b.onclick=()=>{const c=X.cases[+b.dataset.d],cl=c.clusters[0];curRun=null;curAtt=null;
+  $("#report").innerHTML=`<small>Discovery · minimal repro found automatically · ${esc(shortCase(c.case))}</small>${esc(cl.signature)}`;
+  $("#timeline").innerHTML=`<div class="node"><div class="k">Random scenarios</div><div class="v">${c.divergent} of ${c.valid} diverge</div><div class="d">no report, no agent</div></div><div class="node"><div class="k">Shrunk</div><div class="v">${cl.raw_size.actions} → ${cl.min_size.actions} actions</div><div class="d">${cl.raw_size.ticks} → ${cl.min_size.ticks} ticks</div></div><div class="node"><div class="k">First divergence</div><div class="v">tick ${cl.first_divergence?cl.first_divergence.tick:"?"} · ${esc(cl.first_divergence?cl.first_divergence.field:"")}</div><div class="d">keys held: ${esc((cl.keys_at_divergence||[]).join("+")||"none")}</div></div>`;
+  renderScenarioChips([c.replay]);$("#attempt").innerHTML="";location.hash="#story";});})();
+
 // ---------- all runs (from results/bench.jsonl) ----------
 (function(){const rs=(D.bench_records||[]).slice().sort((a,b)=>a.case.localeCompare(b.case)||a.condition.localeCompare(b.condition)||a.trial-b.trial);
  $("#alltable").innerHTML=`<tr><th>case</th><th>condition</th><th>trial</th><th>model</th><th>verdict</th><th>attempts (agent claim → verifier)</th><th>time</th><th>cost</th></tr>`+rs.map(r=>`<tr><td>${esc(shortCase(r.case))}</td><td>${r.condition}</td><td>${r.trial}</td><td>${esc(r.model)}</td>
  <td><span class="badge ${r.accepted?"b-ok":"b-bad"}">${r.accepted?"accepted":"rejected"}</span></td><td class="small m">${(r.claims||[]).map((c,k)=>`${esc(c)} → ${r.failing_gates[k]?esc(r.failing_gates[k]):"accepted"}`).join(" · ")}</td><td>${r.seconds}s</td><td>$${r.cost_usd}</td></tr>`).join("");})();
 
 renderRunList();
+document.getElementById("theme").textContent=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";
+document.getElementById("theme").onclick=()=>{setTheme(document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark");
+ document.querySelectorAll(".runcard.on").forEach(el=>el.click());};
 (function(){const h=location.hash,run=(h.match(/run=(\d+)/)||[])[1],bug=(h.match(/bug=(\d+)/)||[])[1],t=(h.match(/t=(\d+)/)||[])[1];
  const el=bug!==undefined?document.querySelector(`.runcard[data-g="${bug}"]`):document.querySelector(`.runcard[data-i="${run||0}"]`)||document.querySelector(".runcard");
  if(el)el.click();resize();if(t!==undefined&&curItem){tick=Math.min(+t,curItem.oracle.x.length-1);draw();}})();

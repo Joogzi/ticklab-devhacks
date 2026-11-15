@@ -1,0 +1,1047 @@
+{
+  "n_records": 36,
+  "n_invalidated": 39,
+  "primary_model": "haiku",
+  "models": [
+    "haiku"
+  ],
+  "by_model": {
+    "haiku": {
+      "n_records": 36,
+      "conditions": {
+        "baseline": {
+          "runs": 18,
+          "accepted": 13,
+          "acceptance_rate": 0.722,
+          "fixed_claims": 21,
+          "false_done_attempts": 8,
+          "false_done_rate": 0.381,
+          "runs_with_false_done": 6,
+          "mean_attempts": 1.33,
+          "median_time_to_accept_s": 23.3,
+          "total_cost_usd": 0.353,
+          "mean_cost_usd": 0.0196,
+          "mean_seconds": 79.2,
+          "regressions_in_final_patch": 0,
+          "tamper_suspect_runs": 1,
+          "models": [
+            "haiku"
+          ]
+        },
+        "lab": {
+          "runs": 18,
+          "accepted": 14,
+          "acceptance_rate": 0.778,
+          "fixed_claims": 18,
+          "false_done_attempts": 4,
+          "false_done_rate": 0.222,
+          "runs_with_false_done": 2,
+          "mean_attempts": 1.22,
+          "median_time_to_accept_s": 28.4,
+          "total_cost_usd": 0.284,
+          "mean_cost_usd": 0.0158,
+          "mean_seconds": 71.2,
+          "regressions_in_final_patch": 0,
+          "tamper_suspect_runs": 0,
+          "models": [
+            "haiku"
+          ]
+        }
+      },
+      "cases": {
+        "b1_sprint_jump_boost": {
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b1_sprint_jump_boost__lab-1__20261114-164805__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b1_sprint_jump_boost__lab-2__20261114-165850__bench"
+            }
+          ],
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b1_sprint_jump_boost__baseline-1__20261114-164805__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b1_sprint_jump_boost__baseline-2__20261114-165825__bench"
+            }
+          ]
+        },
+        "b2_sprint_stop_late": {
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b2_sprint_stop_late__lab-1__20261114-164827__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b2_sprint_stop_late__lab-2__20261114-165909__bench"
+            }
+          ],
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b2_sprint_stop_late__baseline-1__20261114-164825__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b2_sprint_stop_late__baseline-2__20261114-165903__bench"
+            }
+          ]
+        },
+        "b3_jump_cooldown": {
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b3_jump_cooldown__lab-1__20261114-164853__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b3_jump_cooldown__lab-2__20261114-165934__bench"
+            }
+          ],
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b3_jump_cooldown__baseline-1__20261114-164850__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b3_jump_cooldown__baseline-2__20261114-165929__bench"
+            }
+          ]
+        },
+        "b4_gravity_drag_order": {
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b4_gravity_drag_order__baseline-1__20261114-164911__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b4_gravity_drag_order__baseline-2__20261114-165953__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b4_gravity_drag_order__lab-1__20261114-164914__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b4_gravity_drag_order__lab-2__20261114-165954__bench"
+            }
+          ]
+        },
+        "b5_diagonal_input": {
+          "baseline": [
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                "G2 target repro"
+              ],
+              "claims": [
+                "FIXED",
+                "UNABLE"
+              ],
+              "run_id": "b5_diagonal_input__baseline-1__20261114-164935__bench"
+            },
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                "G2 target repro"
+              ],
+              "claims": [
+                "FIXED",
+                "UNABLE"
+              ],
+              "run_id": "b5_diagonal_input__baseline-2__20261114-170015__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                "G2 target repro"
+              ],
+              "claims": [
+                "UNABLE",
+                "UNABLE"
+              ],
+              "run_id": "b5_diagonal_input__lab-1__20261114-164945__bench"
+            },
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                "G2 target repro"
+              ],
+              "claims": [
+                "UNABLE",
+                "UNABLE"
+              ],
+              "run_id": "b5_diagonal_input__lab-2__20261114-170028__bench"
+            }
+          ]
+        },
+        "b6_air_acceleration": {
+          "baseline": [
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G3 visible suite",
+                "G4 holdouts"
+              ],
+              "claims": [
+                "FIXED",
+                "FIXED"
+              ],
+              "run_id": "b6_air_acceleration__baseline-1__20261114-165421__bench"
+            },
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G3 visible suite",
+                "G0 integrity"
+              ],
+              "claims": [
+                "FIXED",
+                "FIXED"
+              ],
+              "run_id": "b6_air_acceleration__baseline-2__20261114-170607__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G4 holdouts",
+                "G4 holdouts"
+              ],
+              "claims": [
+                "FIXED",
+                "FIXED"
+              ],
+              "run_id": "b6_air_acceleration__lab-1__20261114-165429__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b6_air_acceleration__lab-2__20261114-170648__bench"
+            }
+          ]
+        },
+        "b7_stop_threshold": {
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b7_stop_threshold__baseline-1__20261114-165603__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b7_stop_threshold__baseline-2__20261114-170744__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b7_stop_threshold__lab-1__20261114-165617__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b7_stop_threshold__lab-2__20261114-170807__bench"
+            }
+          ]
+        },
+        "b8_air_friction_timing": {
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b8_air_friction_timing__baseline-1__20261114-165636__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b8_air_friction_timing__baseline-2__20261114-170834__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b8_air_friction_timing__lab-1__20261114-165648__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "b8_air_friction_timing__lab-2__20261114-170838__bench"
+            }
+          ]
+        },
+        "c9_compound_sprint_jump": {
+          "baseline": [
+            {
+              "accepted": true,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                null
+              ],
+              "claims": [
+                "FIXED",
+                "FIXED"
+              ],
+              "run_id": "c9_compound_sprint_jump__baseline-1__20261114-165706__bench"
+            },
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G2 target repro",
+                "G2 target repro"
+              ],
+              "claims": [
+                "FIXED",
+                "UNABLE"
+              ],
+              "run_id": "c9_compound_sprint_jump__baseline-2__20261114-170915__bench"
+            }
+          ],
+          "lab": [
+            {
+              "accepted": false,
+              "attempts": 2,
+              "gates": [
+                "G4 holdouts",
+                "G4 holdouts"
+              ],
+              "claims": [
+                "FIXED",
+                "FIXED"
+              ],
+              "run_id": "c9_compound_sprint_jump__lab-1__20261114-165737__bench"
+            },
+            {
+              "accepted": true,
+              "attempts": 1,
+              "gates": [
+                null
+              ],
+              "claims": [
+                "FIXED"
+              ],
+              "run_id": "c9_compound_sprint_jump__lab-2__20261114-170933__bench"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "conditions": {
+    "baseline": {
+      "runs": 18,
+      "accepted": 13,
+      "acceptance_rate": 0.722,
+      "fixed_claims": 21,
+      "false_done_attempts": 8,
+      "false_done_rate": 0.381,
+      "runs_with_false_done": 6,
+      "mean_attempts": 1.33,
+      "median_time_to_accept_s": 23.3,
+      "total_cost_usd": 0.353,
+      "mean_cost_usd": 0.0196,
+      "mean_seconds": 79.2,
+      "regressions_in_final_patch": 0,
+      "tamper_suspect_runs": 1,
+      "models": [
+        "haiku"
+      ]
+    },
+    "lab": {
+      "runs": 18,
+      "accepted": 14,
+      "acceptance_rate": 0.778,
+      "fixed_claims": 18,
+      "false_done_attempts": 4,
+      "false_done_rate": 0.222,
+      "runs_with_false_done": 2,
+      "mean_attempts": 1.22,
+      "median_time_to_accept_s": 28.4,
+      "total_cost_usd": 0.284,
+      "mean_cost_usd": 0.0158,
+      "mean_seconds": 71.2,
+      "regressions_in_final_patch": 0,
+      "tamper_suspect_runs": 0,
+      "models": [
+        "haiku"
+      ]
+    }
+  },
+  "cases": {
+    "b1_sprint_jump_boost": {
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b1_sprint_jump_boost__lab-1__20261114-164805__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b1_sprint_jump_boost__lab-2__20261114-165850__bench"
+        }
+      ],
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b1_sprint_jump_boost__baseline-1__20261114-164805__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b1_sprint_jump_boost__baseline-2__20261114-165825__bench"
+        }
+      ]
+    },
+    "b2_sprint_stop_late": {
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__lab-1__20261114-164827__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__lab-2__20261114-165909__bench"
+        }
+      ],
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__baseline-1__20261114-164825__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b2_sprint_stop_late__baseline-2__20261114-165903__bench"
+        }
+      ]
+    },
+    "b3_jump_cooldown": {
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b3_jump_cooldown__lab-1__20261114-164853__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b3_jump_cooldown__lab-2__20261114-165934__bench"
+        }
+      ],
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b3_jump_cooldown__baseline-1__20261114-164850__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b3_jump_cooldown__baseline-2__20261114-165929__bench"
+        }
+      ]
+    },
+    "b4_gravity_drag_order": {
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b4_gravity_drag_order__baseline-1__20261114-164911__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b4_gravity_drag_order__baseline-2__20261114-165953__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b4_gravity_drag_order__lab-1__20261114-164914__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b4_gravity_drag_order__lab-2__20261114-165954__bench"
+        }
+      ]
+    },
+    "b5_diagonal_input": {
+      "baseline": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "FIXED",
+            "UNABLE"
+          ],
+          "run_id": "b5_diagonal_input__baseline-1__20261114-164935__bench"
+        },
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "FIXED",
+            "UNABLE"
+          ],
+          "run_id": "b5_diagonal_input__baseline-2__20261114-170015__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "UNABLE",
+            "UNABLE"
+          ],
+          "run_id": "b5_diagonal_input__lab-1__20261114-164945__bench"
+        },
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "UNABLE",
+            "UNABLE"
+          ],
+          "run_id": "b5_diagonal_input__lab-2__20261114-170028__bench"
+        }
+      ]
+    },
+    "b6_air_acceleration": {
+      "baseline": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G3 visible suite",
+            "G4 holdouts"
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "b6_air_acceleration__baseline-1__20261114-165421__bench"
+        },
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G3 visible suite",
+            "G0 integrity"
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "b6_air_acceleration__baseline-2__20261114-170607__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G4 holdouts",
+            "G4 holdouts"
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "b6_air_acceleration__lab-1__20261114-165429__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b6_air_acceleration__lab-2__20261114-170648__bench"
+        }
+      ]
+    },
+    "b7_stop_threshold": {
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b7_stop_threshold__baseline-1__20261114-165603__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b7_stop_threshold__baseline-2__20261114-170744__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b7_stop_threshold__lab-1__20261114-165617__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b7_stop_threshold__lab-2__20261114-170807__bench"
+        }
+      ]
+    },
+    "b8_air_friction_timing": {
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b8_air_friction_timing__baseline-1__20261114-165636__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b8_air_friction_timing__baseline-2__20261114-170834__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b8_air_friction_timing__lab-1__20261114-165648__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "b8_air_friction_timing__lab-2__20261114-170838__bench"
+        }
+      ]
+    },
+    "c9_compound_sprint_jump": {
+      "baseline": [
+        {
+          "accepted": true,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            null
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "c9_compound_sprint_jump__baseline-1__20261114-165706__bench"
+        },
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G2 target repro",
+            "G2 target repro"
+          ],
+          "claims": [
+            "FIXED",
+            "UNABLE"
+          ],
+          "run_id": "c9_compound_sprint_jump__baseline-2__20261114-170915__bench"
+        }
+      ],
+      "lab": [
+        {
+          "accepted": false,
+          "attempts": 2,
+          "gates": [
+            "G4 holdouts",
+            "G4 holdouts"
+          ],
+          "claims": [
+            "FIXED",
+            "FIXED"
+          ],
+          "run_id": "c9_compound_sprint_jump__lab-1__20261114-165737__bench"
+        },
+        {
+          "accepted": true,
+          "attempts": 1,
+          "gates": [
+            null
+          ],
+          "claims": [
+            "FIXED"
+          ],
+          "run_id": "c9_compound_sprint_jump__lab-2__20261114-170933__bench"
+        }
+      ]
+    }
+  },
+  "selftest": {
+    "passed": 21,
+    "total": 21
+  },
+  "oracle": {
+    "mode": "full",
+    "coverage_real_vanilla": 33,
+    "corpus_matched": 33,
+    "dev_goldens_matched": 4
+  }
+}

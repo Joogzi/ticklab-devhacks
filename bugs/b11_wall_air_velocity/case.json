@@ -1,0 +1,26 @@
+{
+  "id": "b11_wall_air_velocity",
+  "name": "Wall hits in the air keep the blocked velocity",
+  "families": [
+    "wall",
+    "jump"
+  ],
+  "report": "Sprint-jumping after landing against a wall gives the player the wrong velocity.",
+  "plausible": true,
+  "repro_scenarios": [
+    "wall_sprint_jump_land"
+  ],
+  "trap": false,
+  "trap_note": null,
+  "components": [
+    "b11_wall_air_velocity"
+  ],
+  "hidden_variants": [
+    "h_w_jump_into_early",
+    "h_w_walk_jump_into",
+    "h_w_land_then_jump",
+    "h_w_diag_jump_slide",
+    "h_w_hold_jump_wall",
+    "h_w_back_jump_off"
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "id": "b10_wall_glance_sprint",
+  "unit_tests_pass": true,
+  "repro": {
+    "wall_glance_sprint": Infinity
+  },
+  "corpus_hits": [
+    "wall_glance_sprint",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land"
+  ],
+  "hidden_hits": [
+    "h_w_glance_jump",
+    "h_w_glance_m84",
+    "h_w_sprint_into_late"
+  ],
+  "vanilla_hits": [
+    "wall_glance_sprint",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land"
+  ],
+  "trap_hits": [
+    "h_w_diag_sprint_r",
+    "h_w_glance_80",
+    "h_w_sprint_into_late",
+    "h_w_steep_45",
+    "wall_diag_sprint_slide",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land",
+    "wall_steep_sprint"
+  ],
+  "trap_repro_ok": true
+}

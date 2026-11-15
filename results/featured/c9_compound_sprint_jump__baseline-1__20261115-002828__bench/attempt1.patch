@@ -1,0 +1,13 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+index c0a4f79..437e423 100644
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -39,7 +39,7 @@ def apply_threshold(p) -> None:
+ 
+ def jump_from_ground(p) -> None:
+     p.vy = max(JUMP_POWER, p.vy)
+-    if p.sprinting and not p.on_ground:
++    if p.sprinting:
+         r = fmul(p.yaw, DEG_TO_RAD_F)
+         p.vx += -mth_sin(r) * SPRINT_JUMP_BOOST
+         p.vz += mth_cos(r) * SPRINT_JUMP_BOOST

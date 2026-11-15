@@ -24,7 +24,9 @@ import discover_prism  # noqa: E402
 import normalize  # noqa: E402
 
 BATCHES = {"a": ["--batch", "a", "--order", "listed"],
-           "b": ["--batch", "b", "--order", "shuffled", "--seed", "7", "--no-repeat-check"]}
+           "b": ["--batch", "b", "--order", "shuffled", "--seed", "7", "--no-repeat-check"],
+           "wa": ["--batch", "wa", "--order", "listed", "--wall"],
+           "wb": ["--batch", "wb", "--order", "shuffled", "--seed", "11", "--no-repeat-check", "--wall"]}
 
 
 def status() -> int:

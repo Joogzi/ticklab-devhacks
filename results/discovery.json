@@ -1,0 +1,933 @@
+{
+  "seed": 1,
+  "count_per_case": 200,
+  "oracle": "reference layer (validated against the real corpus)",
+  "cases": [
+    {
+      "case": "b1_sprint_jump_boost",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 14,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 sprinting \u00b7 open floor",
+          "count": 13,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0015",
+            "duration": 12,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 0,
+                "key": "sprint",
+                "down": true
+              },
+              {
+                "at": 11,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 11,
+            "field": "vz",
+            "expected": 0.26230925484671297,
+            "actual": 0.15310924216284458,
+            "delta": 0.10920001268386839
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump",
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 16,
+            "ticks": 63
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 12
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 sprinting \u00b7 near the wall",
+          "count": 1,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0010",
+            "duration": 16,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 10,
+                "yaw": 30,
+                "pitch": 0
+              },
+              {
+                "at": 13,
+                "key": "sprint",
+                "down": true
+              },
+              {
+                "at": 15,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 15,
+            "field": "vx",
+            "expected": -0.12676246041883393,
+            "actual": -0.07216547742748969,
+            "delta": 0.054596982991344245
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump",
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 12,
+            "ticks": 36
+          },
+          "min_size": {
+            "actions": 4,
+            "ticks": 16
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 10,
+      "seconds": 5.8
+    },
+    {
+      "case": "b2_sprint_stop_late",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 92,
+      "clusters": [
+        {
+          "signature": "sprint state \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 81,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 41,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 0,
+                "key": "sprint",
+                "down": true
+              },
+              {
+                "at": 40,
+                "key": "forward",
+                "down": false
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 40,
+            "field": "sprinting",
+            "expected": false,
+            "actual": true,
+            "delta": null
+          },
+          "keys_at_divergence": [
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 6,
+            "ticks": 52
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 41
+          }
+        },
+        {
+          "signature": "sprint state \u00b7 on the ground \u00b7 not sprinting \u00b7 near the wall",
+          "count": 11,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0010",
+            "duration": 13,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 0,
+                "key": "sprint",
+                "down": true
+              },
+              {
+                "at": 12,
+                "key": "forward",
+                "down": false
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 12,
+            "field": "sprinting",
+            "expected": false,
+            "actual": true,
+            "delta": null
+          },
+          "keys_at_divergence": [
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 6,
+            "ticks": 37
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 13
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 29,
+      "seconds": 15.8
+    },
+    {
+      "case": "b3_jump_cooldown",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 34,
+      "clusters": [
+        {
+          "signature": "ground state \u00b7 airborne \u00b7 not sprinting \u00b7 open floor",
+          "count": 34,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 13,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 12,
+            "field": "on_ground",
+            "expected": false,
+            "actual": true,
+            "delta": null
+          },
+          "keys_at_divergence": [
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 14,
+            "ticks": 40
+          },
+          "min_size": {
+            "actions": 1,
+            "ticks": 13
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 39,
+      "seconds": 19.2
+    },
+    {
+      "case": "b4_gravity_drag_order",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 200,
+      "clusters": [
+        {
+          "signature": "vertical motion \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 200,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 1,
+            "fixture": "flat_stone_v1",
+            "actions": []
+          },
+          "first_divergence": {
+            "tick": 0,
+            "field": "vy",
+            "expected": -0.0784000015258789,
+            "actual": -0.08,
+            "delta": 0.0015999984741210949
+          },
+          "keys_at_divergence": [],
+          "raw_size": {
+            "actions": 5,
+            "ticks": 55
+          },
+          "min_size": {
+            "actions": 0,
+            "ticks": 1
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 13,
+      "seconds": 7.4
+    },
+    {
+      "case": "b5_diagonal_input",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 51,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 47,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 22,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 21,
+                "key": "right",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 21,
+            "field": "vx",
+            "expected": -0.03860803139735231,
+            "actual": -0.03783587610664428,
+            "delta": 0.0007721552907080306
+          },
+          "keys_at_divergence": [
+            "forward",
+            "right"
+          ],
+          "raw_size": {
+            "actions": 7,
+            "ticks": 101
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 22
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 on the ground \u00b7 not sprinting \u00b7 near the wall",
+          "count": 4,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0017",
+            "duration": 62,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 61,
+                "key": "right",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 61,
+            "field": "vx",
+            "expected": -0.03860803139735231,
+            "actual": -0.03783587610664428,
+            "delta": 0.0007721552907080306
+          },
+          "keys_at_divergence": [
+            "forward",
+            "right"
+          ],
+          "raw_size": {
+            "actions": 8,
+            "ticks": 118
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 62
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 49,
+      "seconds": 24.5
+    },
+    {
+      "case": "b6_air_acceleration",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 47,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 open floor",
+          "count": 47,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 14,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 12,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 13,
+            "field": "vz",
+            "expected": 0.12504664634379425,
+            "actual": 0.12647352897212139,
+            "delta": 0.0014268826283271308
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 10,
+            "ticks": 86
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 14
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 19,
+      "seconds": 9.8
+    },
+    {
+      "case": "b7_stop_threshold",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 69,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 68,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0001",
+            "duration": 17,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "backward",
+                "down": true
+              },
+              {
+                "at": 3,
+                "key": "left",
+                "down": true
+              },
+              {
+                "at": 10,
+                "key": "forward",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 16,
+            "field": "vz",
+            "expected": -0.001233039210807815,
+            "actual": 0.0,
+            "delta": 0.001233039210807815
+          },
+          "keys_at_divergence": [
+            "backward",
+            "forward",
+            "left"
+          ],
+          "raw_size": {
+            "actions": 10,
+            "ticks": 77
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 17
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 open floor",
+          "count": 1,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0118",
+            "duration": 16,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "yaw": 84,
+                "pitch": 0
+              },
+              {
+                "at": 13,
+                "key": "jump",
+                "down": true
+              },
+              {
+                "at": 14,
+                "key": "left",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 15,
+            "field": "vx",
+            "expected": 0.0035633283242939105,
+            "actual": 0.001865616898097466,
+            "delta": 0.0016977114261964444
+          },
+          "keys_at_divergence": [
+            "jump",
+            "left"
+          ],
+          "raw_size": {
+            "actions": 9,
+            "ticks": 68
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 16
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 65,
+      "seconds": 31.2
+    },
+    {
+      "case": "b8_air_friction_timing",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 54,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 open floor",
+          "count": 32,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 5,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 4,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 4,
+            "field": "vz",
+            "expected": 0.11213998127812054,
+            "actual": 0.18689995247436947,
+            "delta": 0.07475997119624893
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 9,
+            "ticks": 32
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 5
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 20,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0017",
+            "duration": 12,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "jump",
+                "down": true
+              },
+              {
+                "at": 10,
+                "key": "forward",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 11,
+            "field": "vz",
+            "expected": 0.034066761351146994,
+            "actual": 0.0204400585957758,
+            "delta": 0.013626702755371194
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 10,
+            "ticks": 110
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 12
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 near the wall",
+          "count": 2,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0036",
+            "duration": 13,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 12,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 12,
+            "field": "vz",
+            "expected": 0.11781389317747222,
+            "actual": 0.19635647148075788,
+            "delta": 0.07854257830328566
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 9,
+            "ticks": 63
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 13
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 29,
+      "seconds": 20.2
+    },
+    {
+      "case": "c9_compound_sprint_jump",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 60,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 open floor",
+          "count": 59,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0004",
+            "duration": 16,
+            "fixture": "flat_stone_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 14,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 15,
+            "field": "vz",
+            "expected": 0.12507549826297204,
+            "actual": 0.12650238089129917,
+            "delta": 0.0014268826283271308
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 6,
+            "ticks": 32
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 16
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 on the ground \u00b7 not sprinting \u00b7 open floor",
+          "count": 1,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0162",
+            "duration": 36,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "jump",
+                "down": true
+              },
+              {
+                "at": 35,
+                "key": "right",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 35,
+            "field": "vx",
+            "expected": -0.017836000462502232,
+            "actual": -0.01926288309082937,
+            "delta": 0.0014268826283271377
+          },
+          "keys_at_divergence": [
+            "jump",
+            "right"
+          ],
+          "raw_size": {
+            "actions": 8,
+            "ticks": 83
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 36
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 65,
+      "seconds": 31.4
+    },
+    {
+      "case": "b10_wall_glance_sprint",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 11,
+      "clusters": [
+        {
+          "signature": "sprint state \u00b7 on the ground \u00b7 sprinting \u00b7 near the wall",
+          "count": 11,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0000",
+            "duration": 14,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 0,
+                "key": "sprint",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 13,
+            "field": "sprinting",
+            "expected": true,
+            "actual": false,
+            "delta": null
+          },
+          "keys_at_divergence": [
+            "forward",
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 8,
+            "ticks": 96
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 14
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 11,
+      "seconds": 6.5
+    },
+    {
+      "case": "b11_wall_air_velocity",
+      "generated": 200,
+      "valid": 200,
+      "divergent": 11,
+      "clusters": [
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 not sprinting \u00b7 near the wall",
+          "count": 8,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0003",
+            "duration": 17,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 16,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 16,
+            "field": "vz",
+            "expected": 0.0,
+            "actual": 0.11785505047289427,
+            "delta": 0.11785505047289427
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump"
+          ],
+          "raw_size": {
+            "actions": 12,
+            "ticks": 96
+          },
+          "min_size": {
+            "actions": 2,
+            "ticks": 17
+          }
+        },
+        {
+          "signature": "horizontal motion \u00b7 airborne \u00b7 sprinting \u00b7 near the wall",
+          "count": 3,
+          "minimized": {
+            "schema_version": 1,
+            "name": "disc_0059",
+            "duration": 13,
+            "fixture": "wall_v1",
+            "actions": [
+              {
+                "at": 0,
+                "key": "forward",
+                "down": true
+              },
+              {
+                "at": 0,
+                "key": "sprint",
+                "down": true
+              },
+              {
+                "at": 12,
+                "key": "jump",
+                "down": true
+              }
+            ]
+          },
+          "first_divergence": {
+            "tick": 12,
+            "field": "vz",
+            "expected": 0.0,
+            "actual": 0.26235808347018313,
+            "delta": 0.26235808347018313
+          },
+          "keys_at_divergence": [
+            "forward",
+            "jump",
+            "sprint"
+          ],
+          "raw_size": {
+            "actions": 6,
+            "ticks": 21
+          },
+          "min_size": {
+            "actions": 3,
+            "ticks": 13
+          }
+        }
+      ],
+      "found": true,
+      "probe_batches": 14,
+      "seconds": 7.9
+    }
+  ],
+  "recall": {
+    "found": 11,
+    "total": 11
+  }
+}

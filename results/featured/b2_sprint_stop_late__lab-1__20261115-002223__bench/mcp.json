@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lab": {
+      "type": "stdio",
+      "command": "<repo>\\.venv\\Scripts\\python.exe",
+      "args": [
+        "<repo>\\factory\\labtools_mcp.py",
+        "--case",
+        "b2_sprint_stop_late",
+        "--workspace",
+        "~\\.ticklab\\ws\\b2_sprint_stop_late\\lab-1",
+        "--store",
+        "<repo>\\runs\\b2_sprint_stop_late__lab-1__20261115-002223__bench\\store"
+      ]
+    }
+  }
+}

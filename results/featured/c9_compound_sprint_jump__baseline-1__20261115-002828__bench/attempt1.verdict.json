@@ -1,0 +1,113 @@
+{
+  "case": "c9_compound_sprint_jump",
+  "accepted": false,
+  "verdict": "PATCH REJECTED",
+  "failing_gate": "G2 target repro",
+  "reason": "G2 target repro: 0/1 match",
+  "gates": [
+    {
+      "gate": "G0 integrity",
+      "status": "pass",
+      "detail": "1 file(s), all under sim/src; manifest + tool log clean"
+    },
+    {
+      "gate": "G1 build",
+      "status": "pass",
+      "detail": "compiles and imports"
+    },
+    {
+      "gate": "G2 target repro",
+      "status": "fail",
+      "detail": "0/1 match",
+      "total": 1,
+      "failed": 1,
+      "failures": [
+        {
+          "scenario": "diag_sprint_jump_fr",
+          "tick": 11,
+          "field": "vx",
+          "expected": -0.11720281452663296,
+          "actual": -0.11854123034348184,
+          "delta": 0.0013384158168488758
+        }
+      ]
+    },
+    {
+      "gate": "G3 visible suite",
+      "status": "fail",
+      "detail": "22/25 match; unit tests pass",
+      "total": 25,
+      "failed": 3,
+      "unit_tests": "pass",
+      "failures": [
+        {
+          "scenario": "jump_run",
+          "tick": 11,
+          "field": "vz",
+          "expected": 0.12494986551862786,
+          "actual": 0.126376748146955,
+          "delta": 0.0014268826283271308
+        },
+        {
+          "scenario": "jump_run_release_forward_air",
+          "tick": 11,
+          "field": "vz",
+          "expected": 0.12494986551862786,
+          "actual": 0.126376748146955,
+          "delta": 0.0014268826283271308
+        },
+        {
+          "scenario": "diag_sprint_jump_fr",
+          "tick": 11,
+          "field": "vx",
+          "expected": -0.11720281452663296,
+          "actual": -0.11854123034348184,
+          "delta": 0.0013384158168488758
+        }
+      ]
+    },
+    {
+      "gate": "G4 holdouts",
+      "status": "fail",
+      "detail": "12/31 match; failing families: hidden variant (jump/sprint), jump, look, strafe, wall",
+      "total": 31,
+      "failed": 19,
+      "failed_families": [
+        "hidden variant (jump/sprint)",
+        "jump",
+        "look",
+        "strafe",
+        "wall"
+      ],
+      "vanilla_failed": 7
+    },
+    {
+      "gate": "G5 determinism",
+      "status": "pass",
+      "detail": "56/56 byte-identical across two runs"
+    }
+  ],
+  "diff": {
+    "files": [
+      "sim/src/mcsim/physics.py"
+    ],
+    "added": 1,
+    "removed": 1
+  },
+  "regressions": [],
+  "first_divergence": {
+    "tick": 11,
+    "field": "vx",
+    "expected": -0.11720281452663296,
+    "actual": -0.11854123034348184,
+    "delta": 0.0013384158168488758,
+    "scenario": "diag_sprint_jump_fr"
+  },
+  "verifier": "factory/verifier.py",
+  "provenance": {
+    "vanilla": 44,
+    "reference": 12
+  },
+  "seconds": 2.85,
+  "summary": "PATCH REJECTED  (case c9_compound_sprint_jump, failing gate: G2 target repro)\n  G0 integrity       PASS     1 file(s), all under sim/src; manifest + tool log clean\n  G1 build           PASS     compiles and imports\n  G2 target repro    FAIL     0/1 match\n  G3 visible suite   FAIL     22/25 match; unit tests pass\n  G4 holdouts        FAIL     12/31 match; failing families: hidden variant (jump/sprint), jump, look, strafe, wall\n  G5 determinism     PASS     56/56 byte-identical across two runs\n  first divergence: diag_sprint_jump_fr tick 11 vx expected=-0.11720281452663296 actual=-0.11854123034348184"
+}

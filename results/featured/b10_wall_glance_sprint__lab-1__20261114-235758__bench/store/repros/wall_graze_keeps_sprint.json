@@ -1,0 +1,34 @@
+{
+  "name": "wall_graze_keeps_sprint",
+  "scenario": {
+    "schema_version": 1,
+    "name": "wall_graze_keeps_sprint",
+    "duration": 60,
+    "fixture": "wall_v1",
+    "actions": [
+      {
+        "at": 0,
+        "key": "forward",
+        "down": true
+      },
+      {
+        "at": 0,
+        "key": "sprint",
+        "down": true
+      },
+      {
+        "at": 0,
+        "yaw": 0,
+        "pitch": 0
+      },
+      {
+        "at": 11,
+        "yaw": 84,
+        "pitch": 0
+      }
+    ]
+  },
+  "note": "Sprinting along the wall at a shallow angle; minor horizontal collision must not cancel sprint.",
+  "status_at_save": "match",
+  "first_divergence": null
+}

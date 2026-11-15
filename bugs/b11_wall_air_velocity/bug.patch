@@ -1,0 +1,15 @@
+diff --git a/sim/src/mcsim/physics.py b/sim/src/mcsim/physics.py
+--- a/sim/src/mcsim/physics.py
++++ b/sim/src/mcsim/physics.py
+@@ -101,9 +101,9 @@
+     p.horizontal_collision = hit_x or hit_z
+     p.minor_horizontal_collision = p.horizontal_collision and collision_is_minor(p, cx, cz)
+     p.on_ground = vertical and my < 0.0
+-    if hit_x:
++    if hit_x and p.on_ground:
+         p.vx = 0.0
+-    if hit_z:
++    if hit_z and p.on_ground:
+         p.vz = 0.0
+     if vertical:
+         p.vy = 0.0

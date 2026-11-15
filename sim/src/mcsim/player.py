@@ -19,6 +19,9 @@ class Player:
         self.crouching = bool(s.get("sneaking", False))
         self.pose = s.get("pose", "STANDING")
         self.horizontal_collision = False
+        self.minor_horizontal_collision = False
+        self.xxa = 0.0
+        self.zza = 0.0
         self.no_jump_delay = 0
         self.speed = physics.movement_speed(self.sprinting)
         self.last_keys = inp.Keys()
@@ -31,7 +34,7 @@ class Player:
         forward = move[1] > 1.0e-5
         if not self.sprinting and forward and not self.crouching and keys.sprint:
             self.sprinting = True
-        if self.sprinting and (not forward or self.horizontal_collision):
+        if self.sprinting and (not forward or (self.horizontal_collision and not self.minor_horizontal_collision)):
             self.sprinting = False
 
         # Movement speed follows the sprint state of this tick (real 26.3 traces: no one-tick lag).
@@ -42,6 +45,7 @@ class Player:
             self.no_jump_delay -= 1
         physics.apply_threshold(self)
         xxa, zza = inp.modify_input(move, self.crouching)
+        self.xxa, self.zza = xxa, zza
         if keys.jump:
             if self.on_ground and self.no_jump_delay == 0:
                 physics.jump_from_ground(self)

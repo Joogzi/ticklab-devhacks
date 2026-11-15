@@ -13,7 +13,8 @@
     "jump_sprint_hold",
     "jump_sprint_release_forward_air",
     "jump_sprint_release_sprint_air",
-    "look_sprint_jump_turn"
+    "look_sprint_jump_turn",
+    "wall_sprint_jump_into"
   ],
   "hidden_hits": [
     "h_f_back_jump",
@@ -32,6 +33,7 @@
     "jump_sprint_hold",
     "jump_sprint_release_forward_air",
     "jump_sprint_release_sprint_air",
-    "look_sprint_jump_turn"
+    "look_sprint_jump_turn",
+    "wall_sprint_jump_into"
   ]
 }

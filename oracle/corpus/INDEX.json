@@ -13,6 +13,16 @@
       "order": "shuffled",
       "captured": 33,
       "failures": []
+    },
+    "wa": {
+      "order": "listed",
+      "captured": 13,
+      "failures": []
+    },
+    "wb": {
+      "order": "shuffled",
+      "captured": 11,
+      "failures": []
     }
   },
   "scenarios": [
@@ -23,6 +33,7 @@
       "scenario_hash": "51ed7701745c4ebc3bb5a9f4795cc32bb9d0e8856e3e127d799643d6a41119ac",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -35,6 +46,7 @@
       "scenario_hash": "5f3d26c7087ef02b3c6c77cd37fa8c284646f82c36ac826f6e727458364e422a",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -47,6 +59,7 @@
       "scenario_hash": "1738309f6fdd192c967cac4832a84d4ab46fb5e04ed413cc0b78a9e61740e0f4",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -59,6 +72,7 @@
       "scenario_hash": "5222307af832a0794094b9f6b61c2eb4bbfa948634bba980d7cc8201af55b215",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -71,6 +85,7 @@
       "scenario_hash": "638720c4c9b08de1219a8251262e6dc86862139eedd8b46495ea229b5032ae9e",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -83,6 +98,7 @@
       "scenario_hash": "fae0bfad27000213faa557ad96150f3e2c0f86c26c3e51ebbc3fddd75a002a49",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "repeat_in_batch": true,
         "order_vs_b": true
@@ -96,6 +112,7 @@
       "scenario_hash": "fe90a8962b84a3ebdd71ab952f556f898133fa3cf9c0400d993c4240f240d1f2",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -108,6 +125,7 @@
       "scenario_hash": "467a23359853c8332a41aa7a09be3f9fe05a2f98df0fe0adb06672d679152ac1",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -120,6 +138,7 @@
       "scenario_hash": "e5dc7c97d3bb6dcc8a5d1d370a3fa26292adf7a0fe9bf7a5157769e1ed3277fc",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -132,6 +151,7 @@
       "scenario_hash": "28932fd4f9dadd68d1251f67ba5d1b50e7b9fb8cc141e2c190cf080f0af4cfa9",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "repeat_in_batch": true,
         "order_vs_b": true
@@ -145,6 +165,7 @@
       "scenario_hash": "6b45d2a7173d9b0c807e46512d13e39bd31c509ab3917518fdc16eee5a6b4264",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -157,6 +178,7 @@
       "scenario_hash": "946ff6c69d8a698cdead176a6d9005ca188443baac5a1bc76fbc54e23d3499cf",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -169,6 +191,7 @@
       "scenario_hash": "6025b4ec96c5a2a2d111a24b17016000e657dcc2a696dda894ba721aac85d948",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -181,6 +204,7 @@
       "scenario_hash": "ccafa811926a80517de1883e356c35c13837bbfa11d679a2f5c76d337870d6d2",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -193,6 +217,7 @@
       "scenario_hash": "c7ee6aa05d99d16759fc2f2fc07be219aaaf12a6edad01ad835f778f7b0d1e94",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -205,6 +230,7 @@
       "scenario_hash": "5fae93b6cd801b2b65cd8759968db36f072779462c3e7b197a9653c5f385b699",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -217,6 +243,7 @@
       "scenario_hash": "d824b142d095feac7fd995fdb92622437f9e625e10762cb56abd4cce512d1eb0",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -229,6 +256,7 @@
       "scenario_hash": "78d926b27e5e6aeab373b1a023c8c1d63f23ba1666c87acef1e55ba10671824a",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -241,6 +269,7 @@
       "scenario_hash": "6217487226c8daa6635636ace78ad0394d2f9710bbdba7ab034a5d8e3d9aeccb",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -253,6 +282,7 @@
       "scenario_hash": "4109270d71ca4c763274189086c699375af4de103c2fe04648dc348aba3020f0",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -265,6 +295,7 @@
       "scenario_hash": "45e47f08ed18c217b6e084960ab348a1077486245a0d0304712fdfa3bf245246",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -277,6 +308,7 @@
       "scenario_hash": "e0f556db087cfd9f7863dfb290ec442ff38ee4b0c1344bffabe81ca7ca42ab10",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -289,6 +321,7 @@
       "scenario_hash": "c75abfb24c10319ba7726762170b38ef607e5f1c7f6f58363aaca67bfd4e2c33",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -301,6 +334,7 @@
       "scenario_hash": "65d121f0b2fc33670aa4f73c916a4e0459af3a39579d2076d1e6c4e70ab76f10",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -313,6 +347,7 @@
       "scenario_hash": "b7bc8e3514fdd4f9e06cab23a1fa58eeb775fcc7fc2332f2ff2ccbb4b71b7d00",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -325,6 +360,7 @@
       "scenario_hash": "d3de3b87f2dba50f584ea59574f1716b6dd9ea649606db1e9ac5e7f6462f49f2",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -337,6 +373,7 @@
       "scenario_hash": "64799de972ac87d67ed968e77bbfdf3a5b888b53b2bc332dca58d825cb08bfc3",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -349,6 +386,7 @@
       "scenario_hash": "a1190015aea32532cb24ffad51d5b0910b420822ff0dec8c98dd6d292b88d5a9",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -361,6 +399,7 @@
       "scenario_hash": "22679894bb87d12b05d7e5870f0f58890dbe86287b69ceec5f3e0d8a2a1329c4",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -373,6 +412,7 @@
       "scenario_hash": "01f962dbd0a9404b302f0fbdc7a3d7c33a979f02e0d16ca251961b3aed49d85c",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -385,6 +425,7 @@
       "scenario_hash": "6baa8b0a2716d37ac46fd016d850383f761b3ad2660fc9aebf04b19d9d1b7a9b",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
@@ -397,6 +438,7 @@
       "scenario_hash": "acb0e89398d5258594d79dc02c67d090dd88564591a8330c58aea4f4b40196fb",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "repeat_in_batch": true,
         "order_vs_b": true
@@ -410,11 +452,157 @@
       "scenario_hash": "78be1cc2bc82e726713b3058852531542813b880fda85009db3e4c0572db05b5",
       "usable": true,
       "notes": [],
+      "batch": "a",
       "determinism": {
         "order_vs_b": true
       },
       "frames": 45
+    },
+    {
+      "name": "wall_walk_into",
+      "family": "wall",
+      "file": "wall_walk_into.jsonl",
+      "scenario_hash": "40118313724cbd868f6a905fb2a003a8b04c37f5e54105762e20e760cfa182a5",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 40
+    },
+    {
+      "name": "wall_sprint_into",
+      "family": "wall",
+      "file": "wall_sprint_into.jsonl",
+      "scenario_hash": "11b00f11854dc789210c2ceebf58406e67215bcbe592024d9a482f70eeecfc3d",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 40
+    },
+    {
+      "name": "wall_sprint_jump_land",
+      "family": "wall",
+      "file": "wall_sprint_jump_land.jsonl",
+      "scenario_hash": "b677bd66638e9e3032c26e9da66c85bce4a0b479abd1df116534fb43a9492f6b",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "repeat_in_batch": true,
+        "order_vs_wb": true
+      },
+      "frames": 50
+    },
+    {
+      "name": "wall_sprint_jump_into",
+      "family": "wall",
+      "file": "wall_sprint_jump_into.jsonl",
+      "scenario_hash": "c019a3f83975c6ba235fb0ccdd35aed7fd4a1fc066b27a071c90720ac30708de",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 45
+    },
+    {
+      "name": "wall_diag_slide",
+      "family": "wall",
+      "file": "wall_diag_slide.jsonl",
+      "scenario_hash": "d52e76480a6a3746a48852a6c4378ccd473281f9742dfc5e59c2fb3129114659",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 45
+    },
+    {
+      "name": "wall_diag_sprint_slide",
+      "family": "wall",
+      "file": "wall_diag_sprint_slide.jsonl",
+      "scenario_hash": "fbecc4014e67c92e7cf578cde1e2fc58f7407414495e6ce14bc291a9f8572245",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 45
+    },
+    {
+      "name": "wall_glance_sprint",
+      "family": "wall",
+      "file": "wall_glance_sprint.jsonl",
+      "scenario_hash": "8a420bbd94fc3cb4ac166f6ed2d5dae7f4d38d3d2bf8b4d4c2f359074136c5e8",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "repeat_in_batch": true,
+        "order_vs_wb": true
+      },
+      "frames": 55
+    },
+    {
+      "name": "wall_steep_sprint",
+      "family": "wall",
+      "file": "wall_steep_sprint.jsonl",
+      "scenario_hash": "1bb22ca17382b4dc24d37dfb218ad1c69680fdb4094b40aeb72f4a2143d6ad29",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 55
+    },
+    {
+      "name": "wall_back_off",
+      "family": "wall",
+      "file": "wall_back_off.jsonl",
+      "scenario_hash": "1428e149fe4a68f1196f1b1e90252262fe57f1b18e8696d1bc1a517d7caaeacb",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 50
+    },
+    {
+      "name": "wall_jump_hold",
+      "family": "wall",
+      "file": "wall_jump_hold.jsonl",
+      "scenario_hash": "d05cfb32bb0d985964e121d1ba4e404621e9f6c943a3707f847a013c3f73bd23",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 50
+    },
+    {
+      "name": "wall_strafe_after",
+      "family": "wall",
+      "file": "wall_strafe_after.jsonl",
+      "scenario_hash": "21b86501baf7456a00caf879de82dbd0115840ada96bd75f383b72bed9ea9ede",
+      "usable": true,
+      "notes": [],
+      "batch": "wa",
+      "determinism": {
+        "order_vs_wb": true
+      },
+      "frames": 50
     }
   ],
-  "usable": 33
+  "usable": 44
 }

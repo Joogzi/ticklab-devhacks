@@ -26,6 +26,7 @@ MOD = HERE / "mod"
 BUILD = HERE / "build"
 JAR_NAME = "ticklab_capture.jar"
 REPEAT_CHECK = ["sprint_release_sprint", "jump_hold", "look_diag_turn"]
+WALL_COMMANDS = ["fill -48 100 4 48 102 4 minecraft:stone"]  # wall_v1: 3-tall stone wall, near face at z = 4
 
 
 def find_javac() -> str:
@@ -130,6 +131,7 @@ def main(argv=None) -> int:
     ap.add_argument("--only", default="")
     ap.add_argument("--no-repeat-check", action="store_true")
     ap.add_argument("--no-ready-file", action="store_true")
+    ap.add_argument("--wall", action="store_true", help="wall_v1 fixture: build the wall and run only the wall scenarios")
     a = ap.parse_args(argv)
     if a.test_compile:
         jar = compile_mod(test_classpath())
@@ -144,7 +146,14 @@ def main(argv=None) -> int:
     sel = d["selected"]
     jar = compile_mod(sel["classpath"])
     only = [s for s in a.only.split(",") if s]
-    cfg = install(sel, jar, a.batch, a.order, a.seed, only, [] if a.no_repeat_check else REPEAT_CHECK)
+    repeat = [] if a.no_repeat_check else REPEAT_CHECK
+    extra = {}
+    if a.wall:
+        rows = json.loads((ROOT / "oracle" / "corpus_scenarios.json").read_text(encoding="utf-8"))["scenarios"]
+        only = only or [r["name"] for r in rows if r["scenario"].get("fixture") == "wall_v1"]
+        repeat = [] if a.no_repeat_check else ["wall_sprint_jump_land", "wall_glance_sprint"]
+        extra["fixture_commands"] = WALL_COMMANDS
+    cfg = install(sel, jar, a.batch, a.order, a.seed, only, repeat, extra)
     if not a.no_ready_file:
         write_ready(sel, cfg, a.batch)
     print(f"installed {JAR_NAME} into {sel['game_dir']}; batch {a.batch} ({a.order}); CAPTURE_READY.md written")

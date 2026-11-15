@@ -29,13 +29,28 @@ def values() -> dict:
     v["n_runs"] = s.get("n_records")
     v["n_invalidated"] = s.get("n_invalidated")
     v["n_cases"] = len(s.get("cases", {}))
-    if C:
-        rows = ["| metric | baseline (no lab) | lab |", "|---|---|---|"]
-        for k, label in [("accepted", "accepted by verifier"), ("runs", "runs"), ("false_done_attempts", "false 'done' claims"),
-                         ("mean_attempts", "mean attempts"), ("median_time_to_accept_s", "median time to accept (s)"),
-                         ("regressions_in_final_patch", "previously-passing scenarios broken by final patches"),
-                         ("mean_cost_usd", "mean cost per run (USD)")]:
-            rows.append(f"| {label} | {(C.get('baseline') or {}).get(k, '-')} | {(C.get('lab') or {}).get(k, '-')} |")
+    BM = s.get("by_model") or {}
+    for m, mv in BM.items():
+        for cond, c in (mv.get("conditions") or {}).items():
+            for k in ("runs", "accepted", "false_done_attempts", "fixed_claims", "median_time_to_accept_s", "mean_cost_usd",
+                      "regressions_in_final_patch", "tamper_suspect_runs", "total_cost_usd"):
+                v[f"{m}_{cond}_{k}"] = c.get(k)
+    v["models"] = " and ".join(BM) if BM else None
+    disc = s.get("discovery") or {}
+    v["discovery_found"], v["discovery_total"] = disc.get("found"), disc.get("total")
+    if BM:
+        hdr = "| metric | " + " | ".join(f"{m}: baseline | {m}: lab" for m in BM) + " |"
+        rows = [hdr, "|---|" + "---|---|" * len(BM)]
+        for k, label in [("accepted", "accepted by the verifier"), ("false_done_attempts", "wrong \"FIXED\" claims"),
+                         ("median_time_to_accept_s", "median time to accept (s)"),
+                         ("regressions_in_final_patch", "regressions shipped"), ("mean_cost_usd", "mean cost per run (USD)")]:
+            cells = []
+            for mv in BM.values():
+                for cond in ("baseline", "lab"):
+                    c = (mv.get("conditions") or {}).get(cond) or {}
+                    den = {"accepted": "runs", "false_done_attempts": "fixed_claims"}.get(k)
+                    cells.append(f"{c.get(k, '-')}" + (f" / {c.get(den)}" if den and c.get(den) is not None else ""))
+            rows.append(f"| {label} | " + " | ".join(cells) + " |")
         v["results_table"] = "\n\n" + "\n".join(rows) + "\n\n"  # blank lines so Markdown renders the table
     return v
 

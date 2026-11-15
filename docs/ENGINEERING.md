@@ -49,6 +49,30 @@ divergences now land on real vanilla scenarios, and the selftest is still 21/21.
 argues for: a model that looked right from source reading was corrected only by recorded behavior.
 
 
+**Walls and collisions (`wall_v1`).** The first version only had a flat floor, but the proposal's own example bug
+is "sprint-jumping after landing against a wall". `wall_v1` adds a 3-block-tall stone wall whose near face is the plane
+z = 4, along with 11 wall scenarios (walk/sprint/jump into it, slide along it diagonally, back off, jump while pressed
+against it, and a matched pair: sprinting along the wall at 6° vs 30°). The collision rule was read from the 26.3
+bytecode: a wall hit cancels sprint unless it is *minor*, meaning the actual movement stays within ~8° (0.1396 rad) of
+the player's input direction (`LocalPlayer.isHorizontalCollisionMinor`). TickProbe builds the wall through a
+`fixture_commands` config, and the wall batches were captured twice (listed + shuffled, 2 in-batch repeats):
+**11/11 real wall recordings matched the simulator exactly on the first comparison** and were byte-identical across
+batches. In the real game, sprint survives the 6° glance (ticks 20–49) and drops on the 30° hit (tick 20 only). Two
+seeded bugs use walls. `b10` cancels sprint on *any* wall contact (it looks simpler and "more correct"; its naive fix,
+never letting a wall stop sprint, is rejected). `b11`'s bug report is the proposal's sentence verbatim: blocked velocity
+is only zeroed on the ground, so mid-air wall hits keep pushing.
+
+**Discovery (finding bugs nobody reported).** `python -m factory discover` generates 200 random valid scenarios per
+seeded bug (both fixtures; sprint-running is seeded explicitly because uniform key picks rarely produce it) and runs
+them against the reference layer. Every divergence ≥ 100× tolerance is shrunk to a 1-minimal repro: truncate after the
+first diverging tick, drop single actions while it still diverges, then shift everything earlier. Results are grouped
+by symptom (which axis diverged, airborne or grounded, sprinting or not, open floor or near the wall). Result: **11/11
+seeded bugs found with no report and no agent**, with repros typically shrinking from ~10 actions over ~80 ticks to
+2–3 actions. Two findings worth noting. On the compound case `c9`, the dominant symptom is the half the one-line report
+never mentions (walking jumps drift); the sprint-boost half is masked because the air-acceleration bug always diverges
+first, so in practice you fix one and re-run. Discovery uses the reference layer by necessity (random scenarios have
+no recordings), so it is only as trustworthy as the calibration above.
+
 **Live confirm (agent-written scenarios in the real game).** `capture/live_confirm.py` takes the repro scenarios the agent
 saved during accepted featured runs and has TickProbe replay them in real Minecraft 26.3. Presentation mode adds a
 third-person camera and on-screen captions, and doesn't change the movement. Each recording is then compared against the
@@ -140,59 +164,54 @@ corpus. That is a third independent capture run with identical output, and it sh
 
 ## Evidence: what was measured, how, and how much to trust it
 
-**Benchmark.** `python -m factory bench`: <!--fill:n_cases-->9<!--/fill--> cases × {baseline, lab} × 2 trials, model <!--fill:lab_models-->haiku<!--/fill-->,
-MAX_ATTEMPTS=2, 600 s per attempt, judged against the real Minecraft 26.3 corpus. Every run record is in
-`results/bench.jsonl` (append-only).
+**Benchmark.** `python -m factory bench`: <!--fill:n_cases-->11<!--/fill--> cases × {baseline, lab} × 2 trials × 2 models (<!--fill:models-->haiku and sonnet<!--/fill-->),
+MAX_ATTEMPTS=2, 600 s per attempt, judged against <!--fill:oracle_coverage-->44<!--/fill--> real Minecraft 26.3 recordings plus hidden
+reference variants. Every run record is in `results/bench.jsonl` (append-only); aggregates are per model, never mixed.
 
 <!--fill:results_table-->
 
-| metric | baseline (no lab) | lab |
-|---|---|---|
-| accepted by verifier | 13 | 14 |
-| runs | 18 | 18 |
-| false 'done' claims | 8 | 4 |
-| mean attempts | 1.33 | 1.22 |
-| median time to accept (s) | 23.3 | 28.4 |
-| previously-passing scenarios broken by final patches | 0 | 0 |
-| mean cost per run (USD) | 0.0196 | 0.0158 |
+| metric | haiku: baseline | haiku: lab | sonnet: baseline | sonnet: lab |
+|---|---|---|---|---|
+| accepted by the verifier | 20 / 22 | 20 / 22 | 17 / 22 | 22 / 22 |
+| wrong "FIXED" claims | 7 / 26 | 0 / 19 | 12 / 29 | 1 / 23 |
+| median time to accept (s) | 57.2 | 41.0 | 15.5 | 18.5 |
+| regressions shipped | 0 | 0 | 0 | 0 |
+| mean cost per run (USD) | 0.0211 | 0.0134 | 0.0941 | 0.105 |
 
 <!--/fill-->
 
 * **Acceptance** = the verifier accepted the final patch (agent claims are ignored).
-* **False "done"** = an attempt that ended `STATUS: FIXED` but was rejected. Baseline: <!--fill:baseline_false_done_attempts-->8<!--/fill-->
-  of <!--fill:baseline_fixed_claims-->21<!--/fill--> FIXED claims; lab: <!--fill:lab_false_done_attempts-->4<!--/fill--> of <!--fill:lab_fixed_claims-->18<!--/fill-->.
+* **Wrong "FIXED" claims** = attempts that ended `STATUS: FIXED` but were rejected (shown as rejected / FIXED claims).
 * **Regressions** = scenarios that matched before the patch but diverge after it, summed over final patches.
-* **Time/cost**: the median time to an accepted patch is <!--fill:baseline_median_time_to_accept_s-->23.3<!--/fill--> s (baseline) vs
-  <!--fill:lab_median_time_to_accept_s-->28.4<!--/fill--> s (lab); mean cost per run $<!--fill:baseline_mean_cost_usd-->0.0196<!--/fill--> vs $<!--fill:lab_mean_cost_usd-->0.0158<!--/fill-->.
-  The lab does not make easy bugs faster.
 
-**Interpretation (honest).** b1, b2, b3, b4, b7 and b8 were fixed in every run in both conditions: a modern model
-fixes them from the code plus the report (a ceiling effect, even though four of them look "plausible"). b5 (diagonal
-input mapping) was fixed by nobody. b6 (air acceleration, with a naive-fix trap) was fixed once, only with the lab, and
-c9 (compound, vague report) once in each condition. So on *acceptance*, the lab made little difference for this model
-and these bugs. The effects that do show: wrong FIXED claims halved with the lab (8 vs 4; 38% vs 22% of FIXED claims), and in both
-conditions the independent verifier caught every wrong claim before it could ship. In the hackathon framing, the
-verifier, not the agent, is what makes agentic parity work trustworthy, and the lab mostly makes the agent's own
-judgment better calibrated.
+**Interpretation.** The clearest effect, consistent across both models, is on false "done": without the lab the agent
+was wrong about its own fix <!--fill:haiku_baseline_false_done_attempts-->7<!--/fill-->/<!--fill:haiku_baseline_fixed_claims-->26<!--/fill--> (haiku) and
+<!--fill:sonnet_baseline_false_done_attempts-->12<!--/fill-->/<!--fill:sonnet_baseline_fixed_claims-->29<!--/fill--> (sonnet) times; with the lab,
+<!--fill:haiku_lab_false_done_attempts-->0<!--/fill-->/<!--fill:haiku_lab_fixed_claims-->19<!--/fill--> and <!--fill:sonnet_lab_false_done_attempts-->1<!--/fill-->/<!--fill:sonnet_lab_fixed_claims-->23<!--/fill-->.
+With sonnet, the lab also raised acceptance from <!--fill:sonnet_baseline_accepted-->17<!--/fill--> to <!--fill:sonnet_lab_accepted-->22<!--/fill--> of 22. The
+baseline misses were b2 (one-tick sprint timing, 0/2: both naive fixes broke visible sprint scenarios), b6 (air
+acceleration, 1/2, rejected at the holdouts as designed) and c9 (compound, 0/2: one half fixed, the other caught by
+holdouts). With haiku, acceptance was a tie, but lab runs were faster and cheaper to an accepted fix. Seven bugs
+(b1, b3, b4, b7, b8, b10, b11) were fixed in every run of both conditions for both models: reading the code plus the
+report suffices for them (a ceiling effect, reported as-is). In every condition the verifier caught every wrong claim.
 
-**History: the benchmark was re-run when the real corpus landed.** The first full benchmark (36 runs) used the
-reference layer before any 26.3 recordings existed. It reported baseline 13/18 vs lab 16/18, false done 9 vs 2,
-and regressions 23 vs 0 (`results/summary_thin_mode.json`). The real recordings then showed that the model's sprint
-timing was off by one tick (see Calibration), which changed the oracle for every sprint scenario. All 36 runs were
-superseded by append-only records and the benchmark was repeated. The smaller effect above is the result we stand
-behind; the earlier, larger gap partly came from judging against a model that was wrong about sprint timing.
+**History (superseded benchmarks, kept for transparency).** (1) Thin mode, before any 26.3 recording
+(`results/summary_thin_mode.json`). (2) Flat floor only, after the 33-recording corpus corrected the model's sprint
+timing (`results/summary_flat_only.json`; haiku: 13/18 vs 14/18). Both were superseded by append-only invalidation
+records when the oracle or the hidden suites changed, and the benchmark was repeated. The numbers above are the ones
+we stand behind.
 
 **Integrity events (reported, not hidden).**
-* <!--fill:n_invalidated-->39<!--/fill--> run records carry append-only invalidations: 36 superseded thin-mode runs (above) and 3 pilot
-  runs rejected by harness false positives. The protected-file manifest then included report files the builder edited
-  during the bench, and the tool-log scan misread an escaped `\n` in edited code as the path `t:/n`. Both were fixed:
-  the manifest covers only verdict-affecting files, and the scan reads only path fields.
-* In the final benchmark, <!--fill:baseline_tamper_suspect_runs-->1<!--/fill--> baseline run was flagged TAMPER_SUSPECT for
-  `cd scenarios/visible && … && cd ../..`. The path stays inside the workspace, and the command was denied by the tool
-  allow-list anyway. Re-verifying that patch without the scan would ACCEPT it, so this false positive cost the
-  baseline one acceptance (13/18 recorded, 14/18 discounting it). Recorded results were not edited. The scan now
-  resolves `..` against a tracked working directory (regression test in `tests/test_harness.py`); rescanning every
-  stored stream flags only one genuinely outside path (an Edit to a mistyped home directory, in a superseded run).
+* <!--fill:n_invalidated-->75<!--/fill--> run records carry append-only invalidations: superseded benchmarks (above) and 3 pilot runs
+  rejected by harness false positives. The manifest then included report files edited during the bench, and an
+  escaped `\n` was read as the path `t:/n`. Both were fixed.
+* Tool-log scan false positives that cost a baseline acceptance: one in the flat-only benchmark (`cd scenarios/visible
+  && … && cd ../..`, fixed by resolving `..` per command) and one in the final benchmark (sonnet b2 baseline:
+  `cd ../../..` after an earlier `cd sim/src/mcsim`, fixed by tracking the shell's working directory across calls).
+  Recorded results were never edited. Re-verifying that patch without the scan ACCEPTS it, so sonnet baseline is 17/22
+  recorded and 18/22 discounting the flag. Regression tests for both cases are in `tests/test_harness.py`, and
+  rescanning every stored stream now flags a single, genuinely outside path (an Edit to a mistyped home directory, in a
+  superseded run).
 
 **How much to trust it.** The verdicts are deterministic and reproducible (`python -m factory verify --case <id>
 --patch results/featured/<run>/attempt<n>.patch`). Ground truth: 33 real Minecraft 26.3 recordings (all families:

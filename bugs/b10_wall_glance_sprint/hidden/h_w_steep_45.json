@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "h_w_steep_45",
+  "duration": 55,
+  "fixture": "wall_v1",
+  "actions": [
+    {
+      "at": 0,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 18,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 20,
+      "yaw": 45,
+      "pitch": 0
+    },
+    {
+      "at": 20,
+      "key": "forward",
+      "down": true
+    },
+    {
+      "at": 20,
+      "key": "sprint",
+      "down": true
+    },
+    {
+      "at": 50,
+      "key": "forward",
+      "down": false
+    },
+    {
+      "at": 50,
+      "key": "sprint",
+      "down": false
+    }
+  ]
+}

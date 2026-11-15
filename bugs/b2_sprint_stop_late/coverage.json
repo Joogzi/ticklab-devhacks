@@ -15,7 +15,13 @@
     "sprint_late_press",
     "sprint_release_forward",
     "sprint_release_sprint",
-    "sprint_run"
+    "sprint_run",
+    "wall_diag_sprint_slide",
+    "wall_glance_sprint",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land",
+    "wall_steep_sprint"
   ],
   "hidden_hits": [
     "h_ss_air",
@@ -36,7 +42,13 @@
     "sprint_late_press",
     "sprint_release_forward",
     "sprint_release_sprint",
-    "sprint_run"
+    "sprint_run",
+    "wall_diag_sprint_slide",
+    "wall_glance_sprint",
+    "wall_sprint_into",
+    "wall_sprint_jump_into",
+    "wall_sprint_jump_land",
+    "wall_steep_sprint"
   ],
   "trap_hits": [
     "h_ss_sprint_key_early",

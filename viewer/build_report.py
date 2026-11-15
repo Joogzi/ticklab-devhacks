@@ -156,7 +156,7 @@ def build_live() -> list[dict]:
     with tempfile.TemporaryDirectory(prefix="tlv_") as td:
         for it in util.read_json(f).get("items", []):
             tp = util.RESULTS / "live_confirm" / f"{it['name']}.jsonl"
-            if not tp.exists():
+            if not tp.exists() or not (util.ROOT / it["patch"]).exists():
                 continue
             real = util.read_jsonl(tp)
             sc, init = real[0]["scenario"], real[0]["initial_state"]
@@ -175,6 +175,26 @@ def build_live() -> list[dict]:
     return out
 
 
+def build_discovery(oracle: Oracle) -> dict | None:
+    f = util.RESULTS / "discovery.json"
+    if not f.exists():
+        return None
+    d = util.read_json(f)
+    out = {k: d.get(k) for k in ("seed", "count_per_case", "oracle", "recall")}
+    out["cases"] = []
+    with tempfile.TemporaryDirectory(prefix="tld_") as td:
+        for c in d["cases"]:
+            row = {k: c[k] for k in ("case", "generated", "valid", "divergent")}
+            row["clusters"] = [{k: cl.get(k) for k in ("signature", "count", "raw_size", "min_size", "first_divergence",
+                                                         "keys_at_divergence")} for cl in c["clusters"]]
+            if c["clusters"]:
+                sim = bugs.materialize(c["case"], Path(td) / c["case"])
+                m = dict(c["clusters"][0]["minimized"], name="minimal repro")
+                row["replay"] = replay_item(oracle, m, {"before (buggy)": sim})
+            out["cases"].append(row)
+    return out
+
+
 def _bench_records() -> list[dict]:
     from factory import bench
     keep = ("run_id", "case", "condition", "trial", "model", "accepted", "claims", "failing_gates", "seconds", "cost_usd")
@@ -188,7 +208,7 @@ def main(argv=None) -> int:
             "selftest": util.read_json(util.RESULTS / "selftest.json") if (util.RESULTS / "selftest.json").exists() else None,
             "calibration": util.read_json(util.RESULTS / "calibration.json") if (util.RESULTS / "calibration.json").exists() else None,
             "families": {r["name"]: r["family"] for r in scenarios.corpus_table()},
-            "live": build_live(), "bench_records": _bench_records(),
+            "live": build_live(), "bench_records": _bench_records(), "discovery": build_discovery(oracle),
             "live_rerecord": (util.read_json(util.RESULTS / "live_confirm.json").get("presentation_rerecord")
                               if (util.RESULTS / "live_confirm.json").exists() else None)}
     cal = data["calibration"] or {}

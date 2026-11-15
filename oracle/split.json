@@ -232,6 +232,83 @@
       "split": "holdout",
       "provenance": "vanilla",
       "scenario_hash": "78be1cc2bc82e726713b3058852531542813b880fda85009db3e4c0572db05b5"
+    },
+    {
+      "name": "wall_walk_into",
+      "family": "wall",
+      "split": "holdout",
+      "provenance": "vanilla",
+      "scenario_hash": "40118313724cbd868f6a905fb2a003a8b04c37f5e54105762e20e760cfa182a5"
+    },
+    {
+      "name": "wall_sprint_into",
+      "family": "wall",
+      "split": "holdout",
+      "provenance": "vanilla",
+      "scenario_hash": "11b00f11854dc789210c2ceebf58406e67215bcbe592024d9a482f70eeecfc3d"
+    },
+    {
+      "name": "wall_sprint_jump_land",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "b677bd66638e9e3032c26e9da66c85bce4a0b479abd1df116534fb43a9492f6b"
+    },
+    {
+      "name": "wall_sprint_jump_into",
+      "family": "wall",
+      "split": "holdout",
+      "provenance": "vanilla",
+      "scenario_hash": "c019a3f83975c6ba235fb0ccdd35aed7fd4a1fc066b27a071c90720ac30708de"
+    },
+    {
+      "name": "wall_diag_slide",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "d52e76480a6a3746a48852a6c4378ccd473281f9742dfc5e59c2fb3129114659"
+    },
+    {
+      "name": "wall_diag_sprint_slide",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "fbecc4014e67c92e7cf578cde1e2fc58f7407414495e6ce14bc291a9f8572245"
+    },
+    {
+      "name": "wall_glance_sprint",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "8a420bbd94fc3cb4ac166f6ed2d5dae7f4d38d3d2bf8b4d4c2f359074136c5e8"
+    },
+    {
+      "name": "wall_steep_sprint",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "1bb22ca17382b4dc24d37dfb218ad1c69680fdb4094b40aeb72f4a2143d6ad29"
+    },
+    {
+      "name": "wall_back_off",
+      "family": "wall",
+      "split": "holdout",
+      "provenance": "vanilla",
+      "scenario_hash": "1428e149fe4a68f1196f1b1e90252262fe57f1b18e8696d1bc1a517d7caaeacb"
+    },
+    {
+      "name": "wall_jump_hold",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "d05cfb32bb0d985964e121d1ba4e404621e9f6c943a3707f847a013c3f73bd23"
+    },
+    {
+      "name": "wall_strafe_after",
+      "family": "wall",
+      "split": "visible",
+      "provenance": "vanilla",
+      "scenario_hash": "21b86501baf7456a00caf879de82dbd0115840ada96bd75f383b72bed9ea9ede"
     }
   ]
 }

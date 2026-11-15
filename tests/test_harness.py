@@ -85,8 +85,29 @@ class Tamper(unittest.TestCase):
         self.assertFalse(flag("cd scenarios/visible && cat a.json; cd ../..; cat sim/x"))
         self.assertTrue(flag("cat ../../bugs/x"))
         self.assertTrue(flag("cd sim && cat ../../../oracle/tolerance.toml"))
+        persisted = [{"name": "Bash", "input": {"command": "cd sim/src/mcsim && ls"}},
+                     {"name": "Bash", "input": {"command": "cd ../../..; ls scenarios"}}]
+        self.assertFalse(scan_tool_log(persisted, ws)["tamper_suspect"])  # shell cwd persists between calls
         edit = [{"name": "Edit", "input": {"file_path": "sim/src/x.py", "new_string": "a = 't:\\n' + '../x'"}}]
         self.assertFalse(scan_tool_log(edit, ws)["tamper_suspect"])  # file contents are not paths
+
+    def test_minimizer_shrinks_to_the_culprit(self):
+        from factory import discover, scenarios
+        acts = [{"at": 0, "key": "left", "down": True}, {"at": 3, "key": "sprint", "down": True},
+                {"at": 5, "key": "jump", "down": True}, {"at": 9, "key": "left", "down": False}]
+        s = scenarios.make("t", 40, acts)
+
+        def probe(cands):  # "bug" = any scenario that presses jump; it diverges on the tick of the press
+            out = []
+            for c in cands:
+                js = [a["at"] for a in c["actions"] if a.get("key") == "jump" and a["down"]]
+                out.append({"diverges": bool(js), "first": {"tick": js[0], "field": "vy"} if js else None, "ref": None})
+            return out
+        m, r = discover.minimize(s, probe)
+        self.assertEqual([a["key"] for a in m["actions"]], ["jump"])
+        self.assertEqual(m["duration"], 6)
+        m2, _ = discover.shift_earlier(m, r, probe)
+        self.assertEqual(m2["actions"][0]["at"], 0)
 
     def test_manifest_change_detected(self):
         m = integrity.manifest()

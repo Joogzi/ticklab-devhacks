@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "lab": {
+      "type": "stdio",
+      "command": "<repo>\\.venv\\Scripts\\python.exe",
+      "args": [
+        "<repo>\\factory\\labtools_mcp.py",
+        "--case",
+        "b11_wall_air_velocity",
+        "--workspace",
+        "~\\.ticklab\\ws\\b11_wall_air_velocity\\lab-1",
+        "--store",
+        "<repo>\\runs\\b11_wall_air_velocity__lab-1__20261114-235909__bench\\store"
+      ]
+    }
+  }
+}

@@ -6,7 +6,8 @@
   },
   "corpus_hits": [
     "jump_hold",
-    "jump_sprint_hold"
+    "jump_sprint_hold",
+    "wall_jump_hold"
   ],
   "hidden_hits": [
     "h_cd_back_hold",
@@ -17,6 +18,7 @@
   ],
   "vanilla_hits": [
     "jump_hold",
-    "jump_sprint_hold"
+    "jump_sprint_hold",
+    "wall_jump_hold"
   ]
 }
